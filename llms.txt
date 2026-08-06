@@ -7,6 +7,7 @@
 
 官网：https://lttxzmj.github.io/lawpulse-site/
 下载：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.4.0-arm64.dmg
+隐私政策：https://lttxzmj.github.io/lawpulse-site/privacy.html
 用户协议：https://lttxzmj.github.io/lawpulse-site/terms.html
 
 ## 事实速查
@@ -41,6 +42,8 @@ AI 法库问答、文书摘要、对照阅读 AI 解读、案件夹 AI 归纳、
 ## 隐私
 
 无账号、无遥测、产品内不埋任何统计。法律库、笔记与合同只存在于用户本机。
+应用主动联网只有三类：检查软件更新（拉一个静态 release.json）、用户手动触发的法规数据更新、
+以及用户自己发起的 AI 请求（直连用户选定的模型厂商）。激活码验证本地离线完成。
 AI 为「自带密钥」（BYOK）：用户在设置中填入自己的模型服务密钥，请求从用户电脑直连模型厂商，
 开发方没有中转服务器，因此无法看到用户的合同内容。密钥经系统级加密只存本机。
 模型费用由用户直付厂商，法脉不赚差价、不代收。

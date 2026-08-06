@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>隐私政策 — 法脉</title>
+  <meta name="description" content="法脉（LawPulse）隐私政策：无账号、无遥测，法律库、笔记与合同只存在于用户本机；穷举应用会发起的每一次网络请求；AI 采用自带密钥直连模型厂商，没有中转服务器。" />
+  <link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/privacy.html" />
+  <link rel="icon" href="assets/icon.png" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+
+  <script>
+    // 与首页、桌面端同一个存储键：从首页点进来不会闪一下别的主题。
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("lawpulse-theme-mode"); } catch (e) { stored = null; }
+      var mode = stored === "light" || stored === "dark" ? stored : null;
+      document.documentElement.dataset.theme =
+        mode || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    })();
+  </script>
+
+  <style>
+    :root,
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --background: 10 12 16;
+      --surface: 16 18 24;
+      --primary-soft: 194 193 255;
+      --text: 228 228 235;
+      --muted: 172 170 190;
+      --outline: 60 59 74;
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --background: 246 247 251;
+      --surface: 255 255 255;
+      --primary-soft: 37 84 185;
+      --text: 28 33 43;
+      --muted: 91 99 116;
+      --outline: 178 187 204;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: rgb(var(--background));
+      color: rgb(var(--text));
+      font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2 {
+      font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    a { color: rgb(var(--primary-soft)); }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    header {
+      border-bottom: 1px solid rgb(var(--outline) / 0.45);
+      background: rgb(var(--background) / 0.92);
+      backdrop-filter: saturate(160%) blur(12px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; height: 60px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: rgb(var(--text)); text-decoration: none; font-weight: 600; }
+    .brand img { border-radius: 7px; }
+    header nav a { color: rgb(var(--muted)); text-decoration: none; font-size: 14px; }
+    header nav a:hover { color: rgb(var(--text)); }
+
+    main { padding: 48px 0 72px; }
+    h1 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 8px; }
+    .updated { color: rgb(var(--muted)); font-size: 14px; margin: 0 0 32px; }
+    h2 {
+      font-size: 19px; margin: 40px 0 12px; padding-top: 24px;
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+    }
+    h2:first-of-type { border-top: 0; padding-top: 0; }
+    p, li { color: rgb(var(--text)); }
+    ul, ol { padding-left: 22px; }
+    li { margin: 8px 0; }
+    li strong { font-weight: 600; }
+    .lede { color: rgb(var(--muted)); }
+    .callout {
+      background: rgb(var(--surface));
+      border: 1px solid rgb(var(--outline) / 0.6);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 24px 0 0;
+    }
+    .callout p { margin: 0; }
+
+    footer {
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+      padding: 24px 0 40px; color: rgb(var(--muted)); font-size: 14px;
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 20px; justify-content: space-between; }
+    footer a { color: rgb(var(--muted)); text-decoration: none; }
+    footer a:hover { color: rgb(var(--text)); }
+
+    @media (max-width: 620px) {
+      header .wrap { height: 56px; }
+      main { padding: 32px 0 56px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/icon.png" alt="法脉应用图标" width="24" height="24" />
+        <span>法脉</span>
+      </a>
+      <nav><a href="index.html">返回首页</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>法脉隐私政策</h1>
+    <p class="updated">最后更新：2026-08-06</p>
+    <p class="lede">
+      法脉是一款单机桌面软件。我们没有账号系统，也没有一台可以接收你内容的服务器——
+      这不是承诺，是架构决定的结果。本页把「有哪些数据、存在哪里、什么时候会联网」写清楚。
+    </p>
+
+    <h2>一、我们不收集什么</h2>
+    <ul>
+      <li>不需要注册，<strong>没有账号体系</strong>，不需要手机号、身份信息或执业信息。</li>
+      <li><strong>不采集使用数据</strong>：产品内没有埋点、没有统计 SDK、没有崩溃上报、没有任何形式的遥测。</li>
+      <li>我们不知道你安装了没有、打开过几次、查过哪些法条、审过什么合同。</li>
+    </ul>
+
+    <h2>二、唯一与你有关的个人信息：购买邮箱</h2>
+    <ul>
+      <li>购买专业版时你提供的<strong>邮箱</strong>，用于签发激活码、标识授权归属，以及退款、续费、更换授权邮箱等必要联系。</li>
+      <li>该邮箱与激活码记录保存在开发者本机的授权台账中，不进入任何第三方营销或分析平台。</li>
+      <li>激活码采用 Ed25519 离线签名，<strong>验证全程在你的电脑本地完成</strong>，不联网、不回传，也不绑定机器指纹。</li>
+    </ul>
+
+    <h2>三、你的内容存在哪里</h2>
+    <ul>
+      <li>法律库、笔记、高亮、法条关联、案件夹、导入的合同与文书、AI 生成的报告与问答记录，
+        全部存放在你自己设备的本地数据库：<br />
+        <code>~/Library/Application Support/法脉/</code>。</li>
+      <li>应用每天启动时在本机做一次数据库快照，滚动保留最近 7 份，同样只在本机。</li>
+      <li>这些内容<strong>不会被上传</strong>。我们没有能接收它们的服务器，因此也无从备份、无从恢复、无从查看。
+        请自行做好本机备份。</li>
+      <li>删除应用与数据目录后，这些内容即不复存在。</li>
+    </ul>
+
+    <h2>四、应用会发起的网络请求（穷举）</h2>
+    <p>除下面三类之外，法脉不会主动联网：</p>
+    <ol>
+      <li><strong>检查软件更新</strong>：打开设置页时，向对象存储请求一个静态文件
+        <code>release.json</code> 比对版本号。请求不携带任何本机信息；对方（腾讯云 COS）
+        与所有 HTTP 服务一样能看到你的 IP 与访问时间。</li>
+      <li><strong>更新法规数据</strong>（专业版）：由你在设置页手动触发，从同一对象存储下载法规 JSON 文件。
+        同上，只暴露 IP 与时间，不发送你的任何内容。</li>
+      <li><strong>AI 功能</strong>：请求从你的电脑<strong>直连你自己选定的模型厂商</strong>
+        （如 DeepSeek、阿里云百炼，或你填入的自定义端点）。我们没有中转服务器，
+        因此看不到请求内容。发送出去的是你提交的材料（合同条款、问题、附件与截图中的文本）与提示词，
+        该过程受该厂商的服务条款与隐私政策约束。</li>
+    </ol>
+
+    <div class="callout">
+      <p>
+        <strong>给执业律师的提醒：</strong>使用云端模型意味着材料会离开你的电脑，发往该模型厂商。
+        请自行评估是否符合你的保密义务与客户约定；对保密要求极高的材料，请勿使用云端 AI 功能。
+        不使用 AI 功能时，法脉的检索、笔记、案件夹与导出全程不联网。
+      </p>
+    </div>
+
+    <h2>五、模型密钥</h2>
+    <ul>
+      <li>AI 功能采用「自带密钥」（BYOK）：密钥由你在设置中填入，用于你的电脑直连模型厂商。</li>
+      <li>密钥经操作系统级加密（macOS 钥匙串支撑的 Electron safeStorage）后<strong>仅存储于本机</strong>，
+        不会上传，也不会出现在导出文件中。</li>
+      <li>模型费用由你直接支付给该厂商，我们不代收、不赚差价，也无从知晓你的用量。</li>
+    </ul>
+
+    <h2>六、本网站</h2>
+    <ul>
+      <li>本站是托管在 GitHub Pages 上的<strong>纯静态页面</strong>：没有 Cookie，
+        没有统计脚本、没有广告脚本、没有第三方追踪像素。</li>
+      <li>浏览器 <code>localStorage</code> 中只保存一项主题偏好（跟随系统 / 浅色 / 深色），
+        仅供页面显示使用，不用于识别你。</li>
+      <li>与任何网站一样，托管方 GitHub 可以看到访问者的 IP 与访问时间。</li>
+    </ul>
+
+    <h2>七、涉及的第三方</h2>
+    <ul>
+      <li><strong>腾讯云 COS</strong>：分发安装包与法规数据。可见 IP、时间与所请求的文件。</li>
+      <li><strong>GitHub Pages</strong>：托管本网站。可见 IP、时间与所访问的页面。</li>
+      <li><strong>你选定的模型厂商</strong>：仅在你使用 AI 功能时，接收你提交的材料。</li>
+    </ul>
+    <p>我们不向任何第三方出售、共享或交换用户信息——除购买邮箱外，我们手里也没有可共享的东西。</p>
+
+    <h2>八、你的权利</h2>
+    <ul>
+      <li>你的内容始终在你自己的设备上，增删改由你直接完成，不需要向我们申请。</li>
+      <li>与购买邮箱有关的查询、更正、删除请求，可通过购买页面提供的联系方式提出。
+        删除授权记录会使对应激活码无法继续获得支持与续费。</li>
+    </ul>
+
+    <h2>九、未成年人</h2>
+    <p>本软件面向执业律师与法律从业者，不面向未成年人，也不会有意收集未成年人的信息。</p>
+
+    <h2>十、政策变更</h2>
+    <p>本政策如有更新，将在本页面公布，并在软件内提示。与授权、退款相关的条款见
+      <a href="terms.html">用户协议与免责声明</a>。</p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具</span>
+      <nav><a href="index.html#faq">常见问题</a> · <a href="terms.html">用户协议</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
