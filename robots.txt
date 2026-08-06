@@ -1,0 +1,37 @@
+# 法脉落地页
+# 目标是被搜到、也被 AI 问答引用，所以对搜索引擎和大模型爬虫一律放行。
+# 若将来不希望内容进入模型训练/检索，把对应 UA 改成 Disallow: / 即可。
+
+User-agent: *
+Allow: /
+
+# 主流 AI 检索与训练爬虫（显式列出，避免默认策略变化带来的意外）
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# 换域名时同步改这一行
+Sitemap: https://lttxzmj.github.io/lawpulse-site/sitemap.xml

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>用户协议与免责声明 — 法脉</title>
+  <meta name="description" content="法脉（LawPulse）用户协议与免责声明：授权范围、费用与退款、AI 功能免责、法规数据免责、隐私与数据、责任限制。" />
+  <link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/terms.html" />
+  <link rel="icon" href="assets/icon.png" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+
+  <script>
+    // 与首页、桌面端同一个存储键：从首页点进来不会闪一下别的主题。
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("lawpulse-theme-mode"); } catch (e) { stored = null; }
+      var mode = stored === "light" || stored === "dark" ? stored : null;
+      document.documentElement.dataset.theme =
+        mode || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    })();
+  </script>
+
+  <style>
+    :root,
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --background: 10 12 16;
+      --surface: 16 18 24;
+      --primary-soft: 194 193 255;
+      --text: 228 228 235;
+      --muted: 172 170 190;
+      --outline: 60 59 74;
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --background: 246 247 251;
+      --surface: 255 255 255;
+      --primary-soft: 37 84 185;
+      --text: 28 33 43;
+      --muted: 91 99 116;
+      --outline: 178 187 204;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: rgb(var(--background));
+      color: rgb(var(--text));
+      font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2 {
+      font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    a { color: rgb(var(--primary-soft)); }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    header {
+      border-bottom: 1px solid rgb(var(--outline) / 0.45);
+      background: rgb(var(--background) / 0.92);
+      backdrop-filter: saturate(160%) blur(12px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; height: 60px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: rgb(var(--text)); text-decoration: none; font-weight: 600; }
+    .brand img { border-radius: 7px; }
+    header nav a { color: rgb(var(--muted)); text-decoration: none; font-size: 14px; }
+    header nav a:hover { color: rgb(var(--text)); }
+
+    main { padding: 48px 0 72px; }
+    h1 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 8px; }
+    .updated { color: rgb(var(--muted)); font-size: 14px; margin: 0 0 32px; }
+    h2 {
+      font-size: 19px; margin: 40px 0 12px; padding-top: 24px;
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+    }
+    h2:first-of-type { border-top: 0; padding-top: 0; }
+    p, li { color: rgb(var(--text)); }
+    ul { padding-left: 22px; }
+    li { margin: 8px 0; }
+    li strong { font-weight: 600; }
+    .lede { color: rgb(var(--muted)); }
+
+    footer {
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+      padding: 24px 0 40px; color: rgb(var(--muted)); font-size: 14px;
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 20px; justify-content: space-between; }
+    footer a { color: rgb(var(--muted)); text-decoration: none; }
+    footer a:hover { color: rgb(var(--text)); }
+
+    @media (max-width: 620px) {
+      header .wrap { height: 56px; }
+      main { padding: 32px 0 56px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/icon.png" alt="法脉应用图标" width="24" height="24" />
+        <span>法脉</span>
+      </a>
+      <nav><a href="index.html">返回首页</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>法脉用户协议与免责声明</h1>
+    <p class="updated">最后更新：2026-08-05</p>
+    <p class="lede">请在购买或使用法脉（以下称“本软件”）前阅读本协议。开始使用即视为接受本协议。</p>
+
+    <h2>一、授权范围</h2>
+    <ul>
+      <li>购买后获得的是本软件的<strong>使用许可</strong>，不是软件著作权。</li>
+      <li>授权面向<strong>个人使用者本人</strong>，可安装在你本人使用的多台设备上。</li>
+      <li>激活码内含购买时提供的邮箱，用于标识授权归属。<strong>不得转售、出租、公开分享激活码或将其提供给他人使用。</strong></li>
+      <li>订阅到期后，专业版功能停止工作；法律库、检索、笔记、高亮、案件夹、导出等免费版功能<strong>不受影响，可继续永久使用</strong>，你的数据也不会被锁定或删除。</li>
+      <li>买断版永久可使用购买时的功能，数据更新服务在约定期限届满后停止。</li>
+    </ul>
+
+    <h2>二、费用与退款</h2>
+    <ul>
+      <li>价格与档位以购买页面显示为准。月卡为一次性 30 天，不自动续费。</li>
+      <li><strong>自购买之日起 14 天内，如不满意可申请全额退款</strong>，无需说明理由。退款后对应授权失效，请自行停止使用并删除激活码。</li>
+      <li>因本软件采用自带密钥（BYOK）模式，你向模型厂商支付的费用由该厂商收取，<strong>不在本软件的退款范围内</strong>，需按该厂商的规则处理。</li>
+    </ul>
+
+    <h2>三、AI 功能免责（重要）</h2>
+    <ul>
+      <li>本软件的合同审查、法库问答、文书摘要等功能由<strong>第三方大语言模型</strong>生成，其输出<strong>不构成法律意见，也不构成任何形式的法律服务</strong>。</li>
+      <li>AI 输出可能出现遗漏、误判或表述不准确。<strong>所有结论必须由执业律师独立核验后方可使用</strong>，不得直接作为对客户的专业意见、诉讼文书或交易文件依据。</li>
+      <li>本软件对 AI 引用的法条会回本地法库校验，校验不通过的会标注“未核实”。该机制用于降低错误引用风险，<strong>不构成对引用准确性的保证</strong>。</li>
+      <li>模型由你自行选择并自付费用，其可用性、输出质量与计费由该厂商负责。</li>
+    </ul>
+
+    <h2>四、法规数据免责</h2>
+    <ul>
+      <li>法规数据来源于国家法律法规数据库等官方公开渠道，我们会尽力保持同步，但<strong>不保证实时、完整或无误</strong>。</li>
+      <li>当前收录范围为现行法律，<strong>不包含司法解释全库、案例库与地方性法规</strong>。</li>
+      <li>正式引用法条时，应以官方公布的最新文本为准。</li>
+    </ul>
+
+    <h2>五、隐私与数据</h2>
+    <ul>
+      <li>本软件<strong>不设账号、不采集使用数据、不内置任何统计或遥测</strong>。</li>
+      <li>你的笔记、合同、案件资料存储在你自己设备的本地数据库中，<strong>我们没有任何服务器可以接收这些内容</strong>。</li>
+      <li>使用云端模型时，你提交的文本（如合同条款）会从你的设备<strong>直接发送至你所选定的模型厂商</strong>，该过程受该厂商的服务条款与隐私政策约束，请自行评估是否符合你的保密义务与客户约定。对保密要求极高的材料，请勿使用云端模型。</li>
+      <li>模型密钥经操作系统级加密后仅存储于本机，不会被上传。</li>
+      <li>激活码验证在本地离线完成，不需要联网，也不会回传任何信息。</li>
+    </ul>
+
+    <h2>六、责任限制</h2>
+    <p>在法律允许的最大范围内，因使用或无法使用本软件产生的任何损失，本软件的赔偿责任上限为<strong>你为当前授权周期实际支付的费用</strong>。</p>
+
+    <h2>七、其他</h2>
+    <ul>
+      <li>本协议如有更新，将在本页面公布，并在软件内提示。</li>
+      <li>如对本协议有疑问，或需要申请退款、更换授权邮箱，请通过购买页面提供的联系方式与我们联系。</li>
+    </ul>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具</span>
+      <nav><a href="index.html#privacy">隐私</a> · <a href="index.html#faq">常见问题</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
