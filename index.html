@@ -1055,7 +1055,13 @@
       window.addEventListener("scroll", syncHeader, { passive: true });
       syncHeader();
 
-      var navLinks = Array.prototype.slice.call(document.querySelectorAll(".site-nav a"));
+      // 导航里除了 #锚点 还有法规库/指导案例这类页面链接；把路径当 CSS 选择器查会直接抛异常，
+      // 整段脚本被打断，版本号、下载按钮全失效——只对锚点链接做滚动追踪。
+      var navLinks = Array.prototype.slice
+        .call(document.querySelectorAll(".site-nav a"))
+        .filter(function (link) {
+          return (link.getAttribute("href") || "").charAt(0) === "#";
+        });
       var sections = navLinks
         .map(function (link) { return document.querySelector(link.getAttribute("href")); })
         .filter(Boolean);
