@@ -39,6 +39,17 @@
     color: #1c2130; }
   ul.laws .n { color: #9aa1af; font-size: 13px; white-space: nowrap; }
   .cat { font-size: 13px; color: #6b7280; margin: 26px 0 10px; font-weight: 600; }
+  button.copy { margin-left: 10px; border: 1px solid #d5d9e5; background: #fff; border-radius: 6px;
+    padding: 2px 9px; font-size: 12px; color: #6b7280; cursor: pointer; vertical-align: 2px; }
+  button.copy:hover { color: #3b5bdb; border-color: #b9c4ee; }
+  .cases { margin-top: 10px; font-size: 12px; color: #6b7280; }
+  .cases a { margin-right: 2px; }
+  .kw { display: inline-block; background: #eef1fb; border-radius: 999px; padding: 1px 9px;
+    font-size: 12px; color: #3b5bdb; margin: 0 6px 6px 0; }
+  .gist { border: 1px solid #dbe1f4; background: #eef1fb; border-radius: 10px; padding: 16px 20px;
+    margin-bottom: 18px; }
+  .gist h2 { margin-top: 0; }
+  section h2 { font-size: 16px; color: #3b5bdb; margin: 22px 0 8px; }
 </style>
 </head>
 <body>
@@ -47,32 +58,54 @@
   <span class="crumb">法规库</span>
 </div></header>
 <main class="wrap">
+<div id="law-meta" data-title="最高人民法院关于审理注册商标、企业名称与在先权利冲突的民事纠纷案件若干问题的规定" hidden></div>
 <h1>最高人民法院关于审理注册商标、企业名称与在先权利冲突的民事纠纷案件若干问题的规定<span class="badge">现行有效</span></h1>
 <div class="meta">最高人民法院 · 2021-01-01 施行 · 共 4 条 · <a href="./index.html">返回法规目录</a></div>
 <article class="a" id="1">
 
-<h2>第一条</h2>
+<h2>第一条<button class="copy" title="复制规范引用（法名+条号+正文）">复制引用</button></h2>
 <p>原告以他人注册商标使用的文字、图形等侵犯其著作权、外观设计专利权、企业名称权等在先权利为由提起诉讼，符合民事诉讼法第一百一十九条规定的，人民法院应当受理。</p>
 <p>原告以他人使用在核定商品上的注册商标与其在先的注册商标相同或者近似为由提起诉讼的，人民法院应当根据民事诉讼法第一百二十四条第（三）项的规定，告知原告向有关行政主管机关申请解决。但原告以他人超出核定商品的范围或者以改变显著特征、拆分、组合等方式使用的注册商标，与其注册商标相同或者近似为由提起诉讼的，人民法院应当受理。</p>
+
 </article>
 <article class="a" id="2">
 
-<h2>第二条</h2>
+<h2>第二条<button class="copy" title="复制规范引用（法名+条号+正文）">复制引用</button></h2>
 <p>原告以他人企业名称与其在先的企业名称相同或者近似，足以使相关公众对其商品的来源产生混淆，违反反不正当竞争法第六条第（二）项的规定为由提起诉讼，符合民事诉讼法第一百一十九条规定的，人民法院应当受理。</p>
+
 </article>
 <article class="a" id="3">
 
-<h2>第三条</h2>
+<h2>第三条<button class="copy" title="复制规范引用（法名+条号+正文）">复制引用</button></h2>
 <p>人民法院应当根据原告的诉讼请求和争议民事法律关系的性质，按照民事案件案由规定，确定注册商标或者企业名称与在先权利冲突的民事纠纷案件的案由，并适用相应的法律。</p>
+
 </article>
 <article class="a" id="4">
 
-<h2>第四条</h2>
+<h2>第四条<button class="copy" title="复制规范引用（法名+条号+正文）">复制引用</button></h2>
 <p>被诉企业名称侵犯注册商标专用权或者构成不正当竞争的，人民法院可以根据原告的诉讼请求和案件具体情况，确定被告承担停止使用、规范使用等民事责任。</p>
+
 </article>
 <div class="cta">这部法规连同全库 412 部 26000+ 条，都可以在 <a href="https://lttxzmj.github.io/lawpulse-site/">法脉桌面端</a>
 离线浏览、全文检索、逐条做笔记——数据在你自己的电脑上，AI 引用可回本地法库逐条核实。法律库永久免费。</div>
 </main>
 <footer class="site">法脉 · 本页法规文本来自国家法律法规数据库公开数据，仅供参考，以官方公布文本为准。</footer>
+<script>
+document.addEventListener("click", function (event) {
+  var button = event.target.closest("button.copy");
+  if (!button) return;
+  var article = button.closest("article");
+  var lawTitle = (document.getElementById("law-meta") || {}).dataset.title || "";
+  var displayNumber = article.querySelector("h2").childNodes[0].textContent.trim();
+  var text = Array.prototype.map
+    .call(article.querySelectorAll("p"), function (p) { return p.textContent.trim(); })
+    .join(" ");
+  navigator.clipboard.writeText("《" + lawTitle + "》" + displayNumber + "：" + text).then(function () {
+    var old = button.textContent;
+    button.textContent = "已复制";
+    setTimeout(function () { button.textContent = old; }, 1200);
+  });
+});
+</script>
 </body>
 </html>
