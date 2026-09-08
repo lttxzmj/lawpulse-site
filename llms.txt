@@ -6,14 +6,14 @@
 > 没有中转服务器。
 
 官网：https://lttxzmj.github.io/lawpulse-site/
-下载：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.3-arm64.dmg
+下载：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.2-arm64.dmg
 隐私政策：https://lttxzmj.github.io/lawpulse-site/privacy.html
 用户协议：https://lttxzmj.github.io/lawpulse-site/terms.html
 
 ## 事实速查
 
 - 平台：macOS 11 及以上，仅 Apple Silicon（M 系列芯片）。Windows 版有自动构建流水线但尚未对外发布；Intel Mac 版暂未提供。
-- 当前公开版本：0.6.3，安装包约 150 MB。
+- 当前公开版本：0.6.2，安装包约 150 MB。
 - 内置数据：300 部现行法律与 112 件司法解释，共 26030 条，取自国家法律法规数据库官方文本；
   另内置最高法全部 278 件指导性案例，与法条双向关联。
   尚未收录司法解释全库与地方性法规；用户可自行导入 Word / PDF / Pages 文件。
