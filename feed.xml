@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>法脉 LawPulse 更新</title>
+  <id>tag:lttxzmj.github.io,2026:lawpulse-feed</id>
+  <link href="https://lttxzmj.github.io/lawpulse-site/feed.xml" rel="self" />
+  <link href="https://lttxzmj.github.io/lawpulse-site/" />
+  <updated>2026-09-08T00:00:00Z</updated>
+  <entry>
+    <title>法脉 v0.6.3 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.6.3</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-09-08T00:00:00Z</updated>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title>法脉 v0.6.2 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.6.2</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-09-04T00:00:00Z</updated>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title>法脉 v0.6.1 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.6.1</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-09-03T00:00:00Z</updated>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title>法脉 v0.6.0 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.6.0</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-09-02T00:00:00Z</updated>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title>法脉 v0.5.1 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.5.1</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-08-13T00:00:00Z</updated>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title>法脉 v0.5.0 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.5.0</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-08-13T00:00:00Z</updated>
+    <content type="text"></content>
+  </entry>
+</feed>
