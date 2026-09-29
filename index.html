@@ -538,6 +538,7 @@
       <p class="meta">
         <span data-release-line>最新版本 · macOS 12 及以上</span>
         · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a>
+        · <a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.3-x64.exe" data-download-win>Windows 预览版（x64）</a>
       </p>
       <p class="meta">公测期间全部功能免费开放，无需账号，无需填付款信息。</p>
 
@@ -824,8 +825,8 @@
         <details>
           <summary>支持 Intel Mac 或 Windows 吗？</summary>
           <div class="answer">
-            目前公开发布的只有 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上。
-            Windows 版已有自动构建流水线、尚在内部验收，未对外发布；Intel Mac 版暂未提供。
+            macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。
+            Windows 已开放<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.3-x64.exe" data-download-win>预览版下载</a>（64 位 Windows 10 及以上）：功能与 macOS 版一致，安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「仍要运行」即可；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
           </div>
         </details>
         <details>
@@ -857,7 +858,8 @@
           </a>
         </div>
         <p class="meta"><span data-release-line>最新版本 · macOS 12 及以上</span>
-          · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a></p>
+          · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a>
+          · <a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.3-x64.exe" data-download-win>Windows 预览版（x64）</a></p>
       </div>
     </section>
   </main>
@@ -959,7 +961,7 @@
             "name": "支持 Intel Mac 或 Windows 吗？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "目前公开发布的只有 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上。Windows 版已有自动构建流水线但尚未对外发布，Intel Mac 版暂未提供。"
+              "text": "macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。Windows 已开放预览版下载（64 位 Windows 10 及以上），功能与 macOS 版一致；安装包暂未做代码签名，SmartScreen 提示未知发布者时选「仍要运行」即可。"
             }
           },
           {
@@ -1008,10 +1010,15 @@
         size: "约 150 MB",
         requirement: "macOS 11 及以上",
         url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.3-arm64.dmg",
+        // Windows 目前是预览版：只挂下载链接，不进版本行与主按钮。
+        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.3-x64.exe",
       };
 
       document.querySelectorAll("[data-download]").forEach(function (node) {
         node.href = RELEASE.url;
+      });
+      document.querySelectorAll("[data-download-win]").forEach(function (node) {
+        node.href = RELEASE.winPreviewUrl;
       });
       document.querySelectorAll("[data-release-line]").forEach(function (node) {
         node.textContent = "v" + RELEASE.version + " · " + RELEASE.size + " · " + RELEASE.requirement;
