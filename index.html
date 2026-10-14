@@ -1005,6 +1005,7 @@
         <a href="laws/index.html">法规库</a>
         <a href="cases/index.html">指导案例</a>
         <a href="gazette/index.html">公报案例</a>
+        <a href="changelog.html">更新日志</a>
         <a href="privacy.html">隐私政策</a>
         <a href="terms.html">用户协议</a>
         <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">反馈与联系</a>
@@ -1024,6 +1025,14 @@
         // Windows 目前是预览版：只挂下载链接，不进版本行与主按钮。
         winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-x64.exe",
       };
+
+      // 渠道归因：各渠道贴的链接带 ?from=渠道名，这里把它续到下载直链上。
+      // COS 访问日志会原样记录查询串，服务端即可分渠道计数——不种 cookie、
+      // 不加第三方统计，零遥测承诺不破。无参时记作 site（自然流量）。
+      var fromMatch = location.search.match(/[?&]from=([a-z0-9-]{1,24})/);
+      var channel = fromMatch ? fromMatch[1] : "site";
+      RELEASE.url += "?from=" + channel;
+      RELEASE.winPreviewUrl += "?from=" + channel;
 
       document.querySelectorAll("[data-download]").forEach(function (node) {
         node.href = RELEASE.url;

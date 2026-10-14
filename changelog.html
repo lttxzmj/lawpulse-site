@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>更新日志 — 法脉</title>
+  <meta name="description" content="法脉（LawPulse）更新日志：每个版本新增了什么、修了什么，用普通话写给每一位用户。" />
+  <link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/changelog.html" />
+  <link rel="icon" href="assets/icon.png" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+
+  <script>
+    // 与首页、桌面端同一个存储键：从首页点进来不会闪一下别的主题。
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("lawpulse-theme-mode"); } catch (e) { stored = null; }
+      var mode = stored === "light" || stored === "dark" ? stored : null;
+      document.documentElement.dataset.theme =
+        mode || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    })();
+  </script>
+
+  <style>
+    :root,
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --background: 10 12 16;
+      --surface: 16 18 24;
+      --primary-soft: 194 193 255;
+      --text: 228 228 235;
+      --muted: 172 170 190;
+      --outline: 60 59 74;
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --background: 246 247 251;
+      --surface: 255 255 255;
+      --primary-soft: 37 84 185;
+      --text: 28 33 43;
+      --muted: 91 99 116;
+      --outline: 178 187 204;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: rgb(var(--background));
+      color: rgb(var(--text));
+      font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2 {
+      font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    a { color: rgb(var(--primary-soft)); }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    header {
+      border-bottom: 1px solid rgb(var(--outline) / 0.45);
+      background: rgb(var(--background) / 0.92);
+      backdrop-filter: saturate(160%) blur(12px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; height: 60px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: rgb(var(--text)); text-decoration: none; font-weight: 600; }
+    .brand img { border-radius: 7px; }
+    header nav a { color: rgb(var(--muted)); text-decoration: none; font-size: 14px; }
+    header nav a:hover { color: rgb(var(--text)); }
+
+    main { padding: 48px 0 72px; }
+    h1 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 8px; }
+    .updated { color: rgb(var(--muted)); font-size: 14px; margin: 0 0 32px; }
+    h2 {
+      font-size: 19px; margin: 40px 0 12px; padding-top: 24px;
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+    }
+    h2:first-of-type { border-top: 0; padding-top: 0; }
+    p, li { color: rgb(var(--text)); }
+    ul, ol { padding-left: 22px; }
+    li { margin: 8px 0; }
+    li strong { font-weight: 600; }
+    .lede { color: rgb(var(--muted)); }
+    .callout {
+      background: rgb(var(--surface));
+      border: 1px solid rgb(var(--outline) / 0.6);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 24px 0 0;
+    }
+    .callout p { margin: 0; }
+
+    footer {
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+      padding: 24px 0 40px; color: rgb(var(--muted)); font-size: 14px;
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 20px; justify-content: space-between; }
+    footer a { color: rgb(var(--muted)); text-decoration: none; }
+    footer a:hover { color: rgb(var(--text)); }
+
+    @media (max-width: 620px) {
+      header .wrap { height: 56px; }
+      main { padding: 32px 0 56px; }
+    }
+  </style>
+</head>
+
+
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/icon.png" alt="法脉应用图标" width="24" height="24" />
+        <span>法脉</span>
+      </a>
+      <nav><a href="index.html">返回首页</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>更新日志</h1>
+    <p class="updated">最后更新：2026-10-13</p>
+    <p class="lede">
+      每个版本新增了什么、修了什么，都在这一页，用普通话写——不说行话。
+      升级方式：在应用的「设置 → 更新」里下载新版安装包，覆盖安装即可，笔记与数据不受影响。
+    </p>
+
+    <h2>0.7.0（2026-10-13）· 隐私保护专版</h2>
+    <p>这一版集中把「您的材料只属于您」做扎实。九项改进，全部默认在您的电脑本地完成：</p>
+    <ul>
+      <li><strong>发给 AI 之前先脱敏（默认开启）</strong>：身份证号、手机号、银行卡号、统一社会信用代码，
+        以及合同当事人的姓名和公司名（包括常见简称），会先在您的电脑上换成化名——
+        就像裁判文书里的"李某""甲公司"——再发给 AI，结果回来后自动换回真名。
+        每份审查报告都会写明：本次脱敏了哪几类、各几处。</li>
+      <li><strong>匿名版报告导出</strong>：需要把审查报告拿给所外同行参谋、做培训材料或投稿时，
+        一键导出当事人化名、证件号打码的 Word 版本，不带任何可还原的信息。</li>
+      <li><strong>「仅本地模型」开关</strong>：打开后，所有发往云端 AI 的请求一律拦截，材料绝不出电脑。
+        不开启时，每家云端服务第一次要发送您的材料前，也会先弹窗征得您的同意。</li>
+      <li><strong>应用锁更可靠</strong>：密码改用更强的加密方式保存；锁定期间就算绕过界面，
+        底层数据也一样拿不到。新增手动锁定（窗口菜单里的「锁定法脉」）和
+        闲置自动锁定（5/15/30 分钟可选）。已设过密码的用户解锁一次即自动升级，无需重设。</li>
+      <li><strong>加密备份</strong>：备份数据库时填一个密码，就能导出加密备份文件，
+        经微信、网盘传输或长期存档都更安心；恢复时输入同一密码即可。</li>
+      <li><strong>一键清除 AI 历史</strong>：设置里新增清除按钮，删掉全部 AI 生成的报告与问答存档；
+        您的笔记和法律库不受影响。</li>
+      <li><strong>联网行为完全归您掌控</strong>：「启动时检查新版本」现在可以关闭——关掉之后，
+        只要不用 AI，法脉从头到尾不会发出任何一次网络请求。我们还修复了 Windows 版
+        一个拼写检查组件会在后台悄悄联网下载词典的问题。</li>
+    </ul>
+    <p>配套说明已同步到<a href="privacy.html">隐私政策</a>，每一类联网行为仍然逐条列明。</p>
+
+    <h2>0.6.4（2026-10-11）· 法律库大扩容</h2>
+    <ul>
+      <li>法律库从 412 部扩充到 520 部：补齐全部现行法律（含 2026 年 8 月新公布的
+        医疗保障法、耕地保护和质量提升法等四部）；新增工伤保险、劳动合同法实施条例、
+        交强险、诉讼费用交纳办法等 32 件常用行政法规；司法解释扩至 175 件，
+        补齐行诉、刑诉解释与各罪名量刑标准解释。</li>
+      <li>刑法更新为现行文本（含刑法修正案十一）：此前版本缺失危险驾驶、
+        催收非法债务等近十五年的修正内容，现已完整收录。</li>
+      <li>案例与法条的关联更准，双向关联整体增加约两成；
+        尚未生效的新法会明确标注生效日期，不会与现行文本混淆。</li>
+    </ul>
+
+    <h2>0.6.3（2026-09-08）</h2>
+    <ul>
+      <li>重要修复：此前安装包里指导性案例缺失、案例页为空；升级后首次启动自动补齐全部 278 件。</li>
+      <li>新增《最高人民法院公报》案例库：445 件公报案例内置离线可读，
+        支持按案由、当事人、案号、法院检索。</li>
+    </ul>
+
+    <h2>0.6.2（2026-09-04）</h2>
+    <ul>
+      <li>右键菜单支持复制粘贴，修复「笔记无法复制」的反馈；「帮助」菜单新增反馈入口。</li>
+      <li>更新提醒会展示完整的版本说明；法规数据增加数字签名校验，防传输链路篡改。</li>
+    </ul>
+
+    <h2>0.6.1（2026-09-03）</h2>
+    <ul>
+      <li>公测期开放：试用限制暂停，公测期间全部专业版功能免费使用。</li>
+    </ul>
+
+    <h2>0.6.0（2026-09-02）</h2>
+    <ul>
+      <li>内置最高法全部 278 件指导性案例，法条与案例双向关联。</li>
+      <li>新增文书起草（律师函/法律意见书/起诉状）、案情检索、多文件卷宗归纳。</li>
+      <li>合同审查支持修改稿全文导出，审查立场自动识别合同当事人。</li>
+    </ul>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具</span>
+      <nav><a href="index.html#faq">常见问题</a> · <a href="privacy.html">隐私政策</a> · <a href="terms.html">用户协议</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
