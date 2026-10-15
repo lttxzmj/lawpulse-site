@@ -241,6 +241,12 @@
 
     /* ---------- 产品预览（纯 CSS 绘制，随主题变色） ---------- */
     .preview { margin-top: 44px; }
+    .shot { margin: 0; }
+    .shot-img { display: block; width: 100%; height: auto; border-radius: 14px;
+      border: 1px solid rgb(var(--outline) / 0.5); box-shadow: var(--shadow-lift); }
+    /* 跟随站点主题只展示同主题的那张截图 */
+    :root[data-theme="dark"] .shot-when-light { display: none; }
+    :root[data-theme="light"] .shot-when-dark { display: none; }
     .window {
       border: 1px solid rgb(var(--outline) / 0.55); border-radius: 14px; overflow: hidden;
       background: rgb(var(--background)); box-shadow: var(--shadow-lift);
@@ -569,78 +575,27 @@
         · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a>
       </p>
       <p class="meta">公测期间全部功能免费开放，无需账号，无需填付款信息。</p>
+      <p class="meta">Windows 版首次运行若遇 SmartScreen 提示，点「更多信息 → 仍要运行」即可——预览版暂未购买代码签名证书，<a href="#faq">详见常见问题</a>。</p>
 
+    </section>
+
+    <!-- ============ 产品预览 ============ -->
+    <section class="preview wrap reveal" id="preview">
+      <figure class="shot">
+        <img class="shot-img shot-when-light" src="assets/shot-workbench-light.webp"
+             alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-dark" src="assets/shot-workbench-dark.webp"
+             alt="法脉真实界面（深色主题）：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <figcaption class="preview-cap">真实界面截图（v0.8.0）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例</figcaption>
+      </figure>
       <div class="stats reveal">
         <div class="stat"><div class="num" data-count="520">520</div><div class="cap">部法律、司法解释与行政法规</div></div>
         <div class="stat"><div class="num" data-count="30069">30069</div><div class="cap">条法条离线可查</div></div>
         <div class="stat"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
         <div class="stat"><div class="num" data-count="100" data-suffix="%">100%</div><div class="cap">数据留在本机</div></div>
       </div>
-    </section>
-
-    <!-- ============ 产品预览 ============ -->
-    <section class="preview wrap reveal" id="preview">
-      <div class="window">
-        <div class="window-bar">
-          <div class="lights"><i></i><i></i><i></i></div>
-          <span class="window-title">中华人民共和国民法典 · 第一千零四十三条</span>
-          <span class="kbd">快速查找 ⌘K</span>
-        </div>
-        <div class="window-body">
-          <div class="pane-nav">
-            <div class="row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>
-              首页
-            </div>
-            <div class="row on">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6H6a2 2 0 0 0-2 2v11a2 2 0 0 1 2-2h10Z"/><path d="M20 3v18M16 3v3"/></svg>
-              法律库
-            </div>
-            <div class="row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M8 9h4m-4 4h8m-8 4h6"/></svg>
-              笔记
-            </div>
-            <div class="row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
-              案件夹
-            </div>
-            <div class="row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg>
-              合同审查
-            </div>
-            <div class="row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 1 1-3.2-6.4"/><path d="M10 9a2 2 0 1 1 3 1.7c-.7.4-1 .8-1 1.6M12 16h.01"/></svg>
-              法库问答
-            </div>
-          </div>
-
-          <div class="pane-main">
-            <div class="crumb">第五编 婚姻家庭 › 第一章 一般规定</div>
-            <div class="art-no">第一千零四十三条</div>
-            <div class="art-text">
-              <p>家庭应当树立优良家风，弘扬家庭美德，重视家庭文明建设。</p>
-              <p>夫妻应当<mark>互相忠实，互相尊重，互相关爱</mark>；家庭成员应当敬老爱幼，互相帮助，维护平等、和睦、文明的婚姻家庭关系。</p>
-            </div>
-          </div>
-
-          <div class="pane-note">
-            <div class="cap">本条笔记</div>
-            <div class="note-card">
-              <h4>忠实义务能否单独起诉？</h4>
-              <p>倡导性规范，不能单独作为诉请依据；实务中多与第 1091 条损害赔偿一并主张。</p>
-              <div class="chips">
-                <span class="chip">婚姻家庭</span>
-                <span class="chip">关联 第1091条</span>
-              </div>
-            </div>
-            <div class="note-card">
-              <h4>关联案例</h4>
-              <p>可挂接自己收集的裁判文书，记下案号、裁判要旨与引用出处。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="preview-cap">界面示意（非截图）：左侧法库导航、中间法条正文、右侧本条笔记与关联案例；正文为民法典原文，笔记内容为举例</p>
     </section>
 
     <!-- ============ 主打功能 ============ -->
@@ -819,6 +774,8 @@
           对照阅读、Word / PDF / JSON / Markdown 导出、备份恢复与应用锁，以及每季度的法规数据更新——
           这些永久免费，不设时限。付费墙只挡 AI 与实时数据更新。
         </p>
+      
+        <p style="margin-top:10px">正式版上线前购买享早鸟价；想第一时间知道，可<a href="feed.xml" rel="alternate">订阅 RSS</a>或关注<a href="https://github.com/lttxzmj/lawpulse-feedback" rel="noopener">反馈仓</a>。</p>
       </div>
     </section>
 
