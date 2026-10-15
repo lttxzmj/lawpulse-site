@@ -356,6 +356,26 @@
     .tag.pro { background: rgb(var(--primary) / 0.16); color: rgb(var(--primary-soft)); }
 
     /* ---------- 价格 ---------- */
+    /* 差异点对比卡：复用 .grid 的响应式列数，勾叉只是语义记号，不堆图标。 */
+    .compare-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 9px; }
+    .compare-list li { position: relative; padding-left: 24px; font-size: 13.5px; line-height: 1.65; color: rgb(var(--muted)); }
+    .compare-list li::before { position: absolute; left: 0; top: 0; font-weight: 700; }
+    .compare-list li.ok::before { content: "✓"; color: rgb(var(--success)); }
+    .compare-list li.no::before { content: "✕"; color: rgb(var(--muted) / 0.75); }
+    .compare-card-title { font-size: 15px; font-weight: 650; }
+    .compare-card-sub { margin-top: 2px; font-size: 12.5px; color: rgb(var(--muted)); }
+    .card.compare-self { border-color: rgb(var(--primary) / 0.65); box-shadow: var(--shadow-cta); }
+    .card.compare-self .compare-list li { color: rgb(var(--text)); }
+
+    /* 最近更新：一张宽卡，版本行 + 普通话要点 + 去完整日志的出口。 */
+    .updates-card { margin-top: 24px; border: 1px solid rgb(var(--outline) / 0.5); border-radius: 14px; background: rgb(var(--surface-mid)); padding: 26px 28px; }
+    .updates-version { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+    .updates-version strong { font-size: 17px; }
+    .updates-version time { font-size: 13px; color: rgb(var(--muted)); }
+    .updates-card ul { margin: 14px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 14px; line-height: 1.7; color: rgb(var(--muted)); }
+    .updates-note { margin-top: 14px; font-size: 13px; color: rgb(var(--muted)); }
+    .updates-links { margin-top: 10px; display: flex; gap: 18px; font-size: 13.5px; }
+
     .prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
     .price {
       position: relative; padding: 26px 22px; border-radius: 14px; text-align: center;
@@ -499,6 +519,7 @@
         <a href="#pricing">价格</a>
         <a href="#privacy">隐私</a>
         <a href="#faq">常见问题</a>
+        <a href="#updates">最近更新</a>
         <a href="laws/index.html">法规库</a>
         <a href="cases/index.html">指导案例</a>
         <a href="gazette/index.html">公报案例</a>
@@ -515,7 +536,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
           </button>
         </div>
-        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-arm64.dmg" data-download>下载</a>
+        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-arm64.dmg" data-download>下载</a>
       </div>
     </div>
   </header>
@@ -532,11 +553,11 @@
         数据与合同全程留在你的电脑上。
       </p>
       <div class="cta-row">
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-arm64.dmg" data-download>
+        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-arm64.dmg" data-download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 macOS 版（Apple Silicon）
         </a>
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-x64.exe" data-download-win>
+        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-x64.exe" data-download-win>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 Windows 版（x64 预览）
         </a>
@@ -719,6 +740,46 @@
       </div>
     </section>
 
+    <!-- ============ 差异点 ============ -->
+    <section class="block wrap" id="compare">
+      <div class="block-head">
+        <h2>为什么是法脉，而不是通用 AI 或在线法库</h2>
+        <p>它不替代你的判断，只解决两个老问题：资料不敢上传，AI 引用不敢信。</p>
+      </div>
+      <div class="grid reveal">
+        <div class="card">
+          <div class="compare-card-title">通用 AI 对话</div>
+          <div class="compare-card-sub">ChatGPT、豆包等</div>
+          <ul class="compare-list">
+            <li class="no">合同要贴进别人家的服务器</li>
+            <li class="no">法条靠模型记忆，编没编无从核验</li>
+            <li class="no">答完即走，沉淀不下笔记与案卷</li>
+            <li class="ok">通用能力强，闲聊顺手</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="compare-card-title">在线法律数据库</div>
+          <div class="compare-card-sub">网页版 / 小程序</div>
+          <ul class="compare-list">
+            <li class="ok">法条文本权威</li>
+            <li class="no">要联网、要账号，检索记录留在云端</li>
+            <li class="no">查询、笔记、案件材料彼此割裂</li>
+            <li class="no">多面向机构订阅，个人使用门槛高</li>
+          </ul>
+        </div>
+        <div class="card compare-self">
+          <div class="compare-card-title">法脉</div>
+          <div class="compare-card-sub">本地优先的桌面工作台</div>
+          <ul class="compare-list">
+            <li class="ok">材料全程不出本机，整机断网也能用</li>
+            <li class="ok">AI 每条依据回本地法库核验，点击回原文</li>
+            <li class="ok">查法条、记笔记、审合同在一个窗口闭环</li>
+            <li class="ok">法库、检索、笔记永久免费，付费只为 AI 与更新</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 价格 ============ -->
     <section class="block wrap" id="pricing">
       <div class="block-head">
@@ -833,7 +894,7 @@
           <summary>支持 Windows 吗？Intel Mac 呢？</summary>
           <div class="answer">
             macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。
-            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
+            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
           </div>
         </details>
         <details>
@@ -854,17 +915,44 @@
       </div>
     </section>
 
+    <!-- ============ 最近更新 ============ -->
+    <!-- 发版纪律：这个区块必须随版本重写（stamp-landing 校验 data-updates-version，
+         对不上直接拒绝发布）。写普通话，改了什么就说什么，包括修掉的 bug。 -->
+    <section class="block wrap" id="updates">
+      <div class="block-head">
+        <h2>最近更新</h2>
+        <p>公测期迭代快；改了什么、修了什么 bug，都原样写在日志里。</p>
+      </div>
+      <div class="updates-card reveal" data-updates-version="0.8.0">
+        <div class="updates-version">
+          <strong>v0.8.0</strong>
+          <time datetime="2026-10-15">2026 年 10 月 15 日</time>
+        </div>
+        <ul>
+          <li>笔记页改成左列表、右详情：点一条就地阅读和修改，关联的法条原文直接显示在旁边，不再跳来跳去。</li>
+          <li>写笔记的面板现在停靠在条文右侧，边看边写；喜欢浮窗的，面板标题栏一键切换，位置大小都会记住。</li>
+          <li>全应用的圆角、按钮、选中效果统一了一遍，去掉了大块实心蓝，长时间看着没那么累。</li>
+          <li>顺手修了一个老 bug：编辑器里的引导文字（「写下对该法条的理解……」）其实从来没显示出来过，现在有了。</li>
+        </ul>
+        <p class="updates-note">升级方式：应用内「设置 → 更新」下载覆盖安装即可，笔记与数据不受影响。</p>
+        <div class="updates-links">
+          <a href="changelog.html">完整更新日志 →</a>
+          <a href="feed.xml" rel="alternate">RSS 订阅更新</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 收尾 CTA ============ -->
     <section class="wrap">
       <div class="final reveal">
         <h2>先装上，公测期免费用</h2>
         <p>不需要账号，不需要填付款信息，卸载不留云端尾巴。</p>
         <div class="cta-row">
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-arm64.dmg" data-download>
+          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-arm64.dmg" data-download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             下载 macOS 版（Apple Silicon）
           </a>
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-x64.exe" data-download-win>
+          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-x64.exe" data-download-win>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             下载 Windows 版（x64 预览）
           </a>
@@ -889,10 +977,10 @@
         "applicationCategory": "BusinessApplication",
         "applicationSubCategory": "法律检索与合同审查",
         "operatingSystem": "macOS 11.0 或更高版本（Apple Silicon）；Windows 10 或更高版本（64 位，预览版）",
-        "softwareVersion": "0.6.4",
+        "softwareVersion": "0.8.0",
         "fileSize": "150 MB",
         "inLanguage": "zh-CN",
-        "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-arm64.dmg",
+        "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-arm64.dmg",
         "url": "https://lttxzmj.github.io/lawpulse-site/",
         "image": "https://lttxzmj.github.io/lawpulse-site/assets/icon.png",
         "description": "本地优先的桌面法律研究工具（macOS / Windows）：内置 520 部现行法律、司法解释与行政法规，共 30069 条，断网可全文检索；AI 合同审查与法库问答的每条法律依据都回本地法库校验，可点回原文；无账号、无遥测，AI 采用自带密钥直连模型厂商，无中转服务器。",
@@ -1020,12 +1108,12 @@
     (function () {
       // 发新版本时只改这一处：下载链接、版本号与体积会自动填进页面各处。
       var RELEASE = {
-        version: "0.6.4",
+        version: "0.8.0",
         size: "约 150 MB",
         requirement: "macOS 11 及以上",
-        url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-arm64.dmg",
+        url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-arm64.dmg",
         // Windows 目前是预览版：只挂下载链接，不进版本行与主按钮。
-        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.6.4-x64.exe",
+        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-x64.exe",
       };
 
       // 渠道归因：各渠道贴的链接带 ?from=渠道名，这里把它续到下载直链上。
