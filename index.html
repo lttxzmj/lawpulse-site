@@ -247,6 +247,11 @@
     /* 场景（页签选中）与主题（站点开关）双条件命中的那张才显示 */
     :root[data-theme="light"] .shot-img.is-active.shot-when-light { display: block; }
     :root[data-theme="dark"] .shot-img.is-active.shot-when-dark { display: block; }
+    .evidence { margin: 26px 0 6px; }
+    .evidence-img { display: none; width: 100%; height: auto; border-radius: 10px;
+      border: 1px solid rgb(var(--outline) / 0.5); box-shadow: var(--shadow-card, 0 1px 4px rgb(0 0 0 / 0.08)); }
+    :root[data-theme="light"] .evidence-img.evidence-when-light { display: block; }
+    :root[data-theme="dark"] .evidence-img.evidence-when-dark { display: block; }
     .preview-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
     .preview-tab { border: 1px solid rgb(var(--outline) / 0.45); border-radius: 999px;
       background: rgb(var(--surface-mid)); padding: 7px 16px; font-size: 13.5px;
@@ -807,6 +812,7 @@
         </p>
       
         <p style="margin-top:10px">正式版上线前购买享早鸟价；想第一时间知道，可<a href="feed.xml" rel="alternate">订阅 RSS</a>或关注<a href="https://github.com/lttxzmj/lawpulse-feedback" rel="noopener">反馈仓</a>。</p>
+        <p style="margin-top:6px"><strong>律所版（规划中）</strong>：所级授权、内网部署、本地私有模型。有这类需求的律所负责人，加微信 <strong>chengyue-wish</strong>（备注「律所」）直接聊你们的合规要求。</p>
       </div>
     </section>
 
@@ -844,6 +850,15 @@
             <p>激活码采用离线签名验证，全程不联网。不绑定机器指纹，换电脑重新激活即可。</p>
           </div>
         </div>
+        <figure class="evidence reveal">
+          <img class="evidence-img evidence-when-light" src="assets/shot-masking-light.webp"
+               alt="审查报告头部实拍：注明引用法律依据的核实情况，以及发送前已在本机脱敏——姓名 2 处、公司名 1 处、身份证号 1 处、手机号 1 处，报告已自动还原"
+               width="928" height="170" loading="lazy" decoding="async" />
+          <img class="evidence-img evidence-when-dark" src="assets/shot-masking-dark.webp"
+               alt="审查报告头部实拍（深色主题）：核实声明与脱敏计数"
+               width="928" height="170" loading="lazy" decoding="async" />
+          <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次脱敏了什么，逐份写明——不是一句口号</figcaption>
+        </figure>
         <p class="meta">
           应用会发起哪几类网络请求、数据具体存在哪里，在<a href="privacy.html">隐私政策</a>里逐条列了出来。
         </p>
@@ -935,6 +950,7 @@
       <div class="final reveal">
         <h2>先装上，公测期免费用</h2>
         <p>不需要账号，不需要填付款信息，卸载不留云端尾巴。</p>
+        <p>遇到问题、想提需求或进测试群：加微信 <strong>chengyue-wish</strong>（备注「法脉」）。</p>
         <div class="cta-row">
           <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.8.0-arm64.dmg" data-download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
@@ -1077,7 +1093,7 @@
 
   <footer>
     <div class="wrap">
-      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具</span>
+      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具 · 微信 chengyue-wish（备注「法脉」）</span>
       <nav>
         <a href="#faq">常见问题</a>
         <a href="laws/index.html">法规库</a>
