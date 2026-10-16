@@ -242,11 +242,18 @@
     /* ---------- 产品预览（纯 CSS 绘制，随主题变色） ---------- */
     .preview { margin-top: 44px; }
     .shot { margin: 0; }
-    .shot-img { display: block; width: 100%; height: auto; border-radius: 14px;
+    .shot-img { display: none; width: 100%; height: auto; border-radius: 14px;
       border: 1px solid rgb(var(--outline) / 0.5); box-shadow: var(--shadow-lift); }
-    /* 跟随站点主题只展示同主题的那张截图 */
-    :root[data-theme="dark"] .shot-when-light { display: none; }
-    :root[data-theme="light"] .shot-when-dark { display: none; }
+    /* 场景（页签选中）与主题（站点开关）双条件命中的那张才显示 */
+    :root[data-theme="light"] .shot-img.is-active.shot-when-light { display: block; }
+    :root[data-theme="dark"] .shot-img.is-active.shot-when-dark { display: block; }
+    .preview-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
+    .preview-tab { border: 1px solid rgb(var(--outline) / 0.45); border-radius: 999px;
+      background: rgb(var(--surface-mid)); padding: 7px 16px; font-size: 13.5px;
+      color: rgb(var(--muted)); cursor: pointer; transition: all 140ms ease; }
+    .preview-tab:hover { color: rgb(var(--text)); border-color: rgb(var(--primary) / 0.5); }
+    .preview-tab[aria-selected="true"] { background: rgb(var(--primary) / 0.12);
+      border-color: rgb(var(--primary) / 0.5); color: rgb(var(--primary-soft)); font-weight: 600; }
     .window {
       border: 1px solid rgb(var(--outline) / 0.55); border-radius: 14px; overflow: hidden;
       background: rgb(var(--background)); box-shadow: var(--shadow-lift);
@@ -581,14 +588,38 @@
 
     <!-- ============ 产品预览 ============ -->
     <section class="preview wrap reveal" id="preview">
+      <div class="preview-tabs" role="tablist" aria-label="产品界面场景">
+        <button type="button" class="preview-tab" role="tab" aria-selected="true" data-scene="workbench">法条＋笔记</button>
+        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="review">合同审查</button>
+        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="qa">法库问答</button>
+        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="cases">案例库</button>
+      </div>
       <figure class="shot">
-        <img class="shot-img shot-when-light" src="assets/shot-workbench-light.webp"
+        <img class="shot-img is-active shot-when-light" data-scene="workbench" src="assets/shot-workbench-light.webp"
              alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
+             width="1440" height="900" decoding="async" />
+        <img class="shot-img is-active shot-when-dark" data-scene="workbench" src="assets/shot-workbench-dark.webp"
+             alt="法脉真实界面（深色主题）：法条正文与停靠笔记面板"
+             width="1440" height="900" decoding="async" />
+        <img class="shot-img shot-when-light" data-scene="review" src="assets/shot-review-light.webp"
+             alt="合同审查报告：按风险分级逐条给意见，原文与修改建议对照，法条依据注明已核实或未核实"
              width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" src="assets/shot-workbench-dark.webp"
-             alt="法脉真实界面（深色主题）：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
+        <img class="shot-img shot-when-dark" data-scene="review" src="assets/shot-review-dark.webp"
+             alt="合同审查报告（深色主题）"
              width="1440" height="900" loading="lazy" decoding="async" />
-        <figcaption class="preview-cap">真实界面截图（v0.8.0）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例</figcaption>
+        <img class="shot-img shot-when-light" data-scene="qa" src="assets/shot-qa-light.webp"
+             alt="法库问答：回答分结论、具体标准、实务提示，每条结论标注引用的法条材料，可点回原文"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-dark" data-scene="qa" src="assets/shot-qa-dark.webp"
+             alt="法库问答（深色主题）"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-light" data-scene="cases" src="assets/shot-cases-light.webp"
+             alt="案例库：278 件指导性案例与公报案例，案由、关键词、裁判日期一览"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
+             alt="案例库（深色主题）"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.8.0）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例</figcaption>
       </figure>
       <div class="stats reveal">
         <div class="stat"><div class="num" data-count="520">520</div><div class="cap">部法律、司法解释与行政法规</div></div>
@@ -1087,6 +1118,27 @@
       document.querySelectorAll("[data-download-win]").forEach(function (node) {
         node.href = RELEASE.winPreviewUrl;
       });
+      // 产品截图页签：切场景换图换说明；主题归 CSS 管，这里只动 is-active。
+      var SHOT_CAPTIONS = {
+        workbench: "真实界面截图（v0.8.0）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例",
+        review: "真实界面截图：审查报告按风险分级，原文与建议逐字对照，依据注明「已核实 / 未核实」——意见为演示示例",
+        qa: "真实界面截图：先检索本地法库再作答，每条结论都标注引用材料，点一下回到法条原文",
+        cases: "真实界面截图：278 件指导性案例＋445 件公报案例内置，与法条双向关联",
+      };
+      document.querySelectorAll(".preview-tab").forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var scene = tab.dataset.scene;
+          document.querySelectorAll(".preview-tab").forEach(function (other) {
+            other.setAttribute("aria-selected", other === tab ? "true" : "false");
+          });
+          document.querySelectorAll(".shot-img").forEach(function (img) {
+            img.classList.toggle("is-active", img.dataset.scene === scene);
+          });
+          var caption = document.querySelector("[data-shot-caption]");
+          if (caption && SHOT_CAPTIONS[scene]) { caption.textContent = SHOT_CAPTIONS[scene]; }
+        });
+      });
+
       document.querySelectorAll("[data-release-line]").forEach(function (node) {
         node.textContent = "v" + RELEASE.version + " · " + RELEASE.size + " · " + RELEASE.requirement;
       });
