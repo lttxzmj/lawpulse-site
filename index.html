@@ -55,6 +55,7 @@
       --muted: 172 170 190;
       --outline: 60 59 74;
       --success: 83 225 111;
+      --danger: 240 109 113;
       --shadow-lift: 0 18px 48px rgb(0 0 0 / 0.45);
       --shadow-cta: 0 8px 28px rgb(94 92 230 / 0.35);
       --header-bg: 10 12 16;
@@ -74,6 +75,7 @@
       --muted: 91 99 116;
       --outline: 178 187 204;
       --success: 22 128 68;
+      --danger: 196 42 54;
       --shadow-lift: 0 18px 44px rgb(31 41 55 / 0.14);
       --shadow-cta: 0 8px 24px rgb(43 91 199 / 0.28);
       --header-bg: 246 247 251;
@@ -129,6 +131,7 @@
     .brand .mark { width: 26px; height: 26px; border-radius: 7px; display: block; }
 
     .site-nav { display: flex; gap: 4px; margin-left: 12px; }
+    .nav-toggle { display: none; }
     .site-nav a {
       position: relative; padding: 6px 10px; border-radius: 8px; font-size: 14px;
       color: rgb(var(--muted)); text-decoration: none; transition: color 160ms ease;
@@ -350,6 +353,8 @@
       font-size: 12px; color: rgb(var(--primary-soft));
     }
     .cite svg { width: 13px; height: 13px; }
+    .cite.warn { color: rgb(var(--danger)); }
+    .spotlight + .spotlight { margin-top: 16px; }
 
     /* 功能网格 */
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
@@ -422,6 +427,15 @@
     .free-note svg { width: 17px; height: 17px; color: rgb(var(--success)); }
     .free-note p { margin-top: 8px; font-size: 14px; color: rgb(var(--muted)); }
 
+    /* ---------- 不做什么：一排可证伪的否定句，比形容词省力 ---------- */
+    .nots { list-style: none; max-width: 680px; margin: 0 auto; padding: 0; }
+    .nots li {
+      padding: 15px 4px; font-size: 15px; line-height: 1.85; color: rgb(var(--muted));
+      border-bottom: 1px solid rgb(var(--outline) / 0.3);
+    }
+    .nots li:last-child { border-bottom: 0; }
+    .nots strong { color: rgb(var(--text)); font-weight: 650; margin-right: 2px; }
+
     /* ---------- 隐私 ---------- */
     .privacy {
       padding: 28px; border-radius: 16px;
@@ -431,6 +445,13 @@
     .privacy-grid h3 { font-size: 15px; display: flex; align-items: center; gap: 8px; }
     .privacy-grid svg { width: 17px; height: 17px; color: rgb(var(--primary-soft)); }
     .privacy-grid p { margin-top: 8px; font-size: 14px; color: rgb(var(--muted)); }
+    .privacy-grid a { color: rgb(var(--primary-soft)); }
+    .guard { margin-top: 30px; padding-top: 26px; border-top: 1px solid rgb(var(--outline) / 0.35); }
+    .guard > h3 { font-size: 16px; }
+    .guard-sub { margin-top: 6px; font-size: 13.5px; color: rgb(var(--muted)); }
+    .guard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 18px; }
+    .guard-grid h4 { font-size: 14px; }
+    .guard-grid p { margin-top: 6px; font-size: 13.5px; line-height: 1.75; color: rgb(var(--muted)); }
 
     /* ---------- FAQ ---------- */
     .faq { display: grid; gap: 10px; }
@@ -501,7 +522,7 @@
       .pane-nav { display: none; }
       .pane-note { border-left: 0; border-top: 1px solid rgb(var(--outline) / 0.35); }
       .spotlight { grid-template-columns: 1fr; gap: 28px; }
-      .grid, .prices, .privacy-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid, .prices, .privacy-grid, .guard-grid { grid-template-columns: repeat(2, 1fr); }
       .privacy-grid { gap: 22px; }
     }
 
@@ -515,10 +536,29 @@
     }
 
     @media (max-width: 720px) {
-      .site-nav { display: none; }
+      /* 窄屏导航收进菜单按钮：以前这里直接 display:none，手机上除了页脚
+         根本到不了法规库/隐私这些页面。 */
+      .site-nav {
+        position: absolute; top: 56px; left: 0; right: 0; z-index: 49;
+        display: none; flex-direction: column; gap: 2px; margin-left: 0;
+        padding: 10px 16px 14px;
+        /* 实心底：半透明+模糊在部分环境不生效，会透出 hero 文字。 */
+        background: rgb(var(--header-bg));
+        border-bottom: 1px solid rgb(var(--outline) / 0.35);
+        box-shadow: 0 18px 32px rgb(0 0 0 / 0.18);
+      }
+      .site-nav.open { display: flex; }
+      .site-nav a { padding: 10px 12px; font-size: 15px; }
+      .nav-toggle {
+        display: grid; place-items: center; width: 32px; height: 32px;
+        border: 0; border-radius: 8px; background: transparent;
+        color: rgb(var(--text)); cursor: pointer;
+      }
+      .nav-toggle:hover { background: rgb(var(--surface-high) / 0.7); }
+      .nav-toggle svg { width: 18px; height: 18px; }
       .hero { padding-top: 56px; padding-bottom: 0; }
       .stats { grid-template-columns: repeat(2, 1fr); }
-      .grid, .prices, .privacy-grid { grid-template-columns: 1fr; }
+      .grid, .prices, .privacy-grid, .guard-grid { grid-template-columns: 1fr; }
       section.block { padding-top: 64px; }
       .spotlight, .privacy, .final { padding: 24px; }
       .final { padding: 40px 24px; }
@@ -533,10 +573,10 @@
         <img class="mark" src="assets/icon.png" alt="法脉应用图标" width="26" height="26" />
         <span>法脉</span>
       </a>
-      <nav class="site-nav">
+      <nav class="site-nav" id="site-nav">
         <a href="#features">功能</a>
-        <a href="#pricing">价格</a>
         <a href="#privacy">隐私</a>
+        <a href="#pricing">价格</a>
         <a href="#faq">常见问题</a>
         <a href="#updates">最近更新</a>
         <a href="laws/index.html">法规库</a>
@@ -544,6 +584,9 @@
         <a href="gazette/index.html">公报案例</a>
       </nav>
       <div class="header-actions">
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
         <div class="theme-switch" role="radiogroup" aria-label="界面主题">
           <button type="button" data-theme-mode="system" role="radio" aria-checked="false" title="跟随系统" aria-label="跟随系统">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
@@ -555,7 +598,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
           </button>
         </div>
-        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-arm64.dmg" data-download>下载</a>
+        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg" data-download>下载</a>
       </div>
     </div>
   </header>
@@ -567,17 +610,15 @@
       <!-- 短语整体换行：窄屏下不许从「手边」中间拆出孤字（390px 实测拆成「手/边」）。 -->
       <h1><span>法条在本地，</span><span>笔记在手边，</span><br />合同不出门</h1>
       <p class="lede">
-        法脉把查法条、记笔记、审合同收进同一个桌面工作台。
-        内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网也能全文检索；
-        AI 给出的每条依据都会回本地法库核验，点一下就能跳回原文——
-        数据与合同全程留在你的电脑上。
+        为中国执业律师做的本地法律工作台：查法条、记笔记、AI 审合同，
+        在同一个窗口里做完——而你的材料，从头到尾不离开这台电脑。
       </p>
       <div class="cta-row">
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-arm64.dmg" data-download>
+        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg" data-download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 Mac 版（M 系列芯片）
         </a>
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-x64.exe" data-download-win>
+        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe" data-download-win>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 Windows 版（64 位）
         </a>
@@ -626,13 +667,13 @@
         <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
              alt="案例库（深色主题）"
              width="1440" height="900" loading="lazy" decoding="async" />
-        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.0）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例</figcaption>
+        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.1）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例</figcaption>
       </figure>
       <div class="stats reveal">
         <div class="stat"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
         <div class="stat"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
         <div class="stat"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
-        <div class="stat"><div class="num" data-count="100" data-suffix="%">100%</div><div class="cap">数据留在本机</div></div>
+        <div class="stat"><div class="num" data-count="0">0</div><div class="cap">台服务器经手你的数据</div></div>
       </div>
     </section>
 
@@ -682,6 +723,51 @@
         </div>
       </div>
 
+      <div class="spotlight reveal">
+        <div>
+          <span class="tag pro">AI</span>
+          <h3 style="margin-top:10px">引用核验：每条依据先回本地法库对过</h3>
+          <p>
+            在法庭上引用一条 AI 编出来的司法解释，代价由你来付。
+            所以法脉不放行这种句子：AI 给出的每条法律依据都先回本地法库核验，
+            对得上的点一下跳回官方原文，对不上的显著标注「未核实」——绝不混进报告冒充出处。
+          </p>
+          <ul class="bullets">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+              法条文本取自国家法律法规数据库官方文本，效力状态可溯源
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+              已废止、已修订的旧法打上标记，不让旧条文混进新意见
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
+              问答先检索本地法条与你的笔记，再基于检索到的材料作答
+            </li>
+          </ul>
+        </div>
+        <div class="diff">
+          <div class="diff-row">
+            <div class="tagline">示例 · 通用 AI 的回答</div>
+            <p>「依据《中华人民共和国合同法》第一百一十四条……」——该法已于 2021 年废止，它仍答得斩钉截铁。</p>
+          </div>
+          <div class="diff-row">
+            <div class="tagline">示例 · 法脉：每条依据过一遍本地法库</div>
+            <p>约定的违约金过分高于造成的损失的，可以请求法院适当减少。</p>
+            <a class="cite" href="#preview">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+              依据：民法典第五百八十五条 · 已核验，点击回原文
+            </a>
+            <br />
+            <span class="cite warn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+              「某批复第三条」· 库内查无此文 · 标注未核实
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div class="grid">
         <div class="card reveal">
           <div class="ico">
@@ -695,8 +781,8 @@
           <div class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/><path d="M22 12a10 10 0 1 1-4.3-8.2"/></svg>
           </div>
-          <h3>引用可核查 <span class="tag pro">AI</span></h3>
-          <p>AI 给出的每条法律依据都回本地法库校验：核实通过的可点击跳转原文，验不过的显著标注「未核实」，把幻觉挡在报告之外。</p>
+          <h3>文书起草 <span class="tag pro">AI</span></h3>
+          <p>起诉状、答辩状等七类文书从结构起草，法源逐条可核实；说一句哪里要改，改动左右对照摆给你看，点「采用」才落进稿子，改好的能存成所里自己的模板。</p>
         </div>
 
         <div class="card reveal">
@@ -773,11 +859,92 @@
       </div>
     </section>
 
+    <!-- ============ 隐私 ============ -->
+    <section class="block wrap" id="privacy">
+      <div class="block-head">
+        <h2>你的合同，我们看不到</h2>
+        <p>律师对客户负有保密义务，所以「不泄露」不能只是一句承诺。法脉把它做成三道答案：技术上做不到，架构上没开关，商业上没动机。</p>
+      </div>
+
+      <div class="privacy reveal">
+        <div class="privacy-grid">
+          <div>
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              技术上做不到
+            </h3>
+            <p>合同、笔记、检索记录都存在你电脑里的数据库文件中，我们没有能接收它们的服务器。用云端 AI 时，请求以<strong>你自己的密钥</strong>从你的电脑直连模型厂商——我们不在你和模型之间，想看也看不到。密钥经系统级加密，只存本机。</p>
+          </div>
+          <div>
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6m4 0h6"/><circle cx="12" cy="12" r="2.5"/></svg>
+              架构上没开关
+            </h3>
+            <p>隐私不是一个要记得打开的选项。断网时，法律库、检索、笔记、案件夹全部照常；应用会发起哪几类网络请求，<a href="privacy.html">隐私政策</a>逐条穷举——此外一个字节都不出门，连「你在研究哪个案子」都没人知道。</p>
+          </div>
+          <div>
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><path d="M15.7 6.3a5.5 5.5 0 1 1-7.4 7.4"/></svg>
+              商业上没动机
+            </h3>
+            <p>法脉靠卖软件授权赚钱，不靠数据：没有广告，没有「用户画像」，激活码离线验签、不绑定机器。你的付费，让我们不需要第二种收入。</p>
+          </div>
+        </div>
+
+        <div class="guard">
+          <h3>必须出网的那一段，也包好了再走</h3>
+          <p class="guard-sub">用云端 AI 时，材料确实要发给你选定的模型厂商。这段路法脉是这样把关的——每一条都能在应用里亲手验证：</p>
+          <div class="guard-grid">
+            <div>
+              <h4>发出前先换化名</h4>
+              <p>姓名、公司名、身份证号、银行账号等十八类敏感信息，出网前统一换成「李某」「甲公司」，报告里自动还原。化名对照表只活在这一次请求的内存里，不落盘。</p>
+            </div>
+            <div>
+              <h4>第一次发送先过目</h4>
+              <p>第一次往云端发材料，先把实际发出的全文摆给你核对，看过再发；发现疑似遗漏的敏感词，会在出网前停下来，当场补进名单、就地替换。</p>
+            </div>
+            <div>
+              <h4>每次出网都记账</h4>
+              <p>什么时间、发往哪里、发了多少字节、脱敏了几处，本机台账逐条可查、可导出。不必信我们怎么说——自己查。</p>
+            </div>
+          </div>
+        </div>
+
+        <figure class="evidence reveal">
+          <img class="evidence-img evidence-when-light" src="assets/shot-masking-light.webp"
+               alt="审查报告头部实拍：注明引用法律依据的核实情况，以及发送前已在本机脱敏——姓名 2 处、公司名 1 处、身份证号 1 处、手机号 1 处，报告已自动还原"
+               width="928" height="170" loading="lazy" decoding="async" />
+          <img class="evidence-img evidence-when-dark" src="assets/shot-masking-dark.webp"
+               alt="审查报告头部实拍（深色主题）：核实声明与脱敏计数"
+               width="928" height="170" loading="lazy" decoding="async" />
+          <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次脱敏了什么，逐份写明——不是一句口号</figcaption>
+        </figure>
+        <p class="meta">
+          数据具体存在哪里、每类网络请求发了什么，在<a href="privacy.html">隐私政策</a>里逐条列了出来。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 不做什么 ============ -->
+    <section class="block wrap" id="principles">
+      <div class="block-head">
+        <h2>法脉不做的事</h2>
+        <p>有些能力我们永远不会有。不是还没做——是不做。</p>
+      </div>
+      <ul class="nots reveal">
+        <li><strong>不需要账号。</strong>下载即用，没有「注册登录」这一步，也就没有存着你个人信息的用户系统。</li>
+        <li><strong>不记录你查了什么。</strong>零遥测、零埋点。检索词有时就是案情，所以连它也只留在本机。</li>
+        <li><strong>不锁你的数据。</strong>法库、检索、笔记、导出永久免费，公测结束也不锁——锁你的笔记等于自毁招牌。</li>
+        <li><strong>不自动续费。</strong>月卡就是一次性的 30 天，到期就是到期，不做「忘了取消」的生意。</li>
+        <li><strong>不做大而全平台。</strong>不做云协作、不做账号体系，只做好你一个人的工作台。</li>
+      </ul>
+    </section>
+
     <!-- ============ 价格 ============ -->
     <section class="block wrap" id="pricing">
       <div class="block-head">
         <h2>价格</h2>
-        <p>法律库、检索、笔记与案件夹永久免费；付费解锁 AI 与实时法规更新。</p>
+        <p>法律库、检索、笔记与案件夹永久免费；付费解锁 AI 与实时法规更新。这份定价是法脉唯一的收入——正因为收这份钱，我们才用不着打你数据的主意。</p>
       </div>
 
       <div class="prices reveal">
@@ -818,55 +985,6 @@
       </div>
     </section>
 
-    <!-- ============ 隐私 ============ -->
-    <section class="block wrap" id="privacy">
-      <div class="block-head">
-        <h2>你的合同，我们看不到</h2>
-        <p>这不是承诺问题，是架构问题——我们根本没有能接收它的服务器。</p>
-      </div>
-
-      <div class="privacy reveal">
-        <div class="privacy-grid">
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-              无账号 · 无遥测
-            </h3>
-            <p>
-              不需要注册，不采集任何使用数据，产品内不埋任何统计。法律库、笔记与合同存放在你自己的电脑上，
-              我们没有能接收它们的服务器。使用云端模型审查时，合同文本会发往<strong>你自己选定的模型厂商</strong>（见右侧）。
-            </p>
-          </div>
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6m4 0h6"/><circle cx="12" cy="12" r="2.5"/></svg>
-              自带密钥直连
-            </h3>
-            <p>AI 功能由你在设置中填入自己的模型服务密钥，请求从你的电脑直连模型厂商。我们没有中转服务器，也就无从看到内容。密钥经系统级加密只存本机。</p>
-          </div>
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10m0 0 3.5-3.5M12 13l-3.5-3.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
-              离线验证授权
-            </h3>
-            <p>激活码采用离线签名验证，全程不联网。不绑定机器指纹，换电脑重新激活即可。</p>
-          </div>
-        </div>
-        <figure class="evidence reveal">
-          <img class="evidence-img evidence-when-light" src="assets/shot-masking-light.webp"
-               alt="审查报告头部实拍：注明引用法律依据的核实情况，以及发送前已在本机脱敏——姓名 2 处、公司名 1 处、身份证号 1 处、手机号 1 处，报告已自动还原"
-               width="928" height="170" loading="lazy" decoding="async" />
-          <img class="evidence-img evidence-when-dark" src="assets/shot-masking-dark.webp"
-               alt="审查报告头部实拍（深色主题）：核实声明与脱敏计数"
-               width="928" height="170" loading="lazy" decoding="async" />
-          <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次脱敏了什么，逐份写明——不是一句口号</figcaption>
-        </figure>
-        <p class="meta">
-          应用会发起哪几类网络请求、数据具体存在哪里，在<a href="privacy.html">隐私政策</a>里逐条列了出来。
-        </p>
-      </div>
-    </section>
-
     <!-- ============ FAQ ============ -->
     <section class="block wrap" id="faq">
       <div class="block-head">
@@ -899,7 +1017,7 @@
           <summary>支持 Windows 吗？Intel Mac 呢？</summary>
           <div class="answer">
             macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。
-            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可（<a href="windows.html" data-win-guide>图解步骤与杀毒软件放行说明</a>）；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
+            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可（<a href="windows.html" data-win-guide>图解步骤与杀毒软件放行说明</a>）；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
           </div>
         </details>
         <details>
@@ -931,16 +1049,16 @@
         <h2>最近更新</h2>
         <p>公测期迭代快；改了什么、修了什么 bug，都原样写在日志里。</p>
       </div>
-      <div class="updates-card reveal" data-updates-version="0.9.0">
+      <div class="updates-card reveal" data-updates-version="0.9.1">
         <div class="updates-version">
-          <strong>v0.9.0</strong>
+          <strong>v0.9.1</strong>
           <time datetime="2026-10-22">2026 年 10 月 22 日</time>
         </div>
         <ul>
           <li>法规库从 520 部扩到 <strong>1513 部现行</strong>（5.6 万条），全国性法规已是全集，逐类跟国家法律法规数据库对过数。下载包没变大：装好自带 120 部最常用的，其余按效力级别或执业方向整批拉取，按钮上写着要下多少（全部拿下来约 28 MB），拉过的以后不联网也能看；快速查找（⌘K）本地搜不到时，会列出云端同名法规，点一下就地拉下来打开。</li>
           <li>化名保护补齐到<strong>全部 AI 功能</strong>：以前只有合同审查会把当事人姓名、公司名换成「李某」「甲公司」再发出去，现在问答、解读、起草、归纳都一样。发现疑似遗漏会在发出之前停一下，当场补进名单这一次就换掉；<strong>第一次往云端发材料前，先把实际发出的全文摆给您核对一遍</strong>，看过再发。</li>
           <li>文书起草可以对话着改：说一句哪里要改，改动以左右对照摆出来，点「采用」才落进稿子；圈哪句改哪句、每一段都能单独重做；改好的文书能「另存为模板」变成所里自己的格式——只带结构与固定条款，不带本案的当事人与金额。</li>
-          <li>修复 Windows 版装上打不开的问题（10 月 21 日已作为 0.8.1 先行发布）；配 AI 不用先充钱了——默认改为通义千问，新用户开通即有免费额度，不用实名、不用充值。</li>
+          <li>修复 Windows 版装上打不开的问题；配 AI 不用先充钱了——默认改为通义千问，新用户开通即有免费额度。0.9.1 当天跟进修复：法律库搜索框在小窗口被挤没、文书解读与起草页面过窄的问题。</li>
         </ul>
         <p class="updates-note">升级方式：应用内「设置 → 更新」下载覆盖安装即可，笔记与数据不受影响。</p>
         <div class="updates-links">
@@ -953,15 +1071,15 @@
     <!-- ============ 收尾 CTA ============ -->
     <section class="wrap">
       <div class="final reveal">
-        <h2>先装上，公测期免费用</h2>
-        <p>不需要账号，不需要填付款信息，卸载不留云端尾巴。</p>
+        <h2>法条、笔记、合同，都留在你这台电脑上</h2>
+        <p>公测期全部功能免费。不需要账号，不需要填付款信息，卸载不留云端尾巴。</p>
         <p>遇到问题、想提需求或进测试群：加微信 <strong>chengyue-wish</strong>（备注「法脉」）。</p>
         <div class="cta-row">
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-arm64.dmg" data-download>
+          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg" data-download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             下载 Mac 版（M 系列芯片）
           </a>
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-x64.exe" data-download-win>
+          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe" data-download-win>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             下载 Windows 版（64 位）
           </a>
@@ -987,10 +1105,10 @@
         "applicationCategory": "BusinessApplication",
         "applicationSubCategory": "法律检索与合同审查",
         "operatingSystem": "macOS 11.0 或更高版本（Apple Silicon）；Windows 10 或更高版本（64 位，预览版）",
-        "softwareVersion": "0.9.0",
+        "softwareVersion": "0.9.1",
         "fileSize": "150 MB",
         "inLanguage": "zh-CN",
-        "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-arm64.dmg",
+        "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg",
         "url": "https://lttxzmj.github.io/lawpulse-site/",
         "image": "https://lttxzmj.github.io/lawpulse-site/assets/icon.png",
         "description": "本地优先的桌面法律研究工具（macOS / Windows）：内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网可全文检索；AI 合同审查与法库问答的每条法律依据都回本地法库校验，可点回原文；无账号、无遥测，AI 采用自带密钥直连模型厂商，无中转服务器。",
@@ -1119,12 +1237,12 @@
     (function () {
       // 发新版本时只改这一处：下载链接、版本号与体积会自动填进页面各处。
       var RELEASE = {
-        version: "0.9.0",
+        version: "0.9.1",
         size: "约 150 MB",
         requirement: "macOS 11 及以上",
-        url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-arm64.dmg",
+        url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg",
         // Windows 目前是预览版：只挂下载链接，不进版本行与主按钮。
-        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-x64.exe",
+        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe",
       };
 
       // 渠道归因：各渠道贴的链接带 ?from=渠道名，这里把它续到下载直链上。
@@ -1158,7 +1276,7 @@
       }
       // 产品截图页签：切场景换图换说明；主题归 CSS 管，这里只动 is-active。
       var SHOT_CAPTIONS = {
-        workbench: "真实界面截图（v0.9.0）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例",
+        workbench: "真实界面截图（v0.9.1）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例",
         review: "真实界面截图：审查报告按风险分级，原文与建议逐字对照，依据注明「已核实 / 未核实」——意见为演示示例",
         qa: "真实界面截图：先检索本地法库再作答，每条结论都标注引用材料，点一下回到法条原文",
         cases: "真实界面截图：278 件指导性案例＋445 件公报案例内置，与法条双向关联",
@@ -1174,6 +1292,16 @@
           });
           var caption = document.querySelector("[data-shot-caption]");
           if (caption && SHOT_CAPTIONS[scene]) { caption.textContent = SHOT_CAPTIONS[scene]; }
+        });
+        // role=tablist 的键盘语义：左右方向键在页签间移动并切换场景。
+        tab.addEventListener("keydown", function (event) {
+          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") { return; }
+          event.preventDefault();
+          var all = Array.prototype.slice.call(document.querySelectorAll(".preview-tab"));
+          var index = all.indexOf(tab);
+          var next = all[(index + (event.key === "ArrowRight" ? 1 : all.length - 1)) % all.length];
+          next.focus();
+          next.click();
         });
       });
 
@@ -1217,6 +1345,23 @@
       applyMode(readMode());
 
       var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // ---- 窄屏导航：收进菜单按钮，点链接后自动收起 ----
+      var navToggle = document.querySelector(".nav-toggle");
+      var siteNav = document.getElementById("site-nav");
+      if (navToggle && siteNav) {
+        navToggle.addEventListener("click", function () {
+          var open = siteNav.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", String(open));
+          navToggle.setAttribute("aria-label", open ? "收起菜单" : "打开菜单");
+        });
+        siteNav.addEventListener("click", function (event) {
+          if (event.target.tagName === "A") {
+            siteNav.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
 
       // ---- 顶栏：滚动后落下阴影，并点亮当前读到的那一节 ----
       var header = document.querySelector(".site-header");

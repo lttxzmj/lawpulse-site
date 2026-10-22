@@ -6,6 +6,20 @@
   <link href="https://lttxzmj.github.io/lawpulse-site/" />
   <updated>2026-10-22T00:00:00Z</updated>
   <entry>
+    <title>法脉 v0.9.1 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.9.1</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-10-22T00:00:00Z</updated>
+    <content type="text">- 法律库与云端目录的搜索框在最小窗口下会被筛选胶囊挤到只剩一个图标，
+  占位文字完全看不见；现在搜索框宽度有底线，放不下时胶囊组整组换行。
+- 文书解读与文书起草的入口页此前被钉在长文阅读宽度，宽屏下右侧留出
+  成片空白、起草页两个输入框被挤成窄条；现在表单态用工作台宽度，
+  只有真正读长文（解读结果、起草正文）时才收窄便于阅读。
+- 顺手修的小问题：脱敏确认弹窗里「疑似遗漏」的说明不再被按钮挤成窄条；
+  起草页没有案件夹时下拉框写明「还没有案件夹」而不是一片空白；
+  公报案例列表的期号徽章定宽对齐；价格卡在窄窗口不再折出孤字。</content>
+  </entry>
+  <entry>
     <title>法脉 v0.9.0 发布</title>
     <id>tag:lttxzmj.github.io,2026:lawpulse-0.9.0</id>
     <link href="https://lttxzmj.github.io/lawpulse-site/" />
@@ -252,17 +266,5 @@
 - AI 输出排版：问答、审查、起草、卷宗、法条解读统一支持 Markdown 表格与代码块。
 - 阅读工作台：阅读偏好整合为顶栏「笔记控制」菜单；网页版法条页支持复制引用
   与指导案例反链。</content>
-  </entry>
-  <entry>
-    <title>法脉 v0.5.1 发布</title>
-    <id>tag:lttxzmj.github.io,2026:lawpulse-0.5.1</id>
-    <link href="https://lttxzmj.github.io/lawpulse-site/" />
-    <updated>2026-08-13T00:00:00Z</updated>
-    <content type="text">- AI 解读：回答自动存档到法库问答历史；每条法条记住自己的解读，点引用跳转再回退不丢。
-- 正文里不带书名号的法规引用（如“民法典第一千零五十一条”）也能识别成链接并悬停预览；
-  新增参照窗口：查引用复用同一个贴右窗口，不再每点一次开一个。
-- 流式输出：生成过程即时按 Markdown 排版；滚动权在用户手里，未跟随时显示“跳到最新”。
-- 分栏拖拽：拖过最小宽度直接收起栏；分栏线角标可点可拖。
-- 设置页与法库问答页加宽；其他细节修补。</content>
   </entry>
 </feed>
