@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windows 安装指引：SmartScreen 提示「未知发布者」怎么继续 — 法脉</title>
+  <meta name="description" content="法脉 Windows 版安装指引：首次运行出现「Windows 已保护你的电脑 · 未知发布者」时，点「更多信息」再点「仍要运行」即可；另附解除锁定、杀毒软件放行与安装后首次启动的说明，以及为什么预览版暂未做代码签名。" />
+  <link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/windows.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="法脉 LawPulse" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:url" content="https://lttxzmj.github.io/lawpulse-site/windows.html" />
+  <meta property="og:title" content="Windows 安装指引：SmartScreen 提示「未知发布者」怎么继续 — 法脉" />
+  <meta property="og:description" content="首次运行出现「Windows 已保护你的电脑」时，点「更多信息 → 仍要运行」即可；含图解步骤与杀毒软件放行说明。" />
+  <meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
+  <link rel="icon" href="assets/icon.png" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+
+  <script>
+    // 与首页、桌面端同一个存储键：从首页点进来不会闪一下别的主题。
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("lawpulse-theme-mode"); } catch (e) { stored = null; }
+      var mode = stored === "light" || stored === "dark" ? stored : null;
+      document.documentElement.dataset.theme =
+        mode || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    })();
+  </script>
+
+  <style>
+    :root,
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --background: 10 12 16;
+      --surface: 16 18 24;
+      --primary-soft: 194 193 255;
+      --text: 228 228 235;
+      --muted: 172 170 190;
+      --outline: 60 59 74;
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --background: 246 247 251;
+      --surface: 255 255 255;
+      --primary-soft: 37 84 185;
+      --text: 28 33 43;
+      --muted: 91 99 116;
+      --outline: 178 187 204;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: rgb(var(--background));
+      color: rgb(var(--text));
+      font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2 {
+      font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    a { color: rgb(var(--primary-soft)); }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    header {
+      border-bottom: 1px solid rgb(var(--outline) / 0.45);
+      background: rgb(var(--background) / 0.92);
+      backdrop-filter: saturate(160%) blur(12px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; height: 60px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; color: rgb(var(--text)); text-decoration: none; font-weight: 600; }
+    .brand img { border-radius: 7px; }
+    header nav a { color: rgb(var(--muted)); text-decoration: none; font-size: 14px; }
+    header nav a:hover { color: rgb(var(--text)); }
+
+    main { padding: 48px 0 72px; }
+    h1 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 8px; }
+    .updated { color: rgb(var(--muted)); font-size: 14px; margin: 0 0 32px; }
+    h2 {
+      font-size: 19px; margin: 40px 0 12px; padding-top: 24px;
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+    }
+    h2:first-of-type { border-top: 0; padding-top: 0; }
+    p, li { color: rgb(var(--text)); }
+    ul, ol { padding-left: 22px; }
+    li { margin: 8px 0; }
+    li strong { font-weight: 600; }
+    .lede { color: rgb(var(--muted)); }
+    .callout {
+      background: rgb(var(--surface));
+      border: 1px solid rgb(var(--outline) / 0.6);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 24px 0 0;
+    }
+    .callout p { margin: 0; }
+
+    footer {
+      border-top: 1px solid rgb(var(--outline) / 0.45);
+      padding: 24px 0 40px; color: rgb(var(--muted)); font-size: 14px;
+    }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 20px; justify-content: space-between; }
+    footer a { color: rgb(var(--muted)); text-decoration: none; }
+    footer a:hover { color: rgb(var(--text)); }
+
+    @media (max-width: 620px) {
+      header .wrap { height: 56px; }
+      main { padding: 32px 0 56px; }
+    }
+
+    ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+    ol.steps > li {
+      position: relative; padding-left: 38px; margin: 14px 0;
+    }
+    ol.steps > li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 2px;
+      width: 24px; height: 24px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600;
+      background: rgb(var(--surface)); border: 1px solid rgb(var(--outline) / 0.6);
+      color: rgb(var(--primary-soft));
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 4px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 20px; border-radius: 10px; font-weight: 600; font-size: 15px;
+      background: rgb(var(--primary-soft)); color: rgb(var(--background)); text-decoration: none;
+    }
+    .btn.secondary { background: transparent; color: rgb(var(--text)); border: 1px solid rgb(var(--outline)); }
+    .size { color: rgb(var(--muted)); font-size: 13px; margin: 0; }
+    kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+      border: 1px solid rgb(var(--outline)); border-radius: 5px; padding: 1px 6px;
+      background: rgb(var(--surface));
+    }
+  </style>
+
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/icon.png" alt="法脉应用图标" width="24" height="24" />
+        <span>法脉</span>
+      </a>
+      <nav><a href="index.html">返回首页</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Windows 安装指引</h1>
+    <p class="updated">适用于 Windows 10 及以上（64 位）</p>
+    <p class="lede">
+      下载后第一次运行，Windows 很可能弹一个蓝色窗口：「Windows 已保护你的电脑」，
+      发布者写着「未知发布者」。这不是报毒，也不代表文件有问题——它只是说这个安装包
+      还没买代码签名证书。下面三步就能继续，整页看完不到两分钟。
+    </p>
+
+    <div class="btn-row">
+      <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.0-x64.exe?from=win-guide" data-download-win>下载 Windows 版</a>
+      <a class="btn secondary" href="index.html">看看法脉是什么</a>
+    </div>
+    <p class="size">约 120 MB · 免费公测中 · 不需要注册账号</p>
+
+    <h2>一、出现「Windows 已保护你的电脑」怎么办</h2>
+    <ol class="steps">
+      <li>在那个蓝色窗口里点左下角的 <kbd>更多信息</kbd>（默认是折叠的，不点看不到下一步）。</li>
+      <li>展开后右下角会多出 <kbd>仍要运行</kbd>，点它。</li>
+      <li>之后就是正常的安装流程，一路下一步即可。装完只有这一次会问，以后打开不再提示。</li>
+    </ol>
+
+    <h2>二、如果没看到「更多信息」</h2>
+    <p>
+      有些系统设置下那个按钮不出现。改用这个办法：在下载好的
+      <kbd>LawPulse-0.9.0-x64.exe</kbd> 上点右键 → <kbd>属性</kbd>，
+      在「常规」标签页的最下面，如果有一行「安全：此文件来自其他计算机…」，
+      勾选它右边的 <kbd>解除锁定</kbd>，点 <kbd>确定</kbd>，再双击安装。
+    </p>
+
+    <h2>三、杀毒软件拦下来了</h2>
+    <p>
+      没有签名的新安装包被安全软件拦截是常见情况。在拦截提示里选择「允许」或
+      「添加信任」即可；若它已经把文件移进隔离区，需要先从隔离区恢复，再重新运行。
+      法脉装好后不联网也能用，你也可以装完先断网试一遍。
+    </p>
+
+    <h2>四、为什么会有这个提示</h2>
+    <p>
+      因为这个 Windows 包还没有做代码签名。签名证书是按年付费的，我们想先确认
+      真的有 Windows 用户在用，再决定这笔年费——所以现在把 Windows 版标为「预览版」。
+      「预览」指的只是这件事：<strong>功能与法律库和 macOS 版完全一致</strong>，
+      不是功能阉割版，也不是测试版数据。
+    </p>
+    <div class="callout">
+      <p>
+        如果你因为这个提示犹豫要不要装，欢迎直接告诉我们一声（
+        <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">反馈入口</a>）。
+        有人反馈，这件事才排得上号。
+      </p>
+    </div>
+
+    <h2>五、装完之后</h2>
+    <ul>
+      <li>首次启动会把内置法律库铺开，需要等几秒，之后打开就很快了。</li>
+      <li>安装包内自带 120 部常用法律法规，其余 400 多部在设置页一键补全，补全后同样存在本机。</li>
+      <li>全文检索、笔记、案例库断网可用；只有 AI 功能需要联网，且用你自己的模型密钥直连。</li>
+      <li>安装位置默认在 <kbd>%LOCALAPPDATA%\Programs\lawpulse</kbd>，卸载走系统「应用和功能」。</li>
+    </ul>
+
+    <h2>还是装不上？</h2>
+    <p>
+      把你看到的提示截图发到
+      <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub 反馈区</a>，
+      写清楚 Windows 版本号，我们会跟进。也可以先看
+      <a href="index.html#faq">常见问题</a>。
+    </p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具</span>
+      <nav><a href="index.html#faq">常见问题</a> · <a href="changelog.html">更新日志</a> · <a href="privacy.html">隐私政策</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // 渠道归因续传，与首页同机制（纯读 location.search，不种 cookie、不加统计）。
+      // 优先级：URL 带 ?from= 就用它，否则记 win-guide。
+      // 为什么上游优先：渠道稿里贴的是 windows.html?from=appinn，若固定记 win-guide，
+      // 「单帖渠道产出」（里程碑 A 第 5 个数）就被这一页吞掉了。无参时的 win-guide
+      // 则用来衡量这页自己（首页 FAQ / llms.txt / 搜索结果进来的）带来多少下载。
+      var match = location.search.match(/[?&]from=([a-z0-9-]{1,24})/);
+      if (!match) { return; }
+      document.querySelectorAll("[data-download-win]").forEach(function (node) {
+        // 写死的 ?from=win-guide 整段换掉，别拼成两个 from。
+        node.href = node.href.replace(/([?&])from=[^&]*/, "$1from=" + match[1]);
+      });
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "在 Windows 上安装法脉（SmartScreen 提示「未知发布者」时怎么继续）",
+    "description": "法脉 Windows 预览版安装包暂未做代码签名，首次运行会出现 SmartScreen 提示。按以下步骤即可继续安装。",
+    "totalTime": "PT2M",
+    "supply": [{ "@type": "HowToSupply", "name": "Windows 10 及以上（64 位）" }],
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "点击「更多信息」",
+        "text": "在「Windows 已保护你的电脑」窗口中点击左下角的「更多信息」，该按钮默认折叠。",
+        "url": "https://lttxzmj.github.io/lawpulse-site/windows.html#smartscreen"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "点击「仍要运行」",
+        "text": "展开后右下角出现「仍要运行」按钮，点击它即可进入正常安装流程。"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "若没有「更多信息」则解除锁定",
+        "text": "右键安装包 → 属性 → 常规标签页底部勾选「解除锁定」→ 确定，然后重新双击安装。"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "法脉", "item": "https://lttxzmj.github.io/lawpulse-site/" },
+      { "@type": "ListItem", "position": 2, "name": "Windows 安装指引" }
+    ]
+  }
+  </script>
+</body>
+</html>

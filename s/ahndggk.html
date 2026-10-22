@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>法脉 · AI 功能使用情况调查</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #1c2130; background: #f6f7fb; line-height: 1.75; font-size: 15px; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 20px 72px; }
+  h1 { font-size: 22px; margin: 0 0 10px; }
+  .lead { color: #4b5563; margin: 0 0 18px; }
+  .note { border: 1px solid #dbe1f4; background: #eef1fb; border-radius: 10px;
+    padding: 14px 18px; font-size: 13px; color: #334155; margin-bottom: 22px; }
+  .note b { color: #1c2130; }
+  fieldset { border: 1px solid #e8eaf1; background: #fff; border-radius: 10px;
+    padding: 16px 20px 18px; margin: 0 0 14px; }
+  legend { font-size: 13px; color: #6b7280; padding: 0 6px; }
+  .q { margin: 0 0 18px; }
+  .q:last-child { margin-bottom: 0; }
+  .q > p { margin: 0 0 8px; font-weight: 600; }
+  .q .hint { font-weight: 400; color: #6b7280; font-size: 13px; }
+  label.opt { display: block; padding: 5px 0 5px 2px; cursor: pointer; }
+  label.opt input { margin-right: 8px; }
+  input[type=text] { width: 100%; height: 40px; border: 1px solid #d5d9e5; border-radius: 6px;
+    padding: 0 12px; font-size: 15px; background: #fff; font-family: inherit; }
+  .tier { border: 1px solid #dbe1f4; border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+  .tier label.opt { font-weight: 600; }
+  .tier .d { font-size: 13px; color: #4b5563; font-weight: 400; padding-left: 24px; }
+  button { margin-top: 8px; height: 44px; padding: 0 28px; border: 0; border-radius: 6px;
+    background: #3b5bdb; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: inherit; }
+  button:hover { background: #324ec2; }
+  .dim { color: #9aa1af; font-size: 13px; }
+  #bgroup.off { display: none; }
+  footer { margin-top: 26px; font-size: 12px; color: #9aa1af; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>法脉 · AI 功能使用情况调查</h1>
+<p class="lead">法脉的 AI 功能现在需要你自己去模型厂商注册一个密钥。我们想知道这一步到底卡住了多少人。
+约 3 分钟，不要姓名、不要手机号。</p>
+
+<div class="note">
+  <b>提交是怎么走的（请先看一眼）：</b>我们没有服务器也没有数据库。打开本页和点「提交」时，
+  浏览器各会向我们的对象存储取一张 1×1 像素的小图，你的选项就挂在那个图片网址的参数里，
+  因此会落进对象存储的访问日志（含你的 IP 与时间）——这是我们能收到答案的唯一方式，
+  也用来算「打开了多少人、填完了多少人」。没有 cookie、没有账号、没有第三方统计。
+  因此：<b>最后那道开放题里不要写当事人姓名、案号，也不要写你自己的联系方式。</b>
+  想参与有偿访谈的，提交后在感谢页上用邮件发给我们。
+  <noscript><br><b>你的浏览器禁用了 JavaScript：</b>照样能提交，只是提交后会停在一张空白小图上，
+  看到它就表示已经收到了，直接关掉页面即可。</noscript>
+</div>
+
+<form method="get" action="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/s/r.gif" id="f">
+<input type="hidden" name="v" value="1">
+<input type="hidden" name="c" id="c" value="">
+<input type="hidden" name="sid" id="sid" value="">
+
+<fieldset>
+<legend>先确认一下你是谁</legend>
+
+<div class="q">
+  <p>1. 你目前的身份？</p>
+  <label class="opt"><input type="radio" name="s1" value="a" required>执业律师</label>
+  <label class="opt"><input type="radio" name="s1" value="b">实习律师</label>
+  <label class="opt"><input type="radio" name="s1" value="c">法学生</label>
+  <label class="opt"><input type="radio" name="s1" value="d">企业法务</label>
+  <label class="opt"><input type="radio" name="s1" value="e">其他法律相关工作</label>
+  <label class="opt"><input type="radio" name="s1" value="f">与法律无关</label>
+</div>
+
+<div class="q">
+  <p>2. 执业年限？</p>
+  <label class="opt"><input type="radio" name="s2" value="a">不满 3 年</label>
+  <label class="opt"><input type="radio" name="s2" value="b">3–10 年</label>
+  <label class="opt"><input type="radio" name="s2" value="c">10 年以上</label>
+  <label class="opt"><input type="radio" name="s2" value="d">尚未执业</label>
+</div>
+
+<div class="q">
+  <p>3. 你和法脉的关系？</p>
+  <label class="opt"><input type="radio" name="s3" value="a" required>装了，还在用</label>
+  <label class="opt"><input type="radio" name="s3" value="b">装过，现在不用了</label>
+  <label class="opt"><input type="radio" name="s3" value="c">下载了，没装</label>
+  <label class="opt"><input type="radio" name="s3" value="d">听说过，没下载</label>
+  <label class="opt"><input type="radio" name="s3" value="e">第一次听说</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>你现在是怎么用 AI 的</legend>
+
+<div class="q">
+  <p>4. 过去半年，你用 AI 处理过工作里的法律事务吗？<span class="hint">（可多选）</span></p>
+  <label class="opt"><input type="checkbox" name="a4" value="a">审或改合同</label>
+  <label class="opt"><input type="checkbox" name="a4" value="b">查法条、找类案</label>
+  <label class="opt"><input type="checkbox" name="a4" value="c">起草文书</label>
+  <label class="opt"><input type="checkbox" name="a4" value="d">翻译、整理材料</label>
+  <label class="opt"><input type="checkbox" name="a4" value="e">都没用过</label>
+</div>
+
+<div class="q">
+  <p>5. 你用的是哪个入口？<span class="hint">（可多选）</span></p>
+  <label class="opt"><input type="checkbox" name="a5" value="a">豆包、元宝这类手机 App</label>
+  <label class="opt"><input type="checkbox" name="a5" value="b">DeepSeek、Kimi 的网页版</label>
+  <label class="opt"><input type="checkbox" name="a5" value="c">ChatGPT、Claude</label>
+  <label class="opt"><input type="checkbox" name="a5" value="d">所里统一采购的系统</label>
+  <label class="opt"><input type="checkbox" name="a5" value="e">法宝、威科这类数据库自带的 AI</label>
+  <label class="opt"><input type="checkbox" name="a5" value="f">没用过</label>
+</div>
+
+<div class="q">
+  <p>6. 你有没有在模型厂商那里创建过 <b>API 密钥</b>？<span class="hint">（不是注册账号，是那串给程序用的密钥）</span></p>
+  <label class="opt"><input type="radio" name="a6" value="a">有，自己创建过</label>
+  <label class="opt"><input type="radio" name="a6" value="b">有，别人帮我弄的</label>
+  <label class="opt"><input type="radio" name="a6" value="c">听说过，但没弄过</label>
+  <label class="opt"><input type="radio" name="a6" value="d">不知道这是什么</label>
+</div>
+
+<div class="q">
+  <p>7. 过去一年，你为 AI 工具或法律数据库<b>自己掏钱</b>付过吗？</p>
+  <label class="opt"><input type="radio" name="a7" value="a">没付过</label>
+  <label class="opt"><input type="radio" name="a7" value="b">1–100 元</label>
+  <label class="opt"><input type="radio" name="a7" value="c">100–500 元</label>
+  <label class="opt"><input type="radio" name="a7" value="d">500–2000 元</label>
+  <label class="opt"><input type="radio" name="a7" value="e">2000 元以上</label>
+</div>
+</fieldset>
+
+<fieldset id="bgroup">
+<legend>装过法脉的人请答这三道（没装过的跳过）</legend>
+
+<div class="q">
+  <p>8. 法脉里的 AI 功能（合同审查、法库问答）你用成了吗？</p>
+  <label class="opt"><input type="radio" name="b8" value="a">用过，出了结果</label>
+  <label class="opt"><input type="radio" name="b8" value="b">试过，没配成</label>
+  <label class="opt"><input type="radio" name="b8" value="c">看到了，没动手试</label>
+  <label class="opt"><input type="radio" name="b8" value="d">不知道有这个功能</label>
+</div>
+
+<div class="q">
+  <p>9. 如果没配成或没动手，是什么拦住的？<span class="hint">（可多选）</span></p>
+  <label class="opt"><input type="checkbox" name="b9" value="a">不知道要去哪注册</label>
+  <label class="opt"><input type="checkbox" name="b9" value="b">注册了，找不到创建密钥的地方</label>
+  <label class="opt"><input type="checkbox" name="b9" value="c">不想为这个单独充钱</label>
+  <label class="opt"><input type="checkbox" name="b9" value="d">粘贴后验证不通过</label>
+  <label class="opt"><input type="checkbox" name="b9" value="e">步骤太多，中途放弃</label>
+  <label class="opt"><input type="checkbox" name="b9" value="f">担心密钥或数据安全</label>
+  <label class="opt"><input type="checkbox" name="b9" value="g">当时不急，后来忘了</label>
+</div>
+
+<div class="q">
+  <p>10. 从打开设置到 AI 跑出第一个结果，大概花了多久？</p>
+  <label class="opt"><input type="radio" name="b10" value="a">5 分钟以内</label>
+  <label class="opt"><input type="radio" name="b10" value="b">5–15 分钟</label>
+  <label class="opt"><input type="radio" name="b10" value="c">15 分钟以上</label>
+  <label class="opt"><input type="radio" name="b10" value="d">一直没弄成</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>如果要你掏钱买，你会买哪种</legend>
+
+<div class="q">
+  <p>11. 下面两种卖法，AI 功能完全一样，<b>只能选一个</b>：</p>
+  <div class="tier">
+    <label class="opt"><input type="radio" name="c11" value="a" required>A 档 ¥399/年</label>
+    <div class="d">AI 用量你直接付给模型厂商（按实测约每月 5–10 元）。装好后需要自己去厂商那里注册一次、创建密钥、粘贴到法脉的设置里。</div>
+  </div>
+  <div class="tier">
+    <label class="opt"><input type="radio" name="c11" value="b">B 档 ¥599/年</label>
+    <div class="d">我们替你把模型厂商的账号开好、用量预充一年。装完直接用，不用注册、不用创建密钥、不用粘贴。</div>
+  </div>
+  <label class="opt"><input type="radio" name="c11" value="c">两个我都不会买</label>
+</div>
+
+<div class="q">
+  <p>12. 如果 B 档是 <b>¥499/年</b>，你的选择会变吗？</p>
+  <label class="opt"><input type="radio" name="c12" value="a">会，改选 B 档</label>
+  <label class="opt"><input type="radio" name="c12" value="b">不变</label>
+</div>
+
+<div class="q">
+  <p>13. B 档意味着：密钥在我们名下、你的用量由我们代付；
+    你的合同和笔记仍然从你的电脑直连模型厂商，<b>不经过我们的服务器</b>。这一点你能接受吗？</p>
+  <label class="opt"><input type="radio" name="c13" value="a">能接受</label>
+  <label class="opt"><input type="radio" name="c13" value="b">不能，密钥必须是我自己的</label>
+  <label class="opt"><input type="radio" name="c13" value="c">要看说明写得够不够清楚</label>
+</div>
+
+<div class="q">
+  <p>14. 你心里有数自己一个月会用掉多少 AI 用量吗？</p>
+  <label class="opt"><input type="radio" name="c14" value="a">有数</label>
+  <label class="opt"><input type="radio" name="c14" value="b">大概知道量级</label>
+  <label class="opt"><input type="radio" name="c14" value="c">完全没概念</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>最后两道</legend>
+
+<div class="q">
+  <p>15. 如果 AI 功能<b>永远</b>要自己配密钥，你会怎么办？</p>
+  <label class="opt"><input type="radio" name="d15" value="a">照样配，能用就行</label>
+  <label class="opt"><input type="radio" name="d15" value="b">只用不要 AI 的那部分（法库、检索、笔记）</label>
+  <label class="opt"><input type="radio" name="d15" value="c">那就不装了</label>
+</div>
+
+<div class="q">
+  <p>16. 一句话：你最希望法脉的 AI 替你干哪件事？
+    <span class="hint">（限 50 字；别写当事人信息和联系方式，见页首说明）</span></p>
+  <input type="text" name="d16" maxlength="50" placeholder="例：把对方发来的合同里对我不利的条款挑出来">
+</div>
+
+<div class="q">
+  <p>17. 两个自愿选项：</p>
+  <label class="opt"><input type="checkbox" name="e17" value="1">我愿意聊 20 分钟（有 ¥50 现金谢礼，只约一次，不推销）</label>
+  <label class="opt"><input type="checkbox" name="e18" value="1">如果有「免配置」的档位，我想第一批试</label>
+  <p class="dim">勾选不会留下你的联系方式。提交后感谢页上有邮箱，想聊的自己发一封就行。</p>
+</div>
+</fieldset>
+
+<button type="submit">提交</button>
+<footer>法脉 · 本地优先的律师法律研究工具 · 本页不收集姓名与手机号</footer>
+</form>
+</div>
+
+<script>
+// 落地页在 GitHub Pages 上（那边拿不到访问日志），所以答案必须打到 COS——
+// 日志只有对象存储那边有，fetch-cos-logs + survey-report 读的就是它。
+// 无 JS 时表单直接 GET 那张图，数据照样进日志，只是用户停在空白图上。
+var BEACON = "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/s/";
+
+(function () {
+  var params = new URLSearchParams(location.search);
+  var channel = (params.get("c") || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 16);
+  var sid = Math.random().toString(36).slice(2, 8);
+  document.getElementById("c").value = channel;
+  document.getElementById("sid").value = sid;
+
+  // 浏览打点：有它才算得出「打开 → 填完」的完成率，与提交共用同一个 sid。
+  new Image().src = BEACON + "v.gif?v=1&sid=" + sid + "&c=" + encodeURIComponent(channel);
+
+  var form = document.getElementById("f");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var query = new URLSearchParams(new FormData(form)).toString();
+    var done = false;
+    var go = function () {
+      if (done) { return; }
+      done = true;
+      location.href = "ok.html";
+    };
+    var beacon = new Image();
+    // 取回成功或失败都算发出去了；再加个兜底定时器，不让用户卡在这一步。
+    beacon.onload = go;
+    beacon.onerror = go;
+    setTimeout(go, 2000);
+    beacon.src = BEACON + "r.gif?" + query;
+  });
+
+  var bgroup = document.getElementById("bgroup");
+  function syncB() {
+    var picked = document.querySelector('input[name="s3"]:checked');
+    // 没装过的人（下载没装/听说过/第一次听说）用不着答 B 组。
+    bgroup.classList.toggle("off", !!picked && "cde".indexOf(picked.value) !== -1);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="s3"]'), function (el) {
+    el.addEventListener("change", syncB);
+  });
+  syncB();
+})();
+</script>
+</body>
+</html>

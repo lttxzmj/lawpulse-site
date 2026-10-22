@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>把法脉的 AI 配起来（不用充钱的那条路）</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #1c2130; background: #f6f7fb; line-height: 1.8; font-size: 15px; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 20px 72px; }
+  h1 { font-size: 22px; margin: 0 0 10px; }
+  h2 { font-size: 17px; margin: 30px 0 10px; }
+  p { margin: 0 0 14px; color: #334155; }
+  a { color: #3b5bdb; }
+  ol { padding-left: 22px; margin: 0 0 14px; }
+  li { margin-bottom: 10px; color: #334155; }
+  .lead { color: #4b5563; }
+  .card { border: 1px solid #dbe1f4; background: #eef1fb; border-radius: 10px;
+    padding: 16px 20px; margin: 20px 0; font-size: 14px; }
+  .warn { border: 1px solid #f0d9b5; background: #fdf6ec; border-radius: 10px;
+    padding: 16px 20px; margin: 20px 0; font-size: 14px; }
+  .warn b { color: #8a5a00; }
+  .dim { color: #9aa1af; font-size: 13px; }
+  code { background: #fff; border: 1px solid #e3e6ef; border-radius: 4px; padding: 1px 6px; }
+  footer { margin-top: 36px; font-size: 12px; color: #9aa1af; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>把法脉的 AI 配起来</h1>
+<p class="lead">法脉的 AI 功能要你自己有一个模型厂商的密钥——请求从你的电脑直连厂商，
+合同不经过我们。好消息是：<b>有一条不用充钱、也不用实名的路</b>，十分钟能走完。</p>
+
+<div class="card">
+  <b>为什么是「通义千问」而不是别家：</b>阿里云百炼首次开通时会自动发放新人免费额度，
+  按官方文档说明，每个模型通常 100 万 Token、90 天内有效，而且<b>无需实名认证即可获取和使用</b>。
+  按我们对真实审查提示词的度量，常见长度的合同，这个额度可以审几十份。
+  DeepSeek 质量也很好，但它<b>没有新用户赠金</b>，必须先充值。
+</div>
+
+<h2>十步走完</h2>
+<ol>
+  <li>打开 <a href="https://bailian.console.aliyun.com/" target="_blank" rel="noreferrer">阿里云百炼控制台</a>。</li>
+  <li>用支付宝或淘宝账号登录——不用新注册阿里云账号。</li>
+  <li>按提示<b>开通百炼服务</b>。这一步不要钱，也不要求实名。</li>
+  <li>开通后额度自动发放，通常两小时内生效。有额度的模型在列表里带蓝色额度条。</li>
+  <li><b>先做这件事</b>：在费用相关页面找到并打开「免费额度用完即停」。
+    额度用完后它会自动停掉服务，而不是转成扣你的钱。</li>
+  <li>回到控制台右上角，点「API-KEY」。</li>
+  <li>点「创建 API Key」。归属业务空间保持默认即可，权限选「全部」。</li>
+  <li>复制那串以 <code>sk-</code> 开头的密钥。<b>它只在创建时完整显示一次</b>，先存一下。</li>
+  <li>回到法脉：设置 → AI → 选「通义千问」→ 把密钥粘进输入框。</li>
+  <li>粘完不用点保存，法脉会自动试跑一次。看到「密钥可用」就成了。</li>
+</ol>
+
+<div class="warn">
+  <b>三件事得先知道，免得三个月后觉得被骗：</b>
+  <ol style="margin-bottom:0">
+    <li>免费额度<b>只在华北 2（北京）地域有效</b>。法脉默认用的就是北京接入点，不用你改什么，
+      但如果你自己改过接入地址，额度就不算数了。</li>
+    <li>额度<b>90 天后过期作废</b>，不补发、不延期、不重置。用不用都在走表。</li>
+    <li>同一个实名主体<b>重新注册账号也领不到第二份</b>。</li>
+  </ol>
+</div>
+
+<h2>额度用完了怎么办</h2>
+<p>两条路：在百炼充值继续用（按量计费，实测一个律师一个月也就几块钱）；
+或者去 <a href="https://platform.deepseek.com/" target="_blank" rel="noreferrer">DeepSeek 开放平台</a>
+注册、创建密钥、充 10 元，在法脉里换成「DeepSeek」。两边的密钥法脉都会分开存，随时切。</p>
+
+<h2>有几句话我们必须说清楚</h2>
+<p><b>密钥是你自己的。</b>我们不代你注册、不替你保管密码、不经手你的密钥。
+如果有人（包括我们）要你把密钥发过去，不要发。</p>
+<p><b>合同不经过我们。</b>法脉没有服务器。你的材料从你的电脑直接发给模型厂商，
+发之前还会按你的设置做一遍化名处理。详见
+<a href="../privacy.html">隐私说明</a>。</p>
+<p class="dim">卡住了就回信说一声，哪一步卡的、屏幕上写了什么。
+想让人陪着弄的，约十分钟腾讯会议，不收费也不推销。</p>
+
+<footer>法脉 · 本地优先的律师法律研究工具 · <a href="../index.html">回官网</a></footer>
+</div>
+</body>
+</html>
