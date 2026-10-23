@@ -354,6 +354,19 @@
     }
     .cite svg { width: 13px; height: 13px; }
     .cite.warn { color: rgb(var(--danger)); }
+    /* 可点开的法条原文：让访客在下载前就摸到「回原文」这个动作 */
+    .cite.law-peek-toggle { cursor: pointer; background: none; border: 0; padding: 0; font: inherit; font-size: 12px; text-align: left; }
+    .cite.law-peek-toggle:hover { text-decoration: underline; }
+    .law-peek {
+      margin: 10px 0 4px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.9;
+      border: 1px solid rgb(var(--primary) / 0.35); background: rgb(var(--background));
+    }
+    .law-peek p + p { margin-top: 8px; }
+    .law-peek-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .law-peek-status { padding: 1px 8px; border-radius: 999px; font-size: 11px; color: rgb(var(--success)); border: 1px solid rgb(var(--success) / 0.4); }
+    .law-peek-note { margin-top: 10px; font-size: 12px; color: rgb(var(--muted)); }
+    .law-peek-note a { color: rgb(var(--primary-soft)); }
+    .mask-demo mark.pair-on { box-shadow: 0 0 0 1.5px rgb(var(--primary) / 0.6); }
     .spotlight + .spotlight { margin-top: 16px; }
 
     /* 功能网格 */
@@ -660,7 +673,7 @@
         · Windows 10 及以上（64 位）
         · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a>
       </p>
-      <p class="meta">公测期间全部功能免费开放，无需账号，无需填付款信息。</p>
+      <p class="meta">公测期间全部功能免费开放：无需账号，无需付款信息；AI 默认接通义千问，新用户开通即有免费额度，不用充值。</p>
 
     </section>
 
@@ -785,10 +798,17 @@
           <div class="diff-row">
             <div class="tagline">示例 · 法脉：每条依据过一遍本地法库</div>
             <p>约定的违约金过分高于造成的损失的，可以请求法院适当减少。</p>
-            <a class="cite" href="#preview">
+            <button type="button" class="cite law-peek-toggle" aria-expanded="false" aria-controls="law-peek-585">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-              依据：民法典第五百八十五条 · 已核验，点击回原文
-            </a>
+              依据：民法典第五百八十五条 · 已核验 · 点一下回原文
+            </button>
+            <div class="law-peek" id="law-peek-585" hidden>
+              <div class="law-peek-head"><strong>《中华人民共和国民法典》第五百八十五条</strong><span class="law-peek-status">现行有效</span></div>
+              <p>当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。</p>
+              <p>约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。</p>
+              <p>当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。</p>
+              <p class="law-peek-note">刚才这一下，就是应用里「回原文」的样子。<a href="laws/civil-code.html#585">在网页版法规库打开这一条 →</a></p>
+            </div>
             <br />
             <span class="cite warn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -884,6 +904,7 @@
             <li class="ok">AI 每条依据回本地法库核验，点击回原文</li>
             <li class="ok">查法条、记笔记、审合同在一个窗口闭环</li>
             <li class="ok">法库、检索、笔记永久免费，付费只为 AI 与更新</li>
+            <li class="no">地方性法规暂未收录：可自行导入 Word / PDF，地方库正在按省准备</li>
           </ul>
         </div>
       </div>
@@ -928,11 +949,11 @@
           <div class="mask-demo">
             <div class="mask-pane">
               <div class="tagline">示例 · 你电脑里的起诉状</div>
-              <p>原告<mark class="mask-hit">王建国</mark>（身份证号 <mark class="mask-hit">110101199003074514</mark>，电话 <mark class="mask-hit">13800138000</mark>）诉被告<mark class="mask-hit">杭州恒晟建材有限公司</mark>买卖合同纠纷：双方于 2023 年 3 月 12 日签订合同，货款共计 487,600 元，被告仅支付 200,000 元……</p>
+              <p>原告<mark class="mask-hit" data-pair="p1">王建国</mark>（身份证号 <mark class="mask-hit" data-pair="p2">110101199003074514</mark>，电话 <mark class="mask-hit" data-pair="p3">13800138000</mark>）诉被告<mark class="mask-hit" data-pair="p4">杭州恒晟建材有限公司</mark>买卖合同纠纷：双方于 2023 年 3 月 12 日签订合同，货款共计 487,600 元，被告仅支付 200,000 元……</p>
             </div>
             <div class="mask-pane">
               <div class="tagline">模型实际收到的 · 已换化名</div>
-              <p>原告<mark class="mask-swap">王某</mark>（身份证号 <mark class="mask-swap">【身份证1】</mark>，电话 <mark class="mask-swap">【手机号1】</mark>）诉被告<mark class="mask-swap">甲公司</mark>买卖合同纠纷：双方于 2023 年 3 月 12 日签订合同，货款共计 487,600 元，被告仅支付 200,000 元……</p>
+              <p>原告<mark class="mask-swap" data-pair="p1">王某</mark>（身份证号 <mark class="mask-swap" data-pair="p2">【身份证1】</mark>，电话 <mark class="mask-swap" data-pair="p3">【手机号1】</mark>）诉被告<mark class="mask-swap" data-pair="p4">甲公司</mark>买卖合同纠纷：双方于 2023 年 3 月 12 日签订合同，货款共计 487,600 元，被告仅支付 200,000 元……</p>
               <p class="mask-keep-note">回答回到你屏幕上时，化名自动还原成真名；「原文→化名」对照表只活在这一次请求的内存里，不落盘。</p>
             </div>
           </div>
@@ -1057,9 +1078,9 @@
         <details>
           <summary>用 AI 功能还要另外花钱吗？大概多少？</summary>
           <div class="answer">
-            需要。AI 采用「自带密钥」：模型费用由你按厂商实际计费直付，法脉不赚差价，也不代收。
-            具体花多少取决于你选的模型和合同长度，应用内有 5 分钟开通向导。
-            订阅费买的是法脉的审查能力与工作流，不含模型算力；这正是合同不必经过我们服务器的前提。
+            新用户基本不用花钱：法脉默认接入通义千问，开通即有免费额度，不用实名、不用充值，常见长度的合同能审几十份。
+            额度用完后按厂商牌价直付（常用模型约 0.2–0.5 元审一份合同），法脉不赚差价，也不代收；
+            这正是合同不必经过我们服务器的前提。应用内有 5 分钟开通向导。
           </div>
         </details>
         <details>
@@ -1090,7 +1111,7 @@
             刑法修正案、监察法规、宪法，逐类与国家法律法规数据库的数量对得上（共 1513 部），
             另存 11 部已废止/已修订的旧文本供查老案子（会打上「已废止」标记），
             并内置 278 件指导性案例与 445 件公报案例。<strong>尚未收录地方性法规与部门规章</strong>，
-            这两类可自行导入 Word/PDF 文件。安装包自带 120 部最常用的，其余在「法律库」页
+            这两类可自行导入 Word/PDF 文件；地方性法规库正在按省准备。安装包自带 120 部最常用的，其余在「法律库」页
             按效力级别按需获取（全拿下来约 28 MB），拉过的以后不联网也能看。
           </div>
         </details>
@@ -1229,7 +1250,7 @@
             "name": "用 AI 功能还要另外花钱吗？大概多少？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "需要。AI 采用自带密钥：模型费用由你按厂商实际计费直付，法脉不赚差价也不代收。具体金额取决于所选模型与合同长度，应用内提供 5 分钟开通向导。订阅费对应的是审查能力与工作流，不包含模型算力。"
+              "text": "新用户基本不用花钱：法脉默认接入通义千问，开通即有免费额度，不用实名、不用充值，常见长度的合同能审几十份。额度用完后按厂商牌价直付（常用模型约 0.2–0.5 元审一份合同），法脉不赚差价也不代收；这正是合同不必经过我们服务器的前提。应用内有 5 分钟开通向导。"
             }
           },
           {
@@ -1261,7 +1282,7 @@
             "name": "法规数据多久更新一次？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "免费版随应用版本更新（约每季度一次），专业版可随时在线检查并更新到最新法规；更新只覆盖官方法条数据，不会动用户笔记。目前收录 1513 部现行法律、行政法规、司法解释与立法解释（全国性法规已是现行全集），另内置 278 件最高法指导性案例与 445 件公报案例；地方性法规与部门规章暂未收录，可自行导入 Word/PDF 文件。"
+              "text": "免费版随应用版本更新（约每季度一次），专业版可随时在线检查并更新到最新法规；更新只覆盖官方法条数据，不会动用户笔记。目前收录 1513 部现行法律、行政法规、司法解释与立法解释（全国性法规已是现行全集），另内置 278 件最高法指导性案例与 445 件公报案例；地方性法规与部门规章暂未收录，可自行导入 Word/PDF 文件，地方性法规库正在按省准备。"
             }
           },
           {
@@ -1436,6 +1457,28 @@
           }
         });
       }
+
+      // ---- 「回原文」演示：点开法条原文面板，让访客下载前就体验核验引用的动作 ----
+      document.querySelectorAll(".law-peek-toggle").forEach(function (toggle) {
+        toggle.addEventListener("click", function () {
+          var peek = document.getElementById(toggle.getAttribute("aria-controls"));
+          if (!peek) { return; }
+          var open = peek.hidden;
+          peek.hidden = !open;
+          toggle.setAttribute("aria-expanded", String(open));
+        });
+      });
+
+      // ---- 脱敏演示联动：悬停左侧的真名，右侧对应的化名一起亮 ----
+      document.querySelectorAll(".mask-demo mark[data-pair]").forEach(function (mark) {
+        function setPair(on) {
+          document.querySelectorAll('.mask-demo mark[data-pair="' + mark.dataset.pair + '"]').forEach(function (other) {
+            other.classList.toggle("pair-on", on);
+          });
+        }
+        mark.addEventListener("mouseenter", function () { setPair(true); });
+        mark.addEventListener("mouseleave", function () { setPair(false); });
+      });
 
       // ---- 顶栏：滚动后落下阴影，并点亮当前读到的那一节 ----
       var header = document.querySelector(".site-header");
