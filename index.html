@@ -56,6 +56,7 @@
       --outline: 60 59 74;
       --success: 83 225 111;
       --danger: 240 109 113;
+      --warning: 240 177 94;
       --shadow-lift: 0 18px 48px rgb(0 0 0 / 0.45);
       --shadow-cta: 0 8px 28px rgb(94 92 230 / 0.35);
       --header-bg: 10 12 16;
@@ -76,6 +77,7 @@
       --outline: 178 187 204;
       --success: 22 128 68;
       --danger: 196 42 54;
+      --warning: 158 98 6;
       --shadow-lift: 0 18px 44px rgb(31 41 55 / 0.14);
       --shadow-cta: 0 8px 24px rgb(43 91 199 / 0.28);
       --header-bg: 246 247 251;
@@ -367,6 +369,27 @@
     .law-peek-note { margin-top: 10px; font-size: 12px; color: rgb(var(--muted)); }
     .law-peek-note a { color: rgb(var(--primary-soft)); }
     .mask-demo mark.pair-on { box-shadow: 0 0 0 1.5px rgb(var(--primary) / 0.6); }
+
+    /* ---------- 示例审查报告（#report）：页面上能点的完整产品输出 ---------- */
+    .report-body { padding: 16px 18px 18px; display: grid; gap: 10px; background: rgb(var(--background)); }
+    .report-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: rgb(var(--muted)); }
+    .risk { padding: 1px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+    .risk.high { color: rgb(var(--danger)); background: rgb(var(--danger) / 0.12); }
+    .risk.mid { color: rgb(var(--warning)); background: rgb(var(--warning) / 0.14); }
+    .risk.low { color: rgb(var(--muted)); background: rgb(var(--surface-high)); }
+    .report-item { border: 1px solid rgb(var(--outline) / 0.45); border-radius: 10px; background: rgb(var(--surface-mid)); overflow: hidden; transition: border-color 200ms ease; }
+    .report-item:hover, .report-item[open] { border-color: rgb(var(--primary) / 0.45); }
+    .report-item summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; list-style: none; font-size: 13.5px; }
+    .report-item summary::-webkit-details-marker { display: none; }
+    .report-item summary::after { content: ""; margin-left: auto; width: 7px; height: 7px; flex: none; border-right: 1.5px solid rgb(var(--muted)); border-bottom: 1.5px solid rgb(var(--muted)); transform: rotate(45deg); transition: transform 180ms ease; }
+    .report-item[open] summary::after { transform: rotate(-135deg); }
+    .report-clause { font-weight: 600; }
+    .report-gist { color: rgb(var(--muted)); }
+    .report-detail { padding: 0 14px 14px; }
+    .report-detail .cite { margin-top: 10px; }
+    .report-note { font-size: 13px; line-height: 1.85; color: rgb(var(--muted)); }
+    .report-foot { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .report-foot .meta { margin-top: 0; }
     .spotlight + .spotlight { margin-top: 16px; }
 
     /* 功能网格 */
@@ -617,6 +640,7 @@
         <span>法脉</span>
       </a>
       <nav class="site-nav" id="site-nav">
+        <a href="#report">示例报告</a>
         <a href="#features">功能</a>
         <a href="#privacy">隐私</a>
         <a href="#pricing">价格</a>
@@ -665,7 +689,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 Windows 版（64 位）
         </a>
-        <a class="btn lg ghost" href="#preview">看看它长什么样</a>
+        <a class="btn lg ghost" href="#report">先看一份审好的合同</a>
       </div>
       <p class="meta" data-win-hint>Windows 版第一次运行会弹蓝色 SmartScreen 提示：点「更多信息 → 仍要运行」即可（公测版暂未购买代码签名证书），<a href="windows.html" data-win-guide>看图解步骤</a>。</p>
       <p class="meta">
@@ -720,50 +744,95 @@
       </div>
     </section>
 
+    <!-- ============ 示例审查报告 ============ -->
+    <!-- 法条原文取自仓内官方语料；585 条在「引用核验」区另有一份，改动须两处同步。 -->
+    <section class="block wrap" id="report">
+      <div class="block-head">
+        <h2>介绍说一百句，不如给你看一份报告</h2>
+        <p>这是法脉以乙方立场审一份购销合同的输出（演示数据）。逐条点开：改法可直接抄走，法律依据当场展开到官方原文。</p>
+      </div>
+      <div class="window reveal">
+        <div class="window-bar">
+          <div class="lights"><i></i><i></i><i></i></div>
+          <span class="window-title">审查报告 · 购销合同（演示）.docx</span>
+          <span class="kbd">专业版 · 乙方立场</span>
+        </div>
+        <div class="report-body">
+          <p class="report-sum">共提出 3 条意见：<span class="risk high">高风险 1</span><span class="risk mid">中风险 1</span><span class="risk low">提示 1</span><span>引用法律依据 2 条，均已回本地法库核实</span></p>
+
+          <details class="report-item" open>
+            <summary><span class="risk high">高风险</span><span class="report-clause">第 8.2 条 · 违约金</span><span class="report-gist">约定 50% 过高，可能被法院调减</span></summary>
+            <div class="report-detail">
+              <div class="diff">
+                <div class="diff-row">
+                  <div class="tagline">合同原文</div>
+                  <del>任何一方违约，应向守约方支付合同总价 <b>50%</b> 的违约金。</del>
+                </div>
+                <div class="diff-row">
+                  <div class="tagline">修改建议 · 可直接替换</div>
+                  <ins>任何一方违约，应向守约方支付合同总价 30% 的违约金；实际损失超过该金额的，就超出部分另行赔偿。</ins>
+                </div>
+              </div>
+              <button type="button" class="cite law-peek-toggle" aria-expanded="false" aria-controls="law-peek-585r">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+                依据：民法典第五百八十五条 · 已核验 · 点一下看原文
+              </button>
+              <div class="law-peek" id="law-peek-585r" hidden>
+                <div class="law-peek-head"><strong>《中华人民共和国民法典》第五百八十五条</strong><span class="law-peek-status">现行有效</span></div>
+                <p>当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。</p>
+                <p>约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。</p>
+                <p>当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。</p>
+                <p class="law-peek-note"><a href="laws/civil-code.html#585">在网页版法规库打开这一条 →</a></p>
+              </div>
+            </div>
+          </details>
+
+          <details class="report-item">
+            <summary><span class="risk mid">中风险</span><span class="report-clause">第 6.1 条 · 验收</span><span class="report-gist">「签收即视为合格」放弃了检验期利益</span></summary>
+            <div class="report-detail">
+              <div class="diff">
+                <div class="diff-row">
+                  <div class="tagline">合同原文</div>
+                  <del>乙方签收货物即视为验收合格，此后不得以数量或者质量问题向甲方主张权利。</del>
+                </div>
+                <div class="diff-row">
+                  <div class="tagline">修改建议 · 可直接替换</div>
+                  <ins>乙方应在收到货物后 15 日内验收；数量或者外观质量异议应在验收期内书面提出，隐蔽瑕疵自发现之日起 30 日内书面提出。</ins>
+                </div>
+              </div>
+              <button type="button" class="cite law-peek-toggle" aria-expanded="false" aria-controls="law-peek-621">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+                依据：民法典第六百二十一条 · 已核验 · 点一下看原文
+              </button>
+              <div class="law-peek" id="law-peek-621" hidden>
+                <div class="law-peek-head"><strong>《中华人民共和国民法典》第六百二十一条</strong><span class="law-peek-status">现行有效</span></div>
+                <p>当事人约定检验期限的，买受人应当在检验期限内将标的物的数量或者质量不符合约定的情形通知出卖人。买受人怠于通知的，视为标的物的数量或者质量符合约定。</p>
+                <p>当事人没有约定检验期限的，买受人应当在发现或者应当发现标的物的数量或者质量不符合约定的合理期限内通知出卖人。买受人在合理期限内未通知或者自收到标的物之日起二年内未通知出卖人的，视为标的物的数量或者质量符合约定；但是，对标的物有质量保证期的，适用质量保证期，不适用该二年的规定。</p>
+                <p>出卖人知道或者应当知道提供的标的物不符合约定的，买受人不受前两款规定的通知时间的限制。</p>
+                <p class="law-peek-note"><a href="laws/civil-code.html#621">在网页版法规库打开这一条 →</a></p>
+              </div>
+            </div>
+          </details>
+
+          <details class="report-item">
+            <summary><span class="risk low">提示</span><span class="report-clause">第 11 条 · 通知与送达</span><span class="report-gist">没约定电子送达，出了纠纷文书送不到</span></summary>
+            <div class="report-detail">
+              <p class="report-note">建议补充：双方确认合同首部所列地址与电子邮箱为有效送达地址，变更应书面通知对方；未通知的，按原地址送达即视为送达。这一条是实务通行做法，没有对应的法条。法脉不会为了凑出处硬挂一条法律依据。</p>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="report-foot reveal">
+        <p class="meta">内置劳动、买卖、房屋租赁审查清单；区分甲方 / 乙方立场；报告一键导出 Word / PDF。<br />这份演示在网页上就能点；装好后拖入你自己的合同，几分钟出同款。合同不出你的电脑，发往模型前当事人已换成化名。</p>
+        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载法脉，审你自己的合同</a>
+      </div>
+    </section>
+
     <!-- ============ 主打功能 ============ -->
     <section class="block wrap" id="features">
       <div class="block-head">
         <h2>把整条工作流放进一个窗口</h2>
         <p>查法条不用切浏览器，写意见不用切文档，AI 的结论不用再回头人工核一遍。</p>
-      </div>
-
-      <div class="spotlight reveal">
-        <div>
-          <span class="tag pro">专业版</span>
-          <h3 style="margin-top:10px">合同审查：逐条给意见，改法可直接抄走</h3>
-          <p>
-            拖入合同即自动切分条款，按合同类型与甲乙方立场逐条出具风险意见，
-            并给出可直接替换的修改文本，原文与建议逐字对照。
-          </p>
-          <ul class="bullets">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
-              内置劳动、买卖、房屋租赁审查清单
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
-              区分甲方 / 乙方立场，结论跟着屁股走
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
-              审查报告一键导出 Word / PDF
-            </li>
-          </ul>
-        </div>
-        <div class="diff">
-          <div class="diff-row">
-            <div class="tagline">示例·原条款 · 第 8.2 条</div>
-            <del>任何一方违约，应向守约方支付合同总价 <b>50%</b> 的违约金。</del>
-          </div>
-          <div class="diff-row">
-            <div class="tagline">修改建议 · 风险：违约金过高可能被调减</div>
-            <ins>任何一方违约，应向守约方支付合同总价 30% 的违约金；实际损失超过该金额的，就超出部分另行赔偿。</ins>
-            <a class="cite" href="#preview">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-              依据：民法典第五百八十五条 · 已核验
-            </a>
-          </div>
-        </div>
       </div>
 
       <div class="spotlight reveal">
@@ -1157,6 +1226,7 @@
         <h2>法条、笔记、合同，都留在你这台电脑上</h2>
         <p>公测期全部功能免费。不需要账号，不需要填付款信息，卸载不留云端尾巴。</p>
         <p>装好就能当场验证这些话：拔掉网线，法库与检索照常；第一次用 AI，实际发出的全文先摆给你看；设置里的出网台账，逐条可查。</p>
+        <p class="meta">公测 7 周发了 11 个版本，<a href="changelog.html">更新日志</a>逐条可查；法规语料在 <a href="https://github.com/lttxzmj/chinese-law-corpus" rel="noopener">GitHub 开源</a>；不装应用，也能先用<a href="laws/index.html">网页版法规库</a>查条文。</p>
         <p>遇到问题、想提需求或进测试群：加微信 <strong>chengyue-wish</strong>（备注「法脉」）。</p>
         <div class="cta-row">
           <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>
@@ -1348,8 +1418,10 @@
         if (node.classList.contains("lg")) { node.classList.add("ghost"); }
       });
       if (isWindows) {
-        var headerDownload = document.querySelector(".site-header [data-download]");
-        if (headerDownload) { headerDownload.href = RELEASE.winPreviewUrl; }
+        // 顶栏与区块内的小号下载按钮都跟随平台；hero 的两个大按钮保持双选。
+        document.querySelectorAll("[data-download]:not(.lg)").forEach(function (node) {
+          node.href = RELEASE.winPreviewUrl;
+        });
       }
       document.querySelectorAll("[data-download-win]").forEach(function (node) {
         node.href = RELEASE.winPreviewUrl;
