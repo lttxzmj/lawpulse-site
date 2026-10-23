@@ -452,6 +452,35 @@
     .guard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 18px; }
     .guard-grid h4 { font-size: 14px; }
     .guard-grid p { margin-top: 6px; font-size: 13.5px; line-height: 1.75; color: rgb(var(--muted)); }
+    /* 脱敏对照演示：换掉的成对标色，没动的刻意不加任何样式——
+       「看见没动」和「看见换了」同样重要。 */
+    .mask-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+    .mask-pane {
+      padding: 14px 16px; border-radius: 10px; font-size: 13px; line-height: 1.95;
+      border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
+    }
+    .mask-pane .tagline { font-size: 11px; color: rgb(var(--muted)); margin-bottom: 6px; }
+    .mask-pane mark { color: inherit; border-radius: 3px; padding: 0 3px; }
+    mark.mask-hit { background: rgb(var(--danger) / 0.14); }
+    mark.mask-swap { background: rgb(var(--success) / 0.16); }
+    .mask-keep-note { margin-top: 10px; font-size: 12px; color: rgb(var(--muted)); }
+    .mask-cats { margin-top: 20px; }
+    .mask-cats-title { font-size: 13.5px; }
+    .mask-groups { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .mask-group {
+      padding: 5px 12px; border-radius: 999px; font-size: 12.5px; white-space: nowrap;
+      color: rgb(var(--muted)); border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
+    }
+    .mask-group strong { color: rgb(var(--text)); font-weight: 600; margin-right: 5px; }
+    .mask-fine { margin-top: 10px; font-size: 12.5px; color: rgb(var(--muted)); }
+    .mask-keep { margin-top: 22px; }
+    .mask-keep h4 { font-size: 14px; }
+    .mask-keep p { margin-top: 6px; font-size: 13.5px; line-height: 1.75; color: rgb(var(--muted)); }
+    .guard-note {
+      margin-top: 20px; padding: 14px 16px; border-radius: 10px; font-size: 13.5px; line-height: 1.8;
+      color: rgb(var(--muted)); border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
+    }
+    .guard-note strong { color: rgb(var(--text)); }
 
     /* ---------- FAQ ---------- */
     .faq { display: grid; gap: 10px; }
@@ -524,6 +553,7 @@
       .spotlight { grid-template-columns: 1fr; gap: 28px; }
       .grid, .prices, .privacy-grid, .guard-grid { grid-template-columns: repeat(2, 1fr); }
       .privacy-grid { gap: 22px; }
+      .mask-demo { grid-template-columns: 1fr; }
     }
 
     /* 窄屏下按钮改成整行堆叠：“下载 Mac 版（M 系列芯片）”加上 nowrap
@@ -598,7 +628,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
           </button>
         </div>
-        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg" data-download>下载</a>
+        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载</a>
       </div>
     </div>
   </header>
@@ -611,14 +641,14 @@
       <h1><span>法条在本地，</span><span>笔记在手边，</span><br />合同不出门</h1>
       <p class="lede">
         为中国执业律师做的本地法律工作台：查法条、记笔记、AI 审合同，
-        在同一个窗口里做完——而你的材料，从头到尾不离开这台电脑。
+        在同一个窗口里做完。你的材料，从头到尾不离开这台电脑。
       </p>
       <div class="cta-row">
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg" data-download>
+        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 Mac 版（M 系列芯片）
         </a>
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe" data-download-win>
+        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           下载 Windows 版（64 位）
         </a>
@@ -667,7 +697,7 @@
         <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
              alt="案例库（深色主题）"
              width="1440" height="900" loading="lazy" decoding="async" />
-        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.1）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例</figcaption>
+        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.2）：读民法典第五百七十七条，右侧边看边记（笔记内容为演示示例）</figcaption>
       </figure>
       <div class="stats reveal">
         <div class="stat"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
@@ -730,7 +760,7 @@
           <p>
             在法庭上引用一条 AI 编出来的司法解释，代价由你来付。
             所以法脉不放行这种句子：AI 给出的每条法律依据都先回本地法库核验，
-            对得上的点一下跳回官方原文，对不上的显著标注「未核实」——绝不混进报告冒充出处。
+            对得上的点一下跳回官方原文，对不上的显著标注「未核实」，不会冒充出处混进报告。
           </p>
           <ul class="bullets">
             <li>
@@ -873,14 +903,14 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
               技术上做不到
             </h3>
-            <p>合同、笔记、检索记录都存在你电脑里的数据库文件中，我们没有能接收它们的服务器。用云端 AI 时，请求以<strong>你自己的密钥</strong>从你的电脑直连模型厂商——我们不在你和模型之间，想看也看不到。密钥经系统级加密，只存本机。</p>
+            <p>合同、笔记、检索记录都存在你电脑里的数据库文件中，我们没有能接收它们的服务器。用云端 AI 时，请求以<strong>你自己的密钥</strong>从你的电脑直连模型厂商。我们不在你和模型之间，想看也看不到。密钥经系统级加密，只存本机。</p>
           </div>
           <div>
             <h3>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6m4 0h6"/><circle cx="12" cy="12" r="2.5"/></svg>
               架构上没开关
             </h3>
-            <p>隐私不是一个要记得打开的选项。断网时，法律库、检索、笔记、案件夹全部照常；应用会发起哪几类网络请求，<a href="privacy.html">隐私政策</a>逐条穷举——此外一个字节都不出门，连「你在研究哪个案子」都没人知道。</p>
+            <p>隐私不是一个要记得打开的选项。断网时，法律库、检索、笔记、案件夹全部照常；应用会发起哪几类网络请求，<a href="privacy.html">隐私政策</a>逐条穷举；此外一个字节都不出门，连「你在研究哪个案子」都没人知道。</p>
           </div>
           <div>
             <h3>
@@ -892,22 +922,54 @@
         </div>
 
         <div class="guard">
-          <h3>必须出网的那一段，也包好了再走</h3>
-          <p class="guard-sub">用云端 AI 时，材料确实要发给你选定的模型厂商。这段路法脉是这样把关的——每一条都能在应用里亲手验证：</p>
+          <h3>必须出网的那一段，发出前先换成化名</h3>
+          <p class="guard-sub">用云端 AI 时，材料确实要发给你选定的模型厂商。所以出网前，法脉先把当事人换掉。左边是你电脑里的材料，右边是模型实际收到的：</p>
+
+          <div class="mask-demo">
+            <div class="mask-pane">
+              <div class="tagline">示例 · 你电脑里的起诉状</div>
+              <p>原告<mark class="mask-hit">王建国</mark>（身份证号 <mark class="mask-hit">110101199003074514</mark>，电话 <mark class="mask-hit">13800138000</mark>）诉被告<mark class="mask-hit">杭州恒晟建材有限公司</mark>买卖合同纠纷：双方于 2023 年 3 月 12 日签订合同，货款共计 487,600 元，被告仅支付 200,000 元……</p>
+            </div>
+            <div class="mask-pane">
+              <div class="tagline">模型实际收到的 · 已换化名</div>
+              <p>原告<mark class="mask-swap">王某</mark>（身份证号 <mark class="mask-swap">【身份证1】</mark>，电话 <mark class="mask-swap">【手机号1】</mark>）诉被告<mark class="mask-swap">甲公司</mark>买卖合同纠纷：双方于 2023 年 3 月 12 日签订合同，货款共计 487,600 元，被告仅支付 200,000 元……</p>
+              <p class="mask-keep-note">回答回到你屏幕上时，化名自动还原成真名；「原文→化名」对照表只活在这一次请求的内存里，不落盘。</p>
+            </div>
+          </div>
+
+          <div class="mask-cats">
+            <p class="mask-cats-title">这样换掉的共有 <strong>23 类</strong>，按《个人信息保护法》第二十八条的法定敏感类别逐一排查：</p>
+            <div class="mask-groups">
+              <span class="mask-group"><strong>当事人</strong>姓名 → 李某 · 企业名 → 甲公司</span>
+              <span class="mask-group"><strong>证件</strong>身份证 · 护照通行证 · 军官证 · 社保卡</span>
+              <span class="mask-group"><strong>账户</strong>银行卡 · 对公账户 · 证券账户 · 发票号</span>
+              <span class="mask-group"><strong>联系</strong>手机 · 固话 · 邮箱 · 微信 QQ</span>
+              <span class="mask-group"><strong>痕迹</strong>地址 · 车牌 · 病历号 · 车架号 · IP…</span>
+            </div>
+            <p class="mask-fine">识别不靠「看着像」：身份证按 GB 11643 校验位认、银行卡过 Luhn 校验、企业名认组织形式后缀。识别规则拿真实法条语料反复校过，法条原文不会被错改。</p>
+          </div>
+
+          <div class="mask-keep">
+            <h4>这些，一个字都不碰：金额、日期、案号、法条条号、公检法机关名</h4>
+            <p>这几样 AI 要拿来算违约金、算诉讼时效、对引用，错杀一个数字，整份分析就废了。原则写死在产品里：宁可漏，不可错杀。真漏了也有兜底：发现疑似遗漏的敏感词，会在出网前停下来，让你当场补进名单、就地替换。</p>
+          </div>
+
           <div class="guard-grid">
             <div>
-              <h4>发出前先换化名</h4>
-              <p>姓名、公司名、身份证号、银行账号等十八类敏感信息，出网前统一换成「李某」「甲公司」，报告里自动还原。化名对照表只活在这一次请求的内存里，不落盘。</p>
+              <h4>第一次发送先过目</h4>
+              <p>第一次往云端发材料，先把实际发出的全文摆给你核对，看过再发。之后随时可在隐私面板查看发出的全文，搜一下当事人的名字，亲眼确认换干净了。</p>
             </div>
             <div>
-              <h4>第一次发送先过目</h4>
-              <p>第一次往云端发材料，先把实际发出的全文摆给你核对，看过再发；发现疑似遗漏的敏感词，会在出网前停下来，当场补进名单、就地替换。</p>
+              <h4>图片，必须你亲手过</h4>
+              <p>截图里的姓名、印章过不了文字化名这道闸，所以发图前必经涂黑界面：拖框即涂，改的是像素本身；疑似公章会自动圈出来提醒你。这道确认不设开关，每次都有。</p>
             </div>
             <div>
               <h4>每次出网都记账</h4>
-              <p>什么时间、发往哪里、发了多少字节、脱敏了几处，本机台账逐条可查、可导出。不必信我们怎么说——自己查。</p>
+              <p>什么时间、发往哪里、发了多少字节、换了几处化名，本机台账逐条可查、可导出 CSV 供律所留档。不必信我们怎么说——自己查。</p>
             </div>
           </div>
+
+          <p class="guard-note">深圳市律师协会 2026 年发布的《关于律师使用人工智能（AI）辅助执业操作指引（2026）（试行）》，给律师的第一条输入建议就是「对于客户身份信息进行脱敏处理」。市面上已有律师为一个单独的脱敏工具付 <strong>¥499</strong>。在法脉里，这一步是每次 AI 调用的<strong>默认动作</strong>：不单独收钱，不用另开软件，也不用记得打开。</p>
         </div>
 
         <figure class="evidence reveal">
@@ -917,7 +979,7 @@
           <img class="evidence-img evidence-when-dark" src="assets/shot-masking-dark.webp"
                alt="审查报告头部实拍（深色主题）：核实声明与脱敏计数"
                width="928" height="170" loading="lazy" decoding="async" />
-          <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次脱敏了什么，逐份写明——不是一句口号</figcaption>
+          <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次换了几处化名，每一份都写明</figcaption>
         </figure>
         <p class="meta">
           数据具体存在哪里、每类网络请求发了什么，在<a href="privacy.html">隐私政策</a>里逐条列了出来。
@@ -934,7 +996,7 @@
       <ul class="nots reveal">
         <li><strong>不需要账号。</strong>下载即用，没有「注册登录」这一步，也就没有存着你个人信息的用户系统。</li>
         <li><strong>不记录你查了什么。</strong>零遥测、零埋点。检索词有时就是案情，所以连它也只留在本机。</li>
-        <li><strong>不锁你的数据。</strong>法库、检索、笔记、导出永久免费，公测结束也不锁——锁你的笔记等于自毁招牌。</li>
+        <li><strong>不锁你的数据。</strong>法库、检索、笔记、导出永久免费，公测结束也不锁；锁你的笔记等于自毁招牌。</li>
         <li><strong>不自动续费。</strong>月卡就是一次性的 30 天，到期就是到期，不做「忘了取消」的生意。</li>
         <li><strong>不做大而全平台。</strong>不做云协作、不做账号体系，只做好你一个人的工作台。</li>
       </ul>
@@ -944,7 +1006,7 @@
     <section class="block wrap" id="pricing">
       <div class="block-head">
         <h2>价格</h2>
-        <p>法律库、检索、笔记与案件夹永久免费；付费解锁 AI 与实时法规更新。这份定价是法脉唯一的收入——正因为收这份钱，我们才用不着打你数据的主意。</p>
+        <p>法律库、检索、笔记与案件夹永久免费；付费解锁 AI 与实时法规更新。这份定价是法脉唯一的收入。正因为收这份钱，我们用不着打你数据的主意。</p>
       </div>
 
       <div class="prices reveal">
@@ -976,7 +1038,7 @@
         </h3>
         <p>
           法律库浏览与全文检索、⌘K 快速查找、笔记与高亮、法条关联与案例引用、案件夹与备忘录导出、
-          对照阅读、Word / PDF / JSON / Markdown 导出、备份恢复与应用锁，以及每季度的法规数据更新——
+          对照阅读、Word / PDF / JSON / Markdown 导出、备份恢复与应用锁，以及每季度的法规数据更新：
           这些永久免费，不设时限。付费墙只挡 AI 与实时数据更新。
         </p>
       
@@ -997,7 +1059,7 @@
           <div class="answer">
             需要。AI 采用「自带密钥」：模型费用由你按厂商实际计费直付，法脉不赚差价，也不代收。
             具体花多少取决于你选的模型和合同长度，应用内有 5 分钟开通向导。
-            订阅费买的是法脉的审查能力与工作流，不含模型算力——这正是合同不必经过我们服务器的前提。
+            订阅费买的是法脉的审查能力与工作流，不含模型算力；这正是合同不必经过我们服务器的前提。
           </div>
         </details>
         <details>
@@ -1017,14 +1079,14 @@
           <summary>支持 Windows 吗？Intel Mac 呢？</summary>
           <div class="answer">
             macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。
-            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可（<a href="windows.html" data-win-guide>图解步骤与杀毒软件放行说明</a>）；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
+            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可（<a href="windows.html" data-win-guide>图解步骤与杀毒软件放行说明</a>）；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
           </div>
         </details>
         <details>
           <summary>法规数据多久更新一次？</summary>
           <div class="answer">
             免费版随应用版本更新（约每季度一次）；专业版可随时在线检查并更新到最新法规。更新只覆盖官方法条数据，绝不会动你的笔记。
-            收录范围：全国性法规已是现行全集——法律、行政法规、司法解释、全国人大常委会的立法解释与
+            收录范围：全国性法规已是现行全集：法律、行政法规、司法解释、全国人大常委会的立法解释与
             刑法修正案、监察法规、宪法，逐类与国家法律法规数据库的数量对得上（共 1513 部），
             另存 11 部已废止/已修订的旧文本供查老案子（会打上「已废止」标记），
             并内置 278 件指导性案例与 445 件公报案例。<strong>尚未收录地方性法规与部门规章</strong>，
@@ -1049,16 +1111,16 @@
         <h2>最近更新</h2>
         <p>公测期迭代快；改了什么、修了什么 bug，都原样写在日志里。</p>
       </div>
-      <div class="updates-card reveal" data-updates-version="0.9.1">
+      <div class="updates-card reveal" data-updates-version="0.9.2">
         <div class="updates-version">
-          <strong>v0.9.1</strong>
-          <time datetime="2026-10-22">2026 年 10 月 22 日</time>
+          <strong>v0.9.2</strong>
+          <time datetime="2026-10-23">2026 年 10 月 23 日</time>
         </div>
         <ul>
           <li>法规库从 520 部扩到 <strong>1513 部现行</strong>（5.6 万条），全国性法规已是全集，逐类跟国家法律法规数据库对过数。下载包没变大：装好自带 120 部最常用的，其余按效力级别或执业方向整批拉取，按钮上写着要下多少（全部拿下来约 28 MB），拉过的以后不联网也能看；快速查找（⌘K）本地搜不到时，会列出云端同名法规，点一下就地拉下来打开。</li>
-          <li>化名保护补齐到<strong>全部 AI 功能</strong>：以前只有合同审查会把当事人姓名、公司名换成「李某」「甲公司」再发出去，现在问答、解读、起草、归纳都一样。发现疑似遗漏会在发出之前停一下，当场补进名单这一次就换掉；<strong>第一次往云端发材料前，先把实际发出的全文摆给您核对一遍</strong>，看过再发。</li>
+          <li>化名保护补齐到<strong>全部 AI 功能</strong>：以前只有合同审查会把当事人姓名、公司名换成「李某」「甲公司」再发出去，现在问答、解读、起草、归纳都一样。发现疑似遗漏会在发出之前停一下，当场补进名单这一次就换掉；<strong>第一次往云端发材料前，先把实际发出的全文摆给你核对一遍</strong>，看过再发。</li>
           <li>文书起草可以对话着改：说一句哪里要改，改动以左右对照摆出来，点「采用」才落进稿子；圈哪句改哪句、每一段都能单独重做；改好的文书能「另存为模板」变成所里自己的格式——只带结构与固定条款，不带本案的当事人与金额。</li>
-          <li>修复 Windows 版装上打不开的问题；配 AI 不用先充钱了——默认改为通义千问，新用户开通即有免费额度。0.9.1 当天跟进修复：法律库搜索框在小窗口被挤没、文书解读与起草页面过窄的问题。</li>
+          <li>修复 Windows 版装上打不开的问题；配 AI 不用先充钱了——默认改为通义千问，新用户开通即有免费额度。0.9.1/0.9.2 跟进修复：搜索框被挤没、解读与起草页面过窄、问答行长失控、更新提示不可见等界面问题。</li>
         </ul>
         <p class="updates-note">升级方式：应用内「设置 → 更新」下载覆盖安装即可，笔记与数据不受影响。</p>
         <div class="updates-links">
@@ -1073,13 +1135,14 @@
       <div class="final reveal">
         <h2>法条、笔记、合同，都留在你这台电脑上</h2>
         <p>公测期全部功能免费。不需要账号，不需要填付款信息，卸载不留云端尾巴。</p>
+        <p>装好就能当场验证这些话：拔掉网线，法库与检索照常；第一次用 AI，实际发出的全文先摆给你看；设置里的出网台账，逐条可查。</p>
         <p>遇到问题、想提需求或进测试群：加微信 <strong>chengyue-wish</strong>（备注「法脉」）。</p>
         <div class="cta-row">
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg" data-download>
+          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             下载 Mac 版（M 系列芯片）
           </a>
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe" data-download-win>
+          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             下载 Windows 版（64 位）
           </a>
@@ -1105,10 +1168,10 @@
         "applicationCategory": "BusinessApplication",
         "applicationSubCategory": "法律检索与合同审查",
         "operatingSystem": "macOS 11.0 或更高版本（Apple Silicon）；Windows 10 或更高版本（64 位，预览版）",
-        "softwareVersion": "0.9.1",
+        "softwareVersion": "0.9.2",
         "fileSize": "150 MB",
         "inLanguage": "zh-CN",
-        "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg",
+        "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg",
         "url": "https://lttxzmj.github.io/lawpulse-site/",
         "image": "https://lttxzmj.github.io/lawpulse-site/assets/icon.png",
         "description": "本地优先的桌面法律研究工具（macOS / Windows）：内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网可全文检索；AI 合同审查与法库问答的每条法律依据都回本地法库校验，可点回原文；无账号、无遥测，AI 采用自带密钥直连模型厂商，无中转服务器。",
@@ -1237,12 +1300,12 @@
     (function () {
       // 发新版本时只改这一处：下载链接、版本号与体积会自动填进页面各处。
       var RELEASE = {
-        version: "0.9.1",
+        version: "0.9.2",
         size: "约 150 MB",
         requirement: "macOS 11 及以上",
-        url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-arm64.dmg",
+        url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg",
         // Windows 目前是预览版：只挂下载链接，不进版本行与主按钮。
-        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.1-x64.exe",
+        winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe",
       };
 
       // 渠道归因：各渠道贴的链接带 ?from=渠道名，这里把它续到下载直链上。
@@ -1256,6 +1319,17 @@
       document.querySelectorAll("[data-download]").forEach(function (node) {
         node.href = RELEASE.url;
       });
+      // 一页只有一个主动作：按访客平台把匹配的安装包留作唯一实心按钮，
+      // 另一个降为描边；顶栏「下载」也跟随平台——此前 Windows 访客点它
+      // 会拿到 Mac 安装包。纯本地 UA 判断，不发请求。
+      var isWindows = /Windows/i.test(navigator.userAgent);
+      document.querySelectorAll(isWindows ? "[data-download]" : "[data-download-win]").forEach(function (node) {
+        if (node.classList.contains("lg")) { node.classList.add("ghost"); }
+      });
+      if (isWindows) {
+        var headerDownload = document.querySelector(".site-header [data-download]");
+        if (headerDownload) { headerDownload.href = RELEASE.winPreviewUrl; }
+      }
       document.querySelectorAll("[data-download-win]").forEach(function (node) {
         node.href = RELEASE.winPreviewUrl;
         // SmartScreen 是 Windows「下载→启动」漏斗的主断点：用户撞上蓝色弹窗的
@@ -1276,8 +1350,8 @@
       }
       // 产品截图页签：切场景换图换说明；主题归 CSS 管，这里只动 is-active。
       var SHOT_CAPTIONS = {
-        workbench: "真实界面截图（v0.9.1）：读民法典第五百七十七条，右侧边看边记——笔记内容为演示示例",
-        review: "真实界面截图：审查报告按风险分级，原文与建议逐字对照，依据注明「已核实 / 未核实」——意见为演示示例",
+        workbench: "真实界面截图（v0.9.2）：读民法典第五百七十七条，右侧边看边记（笔记内容为演示示例）",
+        review: "真实界面截图：审查报告按风险分级，原文与建议逐字对照，依据注明「已核实 / 未核实」（意见为演示示例）",
         qa: "真实界面截图：先检索本地法库再作答，每条结论都标注引用材料，点一下回到法条原文",
         cases: "真实界面截图：278 件指导性案例＋445 件公报案例内置，与法条双向关联",
       };
