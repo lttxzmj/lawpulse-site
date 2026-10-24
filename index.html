@@ -390,6 +390,8 @@
     .report-note { font-size: 13px; line-height: 1.85; color: rgb(var(--muted)); }
     .report-foot { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
     .report-foot .meta { margin-top: 0; }
+    /* 小字对比度提一档：弱化靠字号，不靠灰到看不清。 */
+    .meta, .preview-cap, .stat .cap, .updates-note { color: rgb(var(--text) / 0.8); }
     .spotlight + .spotlight { margin-top: 16px; }
 
     /* 功能网格 */
@@ -517,6 +519,9 @@
       color: rgb(var(--muted)); border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
     }
     .guard-note strong { color: rgb(var(--text)); }
+    /* 隐私区改为证据在前：guard 升为首块、支柱落到实拍图之后，分隔线跟着换位。 */
+    .privacy > .guard:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+    .evidence + .privacy-grid { margin-top: 26px; padding-top: 26px; border-top: 1px solid rgb(var(--outline) / 0.35); }
 
     /* ---------- FAQ ---------- */
     .faq { display: grid; gap: 10px; }
@@ -677,8 +682,8 @@
       <!-- 短语整体换行：窄屏下不许从「手边」中间拆出孤字（390px 实测拆成「手/边」）。 -->
       <h1><span>法条在本地，</span><span>笔记在手边，</span><br />合同不出门</h1>
       <p class="lede">
-        为中国执业律师做的本地法律工作台：查法条、记笔记、AI 审合同，
-        在同一个窗口里做完。你的材料，从头到尾不离开这台电脑。
+        为中国执业律师做的本地法律工作台：查法条、记笔记、AI 审合同，在一个窗口里做完。
+        资料存在你本机；用云端 AI 时，先换成化名，发送内容你亲自核对。
       </p>
       <div class="cta-row">
         <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>
@@ -701,51 +706,8 @@
 
     </section>
 
-    <!-- ============ 产品预览 ============ -->
-    <section class="preview wrap reveal" id="preview">
-      <div class="preview-tabs" role="tablist" aria-label="产品界面场景">
-        <button type="button" class="preview-tab" role="tab" aria-selected="true" data-scene="workbench">法条＋笔记</button>
-        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="review">合同审查</button>
-        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="qa">法库问答</button>
-        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="cases">案例库</button>
-      </div>
-      <figure class="shot">
-        <img class="shot-img is-active shot-when-light" data-scene="workbench" src="assets/shot-workbench-light.webp"
-             alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
-             width="1440" height="900" decoding="async" />
-        <img class="shot-img is-active shot-when-dark" data-scene="workbench" src="assets/shot-workbench-dark.webp"
-             alt="法脉真实界面（深色主题）：法条正文与停靠笔记面板"
-             width="1440" height="900" decoding="async" />
-        <img class="shot-img shot-when-light" data-scene="review" src="assets/shot-review-light.webp"
-             alt="合同审查报告：按风险分级逐条给意见，原文与修改建议对照，法条依据注明已核实或未核实"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" data-scene="review" src="assets/shot-review-dark.webp"
-             alt="合同审查报告（深色主题）"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-light" data-scene="qa" src="assets/shot-qa-light.webp"
-             alt="法库问答：回答分结论、具体标准、实务提示，每条结论标注引用的法条材料，可点回原文"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" data-scene="qa" src="assets/shot-qa-dark.webp"
-             alt="法库问答（深色主题）"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-light" data-scene="cases" src="assets/shot-cases-light.webp"
-             alt="案例库：278 件指导性案例与公报案例，案由、关键词、裁判日期一览"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
-             alt="案例库（深色主题）"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.2）：读民法典第五百七十七条，右侧边看边记（笔记内容为演示示例）</figcaption>
-      </figure>
-      <div class="stats reveal">
-        <div class="stat"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
-        <div class="stat"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
-        <div class="stat"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
-        <div class="stat"><div class="num" data-count="0">0</div><div class="cap">台服务器经手你的数据</div></div>
-      </div>
-    </section>
-
     <!-- ============ 示例审查报告 ============ -->
-    <!-- 法条原文取自仓内官方语料；585 条在「引用核验」区另有一份，改动须两处同步。 -->
+    <!-- 法条原文逐字取自仓内官方语料（docs/laws/civil-code.html），改动前先核原文。 -->
     <section class="block wrap" id="report">
       <div class="block-head">
         <h2>介绍说一百句，不如给你看一份报告</h2>
@@ -823,9 +785,52 @@
         </div>
       </div>
       <div class="report-foot reveal">
-        <p class="meta">同一份合同拿去问通用 AI，它会答「依据《中华人民共和国合同法》第一百一十四条……」——该法 2021 年已废止。法脉验不过的依据一律标红「未核实」，不冒充出处。</p>
+        <p class="meta">通用 AI 可能引用已废止甚至不存在的条文而不自知；法脉的每条依据都先回本地法库核验，验不过的一律标红「未核实」，不冒充出处。</p>
         <p class="meta">内置劳动、买卖、房屋租赁三类审查清单；区分甲方 / 乙方立场；报告一键导出 Word / PDF。装好后拖入你自己的合同，几分钟出同款。</p>
         <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载法脉，审你自己的合同</a>
+      </div>
+    </section>
+
+    <!-- ============ 产品预览 ============ -->
+    <section class="preview wrap reveal" id="preview">
+      <div class="preview-tabs" role="tablist" aria-label="产品界面场景">
+        <button type="button" class="preview-tab" role="tab" aria-selected="true" data-scene="workbench">法条＋笔记</button>
+        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="review">合同审查</button>
+        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="qa">法库问答</button>
+        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="cases">案例库</button>
+      </div>
+      <figure class="shot">
+        <img class="shot-img is-active shot-when-light" data-scene="workbench" src="assets/shot-workbench-light.webp"
+             alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
+             width="1440" height="900" decoding="async" />
+        <img class="shot-img is-active shot-when-dark" data-scene="workbench" src="assets/shot-workbench-dark.webp"
+             alt="法脉真实界面（深色主题）：法条正文与停靠笔记面板"
+             width="1440" height="900" decoding="async" />
+        <img class="shot-img shot-when-light" data-scene="review" src="assets/shot-review-light.webp"
+             alt="合同审查报告：按风险分级逐条给意见，原文与修改建议对照，法条依据注明已核实或未核实"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-dark" data-scene="review" src="assets/shot-review-dark.webp"
+             alt="合同审查报告（深色主题）"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-light" data-scene="qa" src="assets/shot-qa-light.webp"
+             alt="法库问答：回答分结论、具体标准、实务提示，每条结论标注引用的法条材料，可点回原文"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-dark" data-scene="qa" src="assets/shot-qa-dark.webp"
+             alt="法库问答（深色主题）"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-light" data-scene="cases" src="assets/shot-cases-light.webp"
+             alt="案例库：278 件指导性案例与公报案例，案由、关键词、裁判日期一览"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
+             alt="案例库（深色主题）"
+             width="1440" height="900" loading="lazy" decoding="async" />
+        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.2）：读民法典第五百七十七条，右侧边看边记（笔记内容为演示示例）</figcaption>
+      </figure>
+      <div class="stats reveal">
+        <div class="stat"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
+        <div class="stat"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
+        <div class="stat"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
+        <div class="stat"><div class="num" data-count="0">0</div><div class="cap">台服务器经手你的数据</div></div>
       </div>
     </section>
 
@@ -833,7 +838,7 @@
     <section class="block wrap" id="features">
       <div class="block-head">
         <h2>把整条工作流放进一个窗口</h2>
-        <p>查法条不用切浏览器，写意见不用切文档，AI 的结论不用再回头人工核一遍。</p>
+        <p>查法条不用切浏览器，写意见不用切文档；AI 引用的依据可以点回原文，逐条复核。</p>
       </div>
 
       <div class="grid">
@@ -842,7 +847,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6H6a2 2 0 0 0-2 2v11a2 2 0 0 1 2-2h10Z"/><path d="M20 3v18M16 3v3"/></svg>
           </div>
           <h3>离线法律库 <span class="tag">免费</span></h3>
-          <p>1513 部现行法律、行政法规与司法解释，共 56182 条，全部取自国家法律法规数据库官方文本。编章节导航、条号跳转、全文检索，断网照查。</p>
+          <p>1513 部现行法律、行政法规与司法解释，共 56182 条，取自国家法律法规数据库官方文本，支持全文检索。安装自带 120 部常用，其余按需拉取（全部约 28 MB），拉过的断网照查。</p>
         </div>
 
         <div class="card reveal">
@@ -932,34 +937,10 @@
     <section class="block wrap" id="privacy">
       <div class="block-head">
         <h2>你的合同，我们看不到</h2>
-        <p>律师对客户负有保密义务，「不泄露」不能只是承诺。法脉给三道答案：技术上做不到，架构上没开关，商业上没动机。</p>
+        <p>律师对客户负有保密义务，所以这里先摆你能亲手核对的机制，再讲为什么我们想看也看不到。</p>
       </div>
 
       <div class="privacy reveal">
-        <div class="privacy-grid">
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-              技术上做不到
-            </h3>
-            <p>合同、笔记、检索记录都存在你电脑里，我们没有能接收它们的服务器。用云端 AI 时，请求从你的电脑直连模型厂商，我们不在你和模型之间，想看也看不到。</p>
-          </div>
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6m4 0h6"/><circle cx="12" cy="12" r="2.5"/></svg>
-              架构上没开关
-            </h3>
-            <p>断网时，法律库、检索、笔记全部照常；应用会发起哪几类网络请求，<a href="privacy.html">隐私政策</a>逐条穷举，连「你在研究哪个案子」都没人知道。</p>
-          </div>
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><path d="M15.7 6.3a5.5 5.5 0 1 1-7.4 7.4"/></svg>
-              商业上没动机
-            </h3>
-            <p>法脉靠卖软件授权赚钱，不靠数据：没有广告，没有「用户画像」。你的付费，让我们不需要第二种收入。</p>
-          </div>
-        </div>
-
         <div class="guard">
           <h3>必须出网的那一段，发出前先换成化名</h3>
           <p class="guard-sub">用云端 AI 时，材料确实要发给模型厂商。所以出网前先把当事人换掉：左边是你电脑里的材料，右边是模型实际收到的。</p>
@@ -1020,6 +1001,31 @@
                width="928" height="170" loading="lazy" decoding="async" />
           <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次换了几处化名，每一份都写明</figcaption>
         </figure>
+
+        <div class="privacy-grid">
+          <div>
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              技术上做不到
+            </h3>
+            <p>合同、笔记、检索记录都存在你电脑里，我们没有能接收它们的服务器。用云端 AI 时，请求从你的电脑直连模型厂商，我们不在你和模型之间，想看也看不到。</p>
+          </div>
+          <div>
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6m4 0h6"/><circle cx="12" cy="12" r="2.5"/></svg>
+              架构上没开关
+            </h3>
+            <p>断网时，法律库、检索、笔记全部照常；应用会发起哪几类网络请求，<a href="privacy.html">隐私政策</a>逐条穷举，连「你在研究哪个案子」都没人知道。</p>
+          </div>
+          <div>
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><path d="M15.7 6.3a5.5 5.5 0 1 1-7.4 7.4"/></svg>
+              商业上没动机
+            </h3>
+            <p>法脉靠卖软件授权赚钱，不靠数据：没有广告，没有「用户画像」。你的付费，让我们不需要第二种收入。</p>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1066,6 +1072,8 @@
           <p>该版本永久可用，含 1 年数据更新，<br />之后续更新 ¥99/年。</p>
         </div>
       </div>
+
+      <p class="meta" style="text-align:center">订阅解锁的是功能；AI 模型调用费另算，由你直付厂商：默认接通义千问，新用户开通即有免费额度，之后常用模型约 0.2–0.5 元审一份合同。</p>
 
       <div class="free-note reveal">
         <h3>
