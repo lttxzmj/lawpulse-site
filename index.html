@@ -168,6 +168,8 @@
     .hero h1 span, .hero h1 em { display: inline-block; }
     .hero h1 em { font-style: normal; color: rgb(var(--blue)); }
     .lede { margin-top: 22px; font-size: 14px; max-width: 34em; }
+    /* 两个差异点要在首屏立住，不能跟工作流描述一个灰度。 */
+    .lede b { font-weight: 550; color: rgb(var(--ink)); }
     .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 26px; }
     .actions .link { margin-left: 8px; }
     .margin-note { min-width: 250px; max-width: 290px; padding-left: 24px; border-left: 1px solid rgb(var(--line)); }
@@ -327,6 +329,16 @@
     .cmp-act strong { font-size: 14px; font-weight: 550; color: rgb(var(--ink)); }
     .cmp-act p { margin-top: 7px; font-size: 12px; }
     .cmp-note { padding: 15px 26px; font-size: 11px; line-height: 1.9; color: rgb(var(--muted)); }
+    /* 起草示例卡 */
+    .draft-gap { margin-top: 14px; padding: 12px 14px; font-size: 13px; color: rgb(var(--warn)); background: rgb(var(--warn-bg)); }
+    .draft-note { margin-top: 14px; font-size: 12px; }
+    .draft-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgb(var(--line)); }
+    .draft-acts span { padding: 5px 11px; border-radius: 3px; font-size: 11px; color: rgb(var(--muted)); background: rgb(var(--sunken)); }
+    /* 三处可以自己核对的证据：开关开着≠安全，得让人能亲手查 */
+    .checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 26px; padding-top: 26px; border-top: 1px solid rgb(var(--line)); }
+    .checks h4 { font-size: 13.5px; }
+    .checks p { margin-top: 8px; font-size: 12.5px; }
+    .checks strong { font-weight: 550; color: rgb(var(--ink)); }
     .bounds { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 24px 0; }
     .bounds p { font-size: 12px; }
     .bounds strong { font-weight: 550; color: rgb(var(--ink)); }
@@ -390,7 +402,7 @@
       .flow, .review { gap: 36px; }
       .case-body { grid-template-columns: 245px 1fr; }
       .facts { gap: 24px; }
-      .bounds { gap: 24px; }
+      .bounds, .checks { gap: 24px; }
     }
 
     @media (max-width: 820px) {
@@ -404,7 +416,7 @@
       .facts { grid-template-columns: 1fr 1fr; gap: 22px; }
       .fees { grid-template-columns: 1fr; }
       .fees article { border-right: 0; border-bottom: 1px solid rgb(var(--line)); padding: 24px; }
-      .bounds { grid-template-columns: 1fr; gap: 14px; }
+      .bounds, .checks { grid-template-columns: 1fr; gap: 14px; }
       .case-body, .cmp-cols, .cmp-row { grid-template-columns: 1fr; }
       .cmp-cols span + span { display: none; }
       .cmp-row .after { border-left: 0; border-top: 1px dashed rgb(var(--line)); }
@@ -447,7 +459,7 @@
       <nav class="site-nav" id="site-nav">
         <a href="#workflow">怎么用</a>
         <a href="#case">案件夹</a>
-        <a href="#review">合同审查</a>
+        <a href="#review">审查与起草</a>
         <a href="#privacy">隐私</a>
         <a href="#pricing">费用</a>
         <a href="#faq">常见问题</a>
@@ -481,7 +493,7 @@
           <div>
             <span class="eyebrow">法律研究与办案笔记 / macOS &amp; Windows</span>
             <h1><span>查过的法条，</span><span>写过的判断。</span><br /><em>一起放进这件案子。</em></h1>
-            <p class="lede">查到一条有用的法，顺手记下它和本案的关系。<br />相关法条和笔记收进案件夹，需要时导出备忘录。</p>
+            <p class="lede">查到一条有用的法，顺手记下它和本案的关系。相关法条和笔记收进案件夹，需要时导出备忘录。<br /><b>材料全程留在本机；用云端 AI 前先换化名，每条依据可点回原文。</b></p>
             <div class="actions">
               <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载 Mac 版</a>
               <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
@@ -677,7 +689,7 @@
         <div class="review-copy">
           <span class="eyebrow">合同审查是辅助工具，按需使用</span>
           <h2>审合同，<br />原文和改法对着看。</h2>
-          <p>选好审查立场，看条款原文、修改建议和法律引用。引用先回本地法库核验，验不过的在报告里标注「未核实」，提示人工复核。要保留的风险点可存为笔记，报告可导出 Word / PDF。</p>
+          <p>一条引错的依据，代价在你这边。所以每条法律引用先回本地法库核验，验不过的在报告里标注「未核实」，提示人工复核。选好审查立场，看条款原文与改法对照；要保留的风险点可存为笔记，报告导出 Word / PDF。</p>
           <p class="fine">下面是固定示例。引用可以核对；具体怎么改，还要结合这份合同判断。</p>
           <details class="review-shot">
             <summary>查看真实审查界面截图 ↗</summary>
@@ -712,15 +724,37 @@
       </div>
     </section>
 
+    <!-- ============ 从案件夹到成稿 ============ -->
+    <section class="sec band" id="drafts">
+      <div class="wrap review">
+        <div class="review-copy">
+          <span class="eyebrow">专业版 · 公测期免费开放</span>
+          <h2>材料齐了，<br />接着起草。</h2>
+          <p>起诉状、答辩状、法律意见书等七类文书，以案件夹里的法条和笔记起草，法源逐条可核实。说一句哪里要改，改动左右对照摆出来，点「采用」才落进稿子；每一段都能单独重做。</p>
+          <p class="fine">定稿可以「另存为模板」变成所里自己的格式：只带结构与固定条款，不带本案的当事人和金额。下面是固定示例，不调用模型。</p>
+        </div>
+        <div class="card">
+          <div class="rc-top"><span>法律意见书 / 由案件夹材料起草</span><span>示例片段</span></div>
+          <div class="rc-body">
+            <label>草稿片段 · 待律师核对</label>
+            <p>关于买方质量异议是否及时提出，应结合双方约定的检验期限、货物性质与通知证据判断。</p>
+            <p class="draft-gap">【待补充：合同检验条款原文、质量异议邮件的送达记录】</p>
+            <p class="draft-note">事实不全的地方留标记，不替你编。材料补齐后逐段改，再导出。</p>
+            <div class="draft-acts"><span>重做本段</span><span>左右对照后「采用」</span><span>另存为模板</span><span>导出 Word</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 隐私 ============ -->
-    <section class="sec band" id="privacy">
+    <section class="sec" id="privacy">
       <div class="wrap">
         <div class="head">
           <div>
             <span class="eyebrow">材料交出去之前</span>
             <h2>姓名换掉了，<br />还有哪些内容会发出去？</h2>
           </div>
-          <p>云端 AI 会收到材料和提示词。看一份虚构笔记，处理前后有什么变化。</p>
+          <p>深圳律协 2026 年的律师 AI 执业指引，第一条输入建议就是对客户身份信息脱敏。下面是一份虚构笔记，看处理前后有什么变化。</p>
         </div>
 
         <div class="cmp">
@@ -755,6 +789,21 @@
           <p class="cmp-note">标「已化名 / 已替换」的发出前就换好；标「需人工检查」的要靠你判断。回答回到屏幕上时化名自动还原，对照表只活在这一次请求的内存里，不落盘。此处是固定示例，不检测你输入的材料，也不连接模型。</p>
         </div>
 
+        <div class="checks">
+          <div>
+            <h4>出网前会停下来</h4>
+            <p>「发现疑似遗漏就暂停」默认开着：在<strong>已经换过化名的那份</strong>上再扫一遍，把「看着像当事人却没换掉」的词挑出来，可以当场补进名单，这一次就生效。</p>
+          </div>
+          <div>
+            <h4>搜你最担心的那个名字</h4>
+            <p>隐私面板里看到的是<strong>模型实际收到的那份全文</strong>，并能就地搜索。搜的不是处理前的稿子，是真正发出去的那份。</p>
+          </div>
+          <div>
+            <h4>第一次发送必看一遍</h4>
+            <p>首次往云端发材料前，无条件把全文摆出来过目，不设开关。之后每次出网都记进本机台账，可导出 CSV。</p>
+          </div>
+        </div>
+
         <div class="bounds">
           <p><strong>脱敏不只看姓名。</strong>自动替换覆盖姓名、证件号、账号、联系方式等 23 类；金额、日期、案号刻意保留（分析要用），案情背景仍可能让人识别当事人，发送前需核对。</p>
           <p><strong>图片单独处理。</strong>文字脱敏遮不住图片里的签名和印章，所以发图前必经涂黑界面，疑似公章会自动圈出。这道确认不设开关。</p>
@@ -775,7 +824,7 @@
     </section>
 
     <!-- ============ 费用 ============ -->
-    <section class="sec" id="pricing">
+    <section class="sec band" id="pricing">
       <div class="wrap">
         <div class="head">
           <div>
