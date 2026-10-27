@@ -133,7 +133,7 @@
     .btn:disabled { opacity: 0.45; cursor: default; }
     .link { font-size: 12px; color: rgb(var(--blue)); }
     .link:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .fine { margin-top: 14px; font-size: 11.5px; line-height: 1.85; color: rgb(var(--muted)); }
+    .fine { margin-top: 14px; font-size: 12px; line-height: 1.9; color: rgb(var(--muted)); }
     .fine a { color: rgb(var(--blue)); }
     .card { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); }
 
@@ -210,7 +210,8 @@
     .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 40px; padding: 24px 0; border-top: 1px solid rgb(var(--line)); }
     .fact .num { font-size: 26px; font-weight: 600; letter-spacing: -0.04em; color: rgb(var(--blue)); font-variant-numeric: tabular-nums; }
     .fact .cap { margin-top: 5px; font-size: 11.5px; line-height: 1.7; color: rgb(var(--muted)); }
-    .scope { border-top: 1px solid rgb(var(--line)); }
+    .facts-note { margin-top: 14px; font-size: 12px; color: rgb(var(--muted)); }
+    .scope { border-top: 1px solid rgb(var(--line)); margin-top: 22px; }
     .scope > summary { padding: 17px 0; font-size: 12.5px; color: rgb(var(--blue)); cursor: pointer; list-style: none; }
     .scope > summary::-webkit-details-marker { display: none; }
     .scope > summary::before { content: "▸ "; }
@@ -218,7 +219,7 @@
     .scope dl { margin: 0 0 10px; }
     .scope dl > div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgb(var(--line)); }
     .scope dt { font-size: 11px; color: rgb(var(--muted)); padding-top: 3px; }
-    .scope dd { margin: 0; font-size: 12.5px; line-height: 1.9; color: rgb(var(--muted)); }
+    .scope dd { margin: 0; font-size: 13px; line-height: 1.9; color: rgb(var(--muted)); }
     .scope dd a { color: rgb(var(--blue)); }
     .scope > small { display: block; padding-bottom: 14px; font-size: 10.5px; color: rgb(var(--muted)); }
 
@@ -327,7 +328,7 @@
     .cmp-act { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 26px; background: rgb(var(--sunken)); }
     .cmp-act strong { font-size: 14px; font-weight: 550; color: rgb(var(--ink)); }
     .cmp-act p { margin-top: 7px; font-size: 12px; }
-    .cmp-note { padding: 15px 26px; font-size: 11px; line-height: 1.9; color: rgb(var(--muted)); }
+    .cmp-note { padding: 15px 26px; font-size: 12px; line-height: 1.9; color: rgb(var(--muted)); }
     /* 起草示例卡 */
     .draft-gap { margin-top: 14px; padding: 12px 14px; font-size: 13px; color: rgb(var(--warn)); background: rgb(var(--warn-bg)); }
     .draft-note { margin-top: 14px; font-size: 12px; }
@@ -499,7 +500,7 @@
               <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
               <a class="link" href="#case">试用案件夹 ↓</a>
             </div>
-            <p class="fine" data-win-hint>Windows 首次运行会弹 SmartScreen：点「更多信息 → 仍要运行」，<a href="windows.html" data-win-guide>看图解</a>。</p>
+            <p class="fine" data-win-hint>Windows 版尚未做代码签名，首次运行系统会提示未知发布者；<a href="windows.html" data-win-guide>安装说明</a>。</p>
             <p class="fine"><span data-release-line>最新版本</span> · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像</a> · 不装也能在<a href="laws/index.html">网页版法规库</a>搜法条</p>
           </div>
           <aside class="margin-note">
@@ -553,8 +554,9 @@
           <div class="fact"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
           <div class="fact"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
           <div class="fact"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
-          <div class="fact"><div class="num" data-count="0">0</div><div class="cap">台服务器经手你的材料</div></div>
+          <div class="fact"><div class="num" data-count="0">0</div><div class="cap">台法脉的中转服务器</div></div>
         </div>
+        <p class="facts-note">法脉不设材料中转服务器；用云端 AI 时，本次提交的内容会发给你选定的模型服务商。</p>
 
         <details class="scope" id="scope">
           <summary>收录范围和更新，下载前先看清楚</summary>
@@ -648,7 +650,7 @@
         <div class="review-copy">
           <span class="eyebrow">合同审查是辅助工具，按需使用</span>
           <h2>审合同，<br />原文和改法对着看。</h2>
-          <p>一条引错的依据，代价在你这边。所以每条引用先回本地法库核验，验不过的标注「未核实」。按立场审，原文与改法对照，报告导出 Word / PDF。</p>
+          <p>按立场审，原文与改法对照。每条法律引用先回本地法库核验：对得上的可点回原文核对，未核实的单独标出。报告导出 Word / PDF。</p>
           <p class="fine">固定示例。具体怎么改，还要结合这份合同判断。</p>
           <details class="review-shot">
             <summary>查看真实审查界面截图 ↗</summary>
@@ -688,8 +690,8 @@
       <div class="wrap review">
         <div class="review-copy">
           <span class="eyebrow">专业版 · 公测期免费开放</span>
-          <h2>材料齐了，<br />接着起草。</h2>
-          <p>起诉状、法律意见书等七类文书，用案件夹里的法条和笔记起草，法源逐条可核实。改动左右对照，点「采用」才落稿；每段能单独重做，定稿可另存为模板。</p>
+          <h2>用案件夹里的<br />研究起草。</h2>
+          <p>起诉状、法律意见书等七类文书，法源逐条可核实。改动左右对照，点「采用」才落稿；每段能单独重做，定稿可另存为模板。</p>
         </div>
         <div class="card">
           <div class="rc-top"><span>法律意见书 / 由案件夹材料起草</span><span>示例片段</span></div>
@@ -697,7 +699,7 @@
             <label>草稿片段 · 待律师核对</label>
             <p>关于买方质量异议是否及时提出，应结合双方约定的检验期限、货物性质与通知证据判断。</p>
             <p class="draft-gap">【待补充：合同检验条款原文、质量异议邮件的送达记录】</p>
-            <p class="draft-note">事实不全的地方留标记，不替你编。材料补齐后逐段改，再导出。</p>
+            <p class="draft-note">缺失事实标为待补充，生成后仍需逐项核对。</p>
             <div class="draft-acts"><span>重做本段</span><span>左右对照后「采用」</span><span>另存为模板</span><span>导出 Word</span></div>
           </div>
         </div>
@@ -804,11 +806,11 @@
             <h3>公测免费开放</h3>
             <p>AI 问答、合同审查、文书解读与起草，在线法规更新。</p>
             <ul class="fee-prices">
-              <li>月卡 <b>¥39</b>（一次性 30 天，不自动续费）</li>
-              <li>年订阅 <b>¥129</b> 早鸟（原价 ¥399）</li>
-              <li>买断 <b>¥399</b>（含 1 年更新）</li>
+              <li>月卡 <b>¥39</b>：一次性 30 天，不自动续费</li>
+              <li>年订阅 <b>¥129</b> 早鸟：名额售完恢复 ¥199，到期手动续，不自动扣费</li>
+              <li>买断 <b>¥399</b>：该版本永久可用，含 1 年法规更新；之后 ¥99/年续，不续也能接着用，法规数据停在最后一次更新</li>
             </ul>
-            <small>以上为正式版定价。</small>
+            <small>以上为正式版定价，公测期免费。</small>
           </article>
           <article>
             <span class="fee-label">模型调用</span>
@@ -911,7 +913,7 @@
             <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载 Mac 版</a>
             <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
           </div>
-          <p class="fine" data-win-hint>Windows 首次运行会弹 SmartScreen：点「仍要运行」即可，<a href="windows.html" data-win-guide>看图解</a>。</p>
+          <p class="fine" data-win-hint>Windows 版尚未做代码签名，首次运行系统会提示未知发布者；<a href="windows.html" data-win-guide>安装说明</a>。</p>
           <p class="fine">法规语料 <a href="https://github.com/lttxzmj/chinese-law-corpus" rel="noopener">GitHub 开源</a> · 进测试群：微信 <strong>chengyue-wish</strong></p>
         </div>
       </div>
