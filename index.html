@@ -137,6 +137,15 @@
     .fine a { color: rgb(var(--blue)); }
     .card { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); }
 
+    /* 公告条：把「这个东西还活着」放到第一眼，而不是埋在页底。 */
+    .notice {
+      display: block; padding: 10px 0; text-align: center;
+      font-size: 12px; color: rgb(var(--muted));
+      background: rgb(var(--band)); border-bottom: 1px solid rgb(var(--line));
+    }
+    .notice:hover { color: rgb(var(--blue)); }
+    .notice b { font-weight: 550; color: rgb(var(--ink)); }
+
     /* ---------- 顶栏 ---------- */
     .site-header {
       position: sticky; top: 0; z-index: 30; height: 74px;
@@ -163,14 +172,33 @@
     /* ---------- Hero ---------- */
     .hero { padding: 66px 0 0; }
     .hero-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 50px; margin-bottom: 42px; }
-    .hero h1 { font-size: clamp(31px, 4.4vw, 49px); letter-spacing: -0.055em; }
+    /* 首屏有了可动手的搜条框，标题就不必再抢戏（manus 的 h1 只有 36px）。 */
+    .hero h1 { font-size: clamp(29px, 3.8vw, 42px); letter-spacing: -0.05em; }
     /* 短语整体换行：窄屏下不许从「判断」中间拆出孤字。 */
     .hero h1 span, .hero h1 em { display: inline-block; }
     .hero h1 em { font-style: normal; color: rgb(var(--blue)); }
     .lede { margin-top: 22px; font-size: 14px; max-width: 34em; }
     /* 两个差异点要在首屏立住，不能跟工作流描述一个灰度。 */
     .lede b { font-weight: 550; color: rgb(var(--ink)); }
-    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 26px; }
+    /* ---------- 法条直达：下载之前先让人真用一次（打的是网页版法规库的真数据） ---------- */
+    .jump { display: flex; gap: 10px; margin-top: 26px; max-width: 540px; }
+    .jump input {
+      flex: 1; min-width: 0; min-height: 46px; padding: 0 14px;
+      border: 1px solid rgb(var(--line)); border-radius: 5px;
+      background: rgb(var(--surface)); color: rgb(var(--ink));
+      font: inherit; font-size: 14px;
+    }
+    .jump input::placeholder { color: rgb(var(--muted)); }
+    .jump input:focus { outline: none; border-color: rgb(var(--blue)); box-shadow: 0 0 0 3px rgb(var(--blue) / 0.13); }
+    .jump-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .jump-chips button {
+      padding: 6px 13px; border: 1px solid rgb(var(--line)); border-radius: 999px;
+      background: rgb(var(--surface)); color: rgb(var(--muted)); font-size: 12px;
+    }
+    .jump-chips button:hover { border-color: rgb(var(--blue) / 0.5); color: rgb(var(--blue)); }
+    .jump-hint { margin-top: 12px; font-size: 11.5px; line-height: 1.85; color: rgb(var(--muted)); }
+    .jump-hint a { color: rgb(var(--blue)); }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 22px; padding-top: 22px; border-top: 1px solid rgb(var(--line)); max-width: 540px; }
     .actions .link { margin-left: 8px; }
     .margin-note { min-width: 250px; max-width: 290px; padding-left: 24px; border-left: 1px solid rgb(var(--line)); }
     .margin-note strong { font-size: 12px; font-weight: 550; color: rgb(var(--ink)); }
@@ -446,6 +474,8 @@
     @media (max-width: 520px) {
       .wrap { padding: 0 20px; }
       .actions .btn { flex: 1; padding: 0 14px; }
+      .jump { flex-direction: column; }
+      .jump .btn { width: 100%; }
       .tabs { flex-wrap: wrap; }
       .tabs button { flex: 1 1 40%; }
     }
@@ -485,6 +515,8 @@
     </div>
   </header>
 
+  <a class="notice" href="#updates"><b data-notice>最新版本已发布</b> · 公测 7 周发了 11 个版本，看看改了什么 →</a>
+
   <main id="top">
     <!-- ============ Hero ============ -->
     <section class="hero">
@@ -494,6 +526,18 @@
             <span class="eyebrow">法律研究与办案笔记 / macOS &amp; Windows</span>
             <h1><span>查过的法条，</span><span>写过的判断。</span><br /><em>一起放进这件案子。</em></h1>
             <p class="lede">查到一条有用的法，顺手记下它和本案的关系。相关法条和笔记收进案件夹，需要时导出备忘录。<br /><b>材料全程留在本机；用云端 AI 前先换化名，每条依据可点回原文。</b></p>
+            <form class="jump" data-jump>
+              <input type="search" data-jump-input placeholder="输入法规名与条号，例如：民法典 585" aria-label="法条直达" />
+              <button type="submit" class="btn">查条文</button>
+            </form>
+            <div class="jump-chips">
+              <button type="button" data-chip="民法典 585">民法典 585</button>
+              <button type="button" data-chip="劳动合同法 39">劳动合同法 39</button>
+              <button type="button" data-chip="公司法 第一百二十二条">公司法 第一百二十二条</button>
+              <button type="button" data-chip="个人信息保护法">个人信息保护法</button>
+            </div>
+            <p class="jump-hint" data-jump-hint>直接打开网页版法规库的那一条，不用下载、不用注册。<a href="laws/index.html">浏览全部法规</a>。</p>
+
             <div class="actions">
               <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载 Mac 版</a>
               <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
@@ -1168,6 +1212,71 @@
       document.querySelectorAll("[data-release-line]").forEach(function (node) {
         node.textContent = "v" + RELEASE.version + " · " + RELEASE.size + " · " + RELEASE.requirement;
       });
+      document.querySelectorAll("[data-notice]").forEach(function (node) {
+        node.textContent = "v" + RELEASE.version + " 已发布";
+      });
+
+      // ---- 法条直达：下载前先让人真用一次 ----
+      // 打的是网页版法规库的真页面（docs/laws/），不是演示。
+      // 表由 data/processed/manifest.json 生成：[简称, 目录 slug, 条文总数]，
+      // 29 部的法规页与条级目录都逐个校过存在；条号超出总数就回落到整部法页，不放用户撞 404。
+      var LAWS = [["民法典","civil-code",1260],["刑法","criminal-law",505],["公司法","company-law",266],["劳动合同法","labor-contract-law",98],["劳动法","labor-law",107],["民事诉讼法","civil-procedure-law",306],["刑事诉讼法","criminal-procedure-law",308],["行政诉讼法","administrative-procedure-law",103],["行政处罚法","administrative-penalty-law",86],["行政许可法","administrative-license-law",83],["个人信息保护法","personal-information-protection-law",74],["数据安全法","data-security-law",55],["网络安全法","cybersecurity-law",81],["著作权法","copyright-law",67],["商标法","trademark-law",73],["专利法","patent-law",82],["消费者权益保护法","consumer-rights-protection-law",63],["反不正当竞争法","anti-unfair-competition-law",41],["劳动争议调解仲裁法","labor-dispute-mediation-arbitration-law",54],["社会保险法","social-insurance-law",98],["证券法","securities-law",226],["保险法","insurance-law",185],["仲裁法","arbitration-law",96],["国家赔偿法","law-cd4d392750",42],["招标投标法","law-05d312aece",68],["土地管理法","land-administration-law",87],["道路交通安全法","road-traffic-safety-law",124],["食品安全法","food-safety-law",154],["安全生产法","work-safety-law",119]];
+
+      // 律师习惯写「第五百八十五条」，不能只认阿拉伯数字。
+      function cnNum(s) {
+        if (/^[0-9]+$/.test(s)) { return parseInt(s, 10); }
+        var d = { 零: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
+        var u = { 十: 10, 百: 100, 千: 1000 };
+        var section = 0, num = 0;
+        for (var i = 0; i < s.length; i++) {
+          var ch = s.charAt(i);
+          if (d[ch] !== undefined) { num = d[ch]; }
+          else if (u[ch]) { section += (num || 1) * u[ch]; num = 0; }
+          else { return 0; }
+        }
+        return section + num;
+      }
+
+      function resolveJump(raw) {
+        var q = (raw || "").replace(/[《》]/g, " ").replace(/\s+/g, " ").trim();
+        if (!q) { return null; }
+        var m = q.match(/^(.*?)\s*(?:第)?\s*([0-9]+|[零一二两三四五六七八九十百千]+)\s*条?$/);
+        var name = (m ? m[1] : q).trim().replace(/^中华人民共和国/, "");
+        var law = null, i;
+        for (i = 0; i < LAWS.length; i++) { if (LAWS[i][0] === name) { law = LAWS[i]; break; } }
+        if (!law && name) {
+          for (i = 0; i < LAWS.length; i++) {
+            if (LAWS[i][0].indexOf(name) >= 0 || name.indexOf(LAWS[i][0]) >= 0) { law = LAWS[i]; break; }
+          }
+        }
+        if (!law) { return { miss: true }; }
+        var n = m && m[2] ? cnNum(m[2]) : 0;
+        if (n > 0 && n <= law[2]) { return { url: "laws/" + law[1] + "/" + n + ".html" }; }
+        return { url: "laws/" + law[1] + ".html", over: n > law[2] ? law : null };
+      }
+
+      var jumpForm = document.querySelector("[data-jump]");
+      if (jumpForm) {
+        var jumpInput = document.querySelector("[data-jump-input]");
+        var jumpHint = document.querySelector("[data-jump-hint]");
+        var hintHTML = jumpHint.innerHTML;
+        function go(value) {
+          var r = resolveJump(value);
+          if (!r) { jumpInput.focus(); return; }
+          if (r.miss) {
+            // 寄不出去就不跳：丢给用户一个 404 比什么都不做更糟。
+            jumpHint.innerHTML = '这个名字没有直接命中。到<a href="laws/index.html">网页版法规库</a>里按名称筛选 →';
+            return;
+          }
+          if (r.over) { jumpHint.innerHTML = '《' + r.over[0] + '》共 ' + r.over[2] + ' 条，没有这一条；先打开整部法。'; }
+          else { jumpHint.innerHTML = hintHTML; }
+          window.location.href = r.url;
+        }
+        jumpForm.addEventListener("submit", function (e) { e.preventDefault(); go(jumpInput.value); });
+        document.querySelectorAll("[data-chip]").forEach(function (chip) {
+          chip.addEventListener("click", function () { jumpInput.value = chip.dataset.chip; go(chip.dataset.chip); });
+        });
+      }
 
       // ---- 主题：跟随系统 / 浅色 / 深色，与桌面端同一套语义和存储键 ----
       var STORAGE_KEY = "lawpulse-theme-mode";
