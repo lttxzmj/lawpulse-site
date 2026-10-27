@@ -21,13 +21,13 @@
   <meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="法脉：法条在本地，笔记在手边，合同不出门" />
+  <meta property="og:image:alt" content="法脉：律师的法条与办案笔记工作台" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="法脉 — 律师的离线法条工作台" />
   <meta name="twitter:description" content="1513 部现行法律、行政法规与司法解释，共 56182 条离线检索，AI 合同审查引用可点回原文核查。" />
   <meta name="twitter:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
-  <meta name="theme-color" content="#0a0c10" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f121a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
 
   <script>
     // 与桌面端一致：在首帧之前定色，避免刷新时闪一下错的主题。
@@ -41,687 +41,401 @@
   </script>
 
   <style>
-    /* 色板与桌面端 src/renderer/src/styles.css 保持同一套 token，改主 app 时同步这里。 */
+    /* ================================================================
+       视觉系统：克制的蓝灰、方角、细线、白卡、灰白交替色带。
+       刻度统一在这里改，组件里不要写一次性数值。
+       圆角三档：控件 5 / 卡片 8 / 弹层 10。
+       ================================================================ */
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: 247 248 251;
+      --band: 237 241 247;
+      --surface: 255 255 255;
+      --sunken: 245 247 250;
+      --line: 220 226 237;
+      --ink: 37 48 71;
+      --muted: 103 116 139;
+      --blue: 60 88 173;
+      --btn: 60 88 173;
+      --btn-hover: 46 70 148;
+      --tint: 229 235 248;
+      --warn: 126 99 55;
+      --warn-bg: 243 236 221;
+      --ok: 61 101 93;
+      --ok-bg: 234 242 239;
+      --shadow: 0 10px 30px rgb(45 66 99 / 0.05);
+    }
+
     :root,
     :root[data-theme="dark"] {
       color-scheme: dark;
-      --background: 10 12 16;
-      --surface: 16 18 24;
-      --surface-mid: 26 29 38;
-      --surface-high: 34 37 48;
-      --primary: 94 92 230;
-      --primary-soft: 194 193 255;
-      --text: 228 228 235;
-      --muted: 172 170 190;
-      --outline: 60 59 74;
-      --success: 83 225 111;
-      --danger: 240 109 113;
-      --warning: 240 177 94;
-      --shadow-lift: 0 18px 48px rgb(0 0 0 / 0.45);
-      --shadow-cta: 0 8px 28px rgb(94 92 230 / 0.35);
-      --header-bg: 10 12 16;
-      --seg-track: 21 24 32;
-      --seg-chip: 46 49 62;
-    }
-
-    :root[data-theme="light"] {
-      color-scheme: light;
-      --background: 246 247 251;
-      --surface: 255 255 255;
-      --surface-mid: 255 255 255;
-      --surface-high: 231 235 244;
-      --primary: 43 91 199;
-      --primary-soft: 37 84 185;
-      --text: 28 33 43;
-      --muted: 91 99 116;
-      --outline: 178 187 204;
-      --success: 22 128 68;
-      --danger: 196 42 54;
-      --warning: 158 98 6;
-      --shadow-lift: 0 18px 44px rgb(31 41 55 / 0.14);
-      --shadow-cta: 0 8px 24px rgb(43 91 199 / 0.28);
-      --header-bg: 246 247 251;
-      --seg-track: 231 235 244;
-      --seg-chip: 255 255 255;
+      --bg: 15 18 26;
+      --band: 19 23 33;
+      --surface: 23 28 39;
+      --sunken: 18 22 31;
+      --line: 44 52 69;
+      --ink: 228 232 241;
+      --muted: 150 160 181;
+      --blue: 138 162 236;
+      --btn: 76 105 200;
+      --btn-hover: 92 121 216;
+      --tint: 34 44 70;
+      --warn: 222 182 122;
+      --warn-bg: 56 47 31;
+      --ok: 138 198 180;
+      --ok-bg: 27 44 41;
+      --shadow: 0 10px 30px rgb(0 0 0 / 0.28);
     }
 
     * { box-sizing: border-box; margin: 0; }
-
-    /* 让 FAQ 展开能从 0 过渡到 auto（不支持的浏览器退化为直接展开）。 */
+    [hidden] { display: none !important; }
     :root { interpolate-size: allow-keywords; }
-
-    html { scroll-behavior: smooth; scroll-padding-top: 78px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
 
     body {
-      background: rgb(var(--background));
-      color: rgb(var(--text));
-      font-family: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-      line-height: 1.75;
+      background: rgb(var(--bg));
+      color: rgb(var(--ink));
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
 
-    h1, h2, h3, .display {
-      font-family: "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
+    h1, h2, h3, h4 { margin: 0; font-weight: 600; letter-spacing: -0.04em; line-height: 1.45; }
+    h2 { font-size: clamp(25px, 3vw, 33px); }
+    h3 { font-size: 19px; line-height: 1.6; }
+    h4 { font-size: 14px; letter-spacing: -0.02em; }
+    p { margin: 0; color: rgb(var(--muted)); line-height: 1.9; }
+    a { color: rgb(var(--blue)); text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid rgb(var(--blue)); outline-offset: 3px; border-radius: 4px; }
+
+    .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+    .sec { padding: 78px 0; }
+    .band { background: rgb(var(--band)); border-top: 1px solid rgb(var(--line)); border-bottom: 1px solid rgb(var(--line)); }
+    .eyebrow { display: block; font-size: 11px; letter-spacing: 0.06em; color: rgb(var(--blue)); margin-bottom: 18px; }
+
+    /* 区块抬头：标题在左，一句说明在右——不居中。 */
+    .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 50px; margin-bottom: 34px; }
+    .head h2 { max-width: 15em; }
+    .head > p { font-size: 13px; max-width: 390px; }
+
+    /* ---------- 控件 ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 46px; padding: 0 24px; border-radius: 5px;
+      font-size: 13px; font-weight: 550; white-space: nowrap;
+      background: rgb(var(--btn)); color: #fff; border: 1px solid rgb(var(--btn));
+      transition: background 150ms ease;
     }
-
-    a { color: inherit; }
-
-    :focus-visible {
-      outline: 2px solid rgb(var(--primary));
-      outline-offset: 3px;
-      border-radius: 6px;
-    }
-
-    .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .btn:hover { background: rgb(var(--btn-hover)); border-color: rgb(var(--btn-hover)); }
+    .btn.ghost { background: transparent; color: rgb(var(--blue)); border-color: rgb(var(--line)); }
+    .btn.ghost:hover { background: rgb(var(--tint)); border-color: rgb(var(--blue) / 0.45); }
+    .btn.sm { min-height: 34px; padding: 0 14px; font-size: 12px; }
+    .btn:disabled { opacity: 0.45; cursor: default; }
+    .link { font-size: 12px; color: rgb(var(--blue)); }
+    .link:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .fine { margin-top: 14px; font-size: 11.5px; line-height: 1.85; color: rgb(var(--muted)); }
+    .fine a { color: rgb(var(--blue)); }
+    .card { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); }
 
     /* ---------- 顶栏 ---------- */
     .site-header {
-      position: sticky; top: 0; z-index: 50;
-      background: rgb(var(--header-bg) / 0.82);
-      backdrop-filter: saturate(180%) blur(14px);
-      -webkit-backdrop-filter: saturate(180%) blur(14px);
-      border-bottom: 1px solid rgb(var(--outline) / 0.35);
-      transition: box-shadow 200ms ease;
+      position: sticky; top: 0; z-index: 30; height: 74px;
+      background: rgb(var(--bg) / 0.93);
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid rgb(var(--line));
     }
-    .site-header.scrolled { box-shadow: 0 6px 24px rgb(0 0 0 / 0.10); }
-    .site-header .wrap { display: flex; align-items: center; gap: 14px; height: 56px; }
-
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; }
-    .brand .mark { width: 26px; height: 26px; border-radius: 7px; display: block; }
-
-    .site-nav { display: flex; gap: 4px; margin-left: 12px; }
+    .site-header .wrap { height: 100%; display: flex; align-items: center; gap: 26px; }
+    .brand { display: flex; align-items: baseline; gap: 10px; color: rgb(var(--ink)); font-size: 24px; font-weight: 700; letter-spacing: -0.05em; white-space: nowrap; }
+    .brand span { font-size: 11px; font-weight: 400; letter-spacing: 0.01em; color: rgb(var(--muted)); }
+    .site-nav { display: flex; gap: 24px; margin-left: auto; }
+    .site-nav a { font-size: 12px; color: rgb(var(--muted)); }
+    .site-nav a:hover, .site-nav a.current { color: rgb(var(--blue)); }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
     .nav-toggle { display: none; }
-    .site-nav a {
-      position: relative; padding: 6px 10px; border-radius: 8px; font-size: 14px;
-      color: rgb(var(--muted)); text-decoration: none; transition: color 160ms ease;
-    }
-    .site-nav a:hover { color: rgb(var(--text)); }
-    /* 下划线从中间展开，当前阅读到的区块保持点亮 */
-    .site-nav a::after {
-      content: ""; position: absolute; left: 10px; right: 10px; bottom: 2px; height: 1.5px;
-      background: rgb(var(--primary)); border-radius: 2px;
-      transform: scaleX(0); transform-origin: center; transition: transform 220ms cubic-bezier(0.22, 0.8, 0.28, 1);
-    }
-    .site-nav a:hover::after { transform: scaleX(0.5); }
-    .site-nav a.current { color: rgb(var(--text)); }
-    .site-nav a.current::after { transform: scaleX(1); }
 
-    .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-
-    /* 三档主题切换：语义与桌面端顶栏一致。
-       顶栏只允许一个主色元素（下载按钮），所以选中态用中性卡片而不是蓝底。 */
-    .theme-switch {
-      display: inline-flex; align-items: center; padding: 2px;
-      border-radius: 9px; background: rgb(var(--seg-track));
-    }
-    .theme-switch button {
-      display: grid; place-items: center; width: 26px; height: 24px;
-      border: 0; border-radius: 7px; background: transparent; cursor: pointer;
-      color: rgb(var(--muted));
-      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
-    }
-    .theme-switch button:hover { color: rgb(var(--text)); }
-    .theme-switch button:active { transform: scale(0.92); }
-    .theme-switch button[aria-checked="true"] {
-      background: rgb(var(--seg-chip)); color: rgb(var(--text));
-      box-shadow: 0 1px 2px rgb(0 0 0 / 0.16);
-    }
-    .theme-switch svg { width: 14px; height: 14px; }
-
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      background: rgb(var(--primary)); color: #fff; text-decoration: none;
-      padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600;
-      border: 1px solid transparent; white-space: nowrap;
-      transition: transform 180ms cubic-bezier(0.22, 0.8, 0.28, 1), box-shadow 180ms ease, opacity 140ms ease;
-    }
-    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-cta); }
-    .btn:active { transform: translateY(0) scale(0.985); }
-    .btn.lg { padding: 14px 30px; font-size: 16px; border-radius: 12px; box-shadow: var(--shadow-cta); }
-    /* 顶栏的下载按钮只是兼职 CTA，不该和 hero 一样重 */
-    .site-header .btn { height: 32px; padding: 0 14px; font-size: 13px; border-radius: 9px; }
-    .btn.ghost {
-      background: transparent; color: rgb(var(--text));
-      border-color: rgb(var(--outline) / 0.7);
-    }
-    .btn.ghost:hover { background: rgb(var(--surface-high) / 0.7); box-shadow: none; }
-    .btn svg { width: 16px; height: 16px; }
+    .theme-switch { display: inline-flex; padding: 2px; border-radius: 5px; background: rgb(var(--band)); border: 1px solid rgb(var(--line)); }
+    .theme-switch button { display: grid; place-items: center; width: 26px; height: 24px; border-radius: 3px; color: rgb(var(--muted)); }
+    .theme-switch button:hover { color: rgb(var(--ink)); }
+    .theme-switch button[aria-checked="true"] { background: rgb(var(--surface)); color: rgb(var(--ink)); }
+    .theme-switch svg { width: 13px; height: 13px; }
 
     /* ---------- Hero ---------- */
-    /* 只设上下内边距：padding 简写会连 .wrap 的左右槽一起清掉，
-       那会让本区块比其他区块宽 48px，窄屏下正文还会顶到屏幕边缘。 */
-    .hero { position: relative; padding-top: 84px; padding-bottom: 8px; text-align: center; }
-    /* 一层极淡的辉光，避免首屏是一块死色 */
-    .hero::before {
-      content: ""; position: absolute; z-index: -1; inset: -80px 0 auto; height: 420px;
-      background: radial-gradient(60% 100% at 50% 0%, rgb(var(--primary) / 0.13), transparent 70%);
-      pointer-events: none;
-    }
+    .hero { padding: 66px 0 0; }
+    .hero-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 50px; margin-bottom: 42px; }
+    .hero h1 { font-size: clamp(31px, 4.4vw, 49px); letter-spacing: -0.055em; }
+    /* 短语整体换行：窄屏下不许从「判断」中间拆出孤字。 */
+    .hero h1 span, .hero h1 em { display: inline-block; }
+    .hero h1 em { font-style: normal; color: rgb(var(--blue)); }
+    .lede { margin-top: 22px; font-size: 14px; max-width: 34em; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 26px; }
+    .actions .link { margin-left: 8px; }
+    .margin-note { min-width: 250px; max-width: 290px; padding-left: 24px; border-left: 1px solid rgb(var(--line)); }
+    .margin-note strong { font-size: 12px; font-weight: 550; color: rgb(var(--ink)); }
+    .margin-note p { margin: 12px 0 18px; font-size: 13px; }
+    .margin-note small { font-size: 11px; line-height: 1.85; color: rgb(var(--muted)); }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: none; }
-    }
-    .hero > * { animation: rise 640ms cubic-bezier(0.22, 0.8, 0.28, 1) both; }
-    .hero > .eyebrow { animation-delay: 40ms; }
-    .hero > h1 { animation-delay: 110ms; }
-    .hero > .lede { animation-delay: 190ms; }
-    .hero > .cta-row { animation-delay: 260ms; }
-    .hero > .meta { animation-delay: 330ms; }
-    .hero > .stats { animation: none; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 22px;
-      padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 500;
-      color: rgb(var(--primary-soft)); background: rgb(var(--primary) / 0.12);
-      border: 1px solid rgb(var(--primary) / 0.24);
-    }
-    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: rgb(var(--success)); }
+    /* ---------- 页签（截图场景 / 工作流共用） ---------- */
+    .tabs { display: flex; gap: 5px; padding: 7px; background: rgb(var(--sunken)); border-bottom: 1px solid rgb(var(--line)); }
+    .tabs button { flex: 1; min-height: 42px; padding: 8px; border-radius: 4px; font-size: 12.5px; color: rgb(var(--muted)); }
+    .tabs button[aria-selected="true"] { background: rgb(var(--surface)); color: rgb(var(--blue)); font-weight: 550; }
+    .tabs button b { margin-right: 8px; font-size: 10.5px; font-weight: 400; opacity: 0.75; }
+    /* 截图页签不拉满整行：它只是换场景，不该做成通栏控件。 */
+    .shot-frame .tabs { justify-content: flex-start; }
+    .shot-frame .tabs button { flex: 0 0 auto; padding: 8px 20px; }
 
-    .hero h1 { font-size: clamp(34px, 5.4vw, 52px); letter-spacing: -0.02em; }
-    .hero h1 span { display: inline-block; }
-    .hero .lede {
-      max-width: 640px; margin: 20px auto 0;
-      font-size: 17px; color: rgb(var(--muted));
-    }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; }
-    .meta { margin-top: 16px; font-size: 13px; color: rgb(var(--muted)); }
-    .meta a { color: rgb(var(--primary-soft)); text-decoration: none; }
-    .meta a:hover { text-decoration: underline; }
-
-    /* ---------- 数据条 ---------- */
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 56px 0 0; }
-    .stat {
-      padding: 20px 16px; text-align: center; border-radius: 14px;
-      border: 1px solid rgb(var(--outline) / 0.4); background: rgb(var(--surface));
-      transition: border-color 200ms ease;
-    }
-    .stat:hover { border-color: rgb(var(--primary) / 0.45); }
-    .stat .num {
-      font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2;
-      font-variant-numeric: tabular-nums;
-    }
-    .stat .cap { margin-top: 2px; font-size: 13px; line-height: 1.5; color: rgb(var(--muted)); }
-
-    /* ---------- 产品预览（纯 CSS 绘制，随主题变色） ---------- */
-    .preview { margin-top: 44px; }
+    /* ---------- 产品截图 ---------- */
+    .shot-frame { border: 1px solid rgb(var(--line)); border-radius: 8px; overflow: hidden; background: rgb(var(--surface)); box-shadow: var(--shadow); }
     .shot { margin: 0; }
-    .shot-img { display: none; width: 100%; height: auto; border-radius: 14px;
-      border: 1px solid rgb(var(--outline) / 0.5); box-shadow: var(--shadow-lift); }
-    /* 场景（页签选中）与主题（站点开关）双条件命中的那张才显示 */
+    .shot-img { display: none; width: 100%; height: auto; }
     :root[data-theme="light"] .shot-img.is-active.shot-when-light { display: block; }
     :root[data-theme="dark"] .shot-img.is-active.shot-when-dark { display: block; }
-    .evidence { margin: 26px 0 6px; }
-    .evidence-img { display: none; width: 100%; height: auto; border-radius: 10px;
-      border: 1px solid rgb(var(--outline) / 0.5); box-shadow: var(--shadow-card, 0 1px 4px rgb(0 0 0 / 0.08)); }
+    .shot-cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding-top: 15px; }
+    .shot-cap p { font-size: 12px; }
+    .shot-cap > span { font-size: 10.5px; color: rgb(var(--muted)); }
+
+    /* ---------- 数据条 + 收录范围 ---------- */
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 40px; padding: 24px 0; border-top: 1px solid rgb(var(--line)); }
+    .fact .num { font-size: 26px; font-weight: 600; letter-spacing: -0.04em; color: rgb(var(--blue)); font-variant-numeric: tabular-nums; }
+    .fact .cap { margin-top: 5px; font-size: 11.5px; line-height: 1.7; color: rgb(var(--muted)); }
+    .scope { border-top: 1px solid rgb(var(--line)); }
+    .scope > summary { padding: 17px 0; font-size: 12.5px; color: rgb(var(--blue)); cursor: pointer; list-style: none; }
+    .scope > summary::-webkit-details-marker { display: none; }
+    .scope > summary::before { content: "▸ "; }
+    .scope[open] > summary::before { content: "▾ "; }
+    .scope dl { margin: 0 0 10px; }
+    .scope dl > div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgb(var(--line)); }
+    .scope dt { font-size: 11px; color: rgb(var(--muted)); padding-top: 3px; }
+    .scope dd { margin: 0; font-size: 12.5px; line-height: 1.9; color: rgb(var(--muted)); }
+    .scope dd a { color: rgb(var(--blue)); }
+    .scope > small { display: block; padding-bottom: 14px; font-size: 10.5px; color: rgb(var(--muted)); }
+
+    /* ---------- 工作流三步 ---------- */
+    .flow { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 60px; align-items: start; }
+    .flow-intro p { margin-top: 20px; font-size: 14px; max-width: 26em; }
+    .flow-card { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); overflow: hidden; }
+    .flow-body { padding: 28px 30px 30px; min-height: 300px; }
+    .flow-body h3 { margin: 6px 0 16px; }
+    .flow-body > p { font-size: 14px; line-height: 2; color: rgb(var(--ink) / 0.85); }
+    .flow-body .fine { margin-top: 16px; }
+    .flow-next { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-top: 24px; }
+    .flow-next > span { font-size: 10.5px; color: rgb(var(--muted)); }
+
+    /* ---------- 案件夹演示 ---------- */
+    .case-frame { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); overflow: hidden; box-shadow: var(--shadow); }
+    .case-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 22px; border-bottom: 1px solid rgb(var(--line)); }
+    .case-bar strong { font-size: 14px; font-weight: 600; }
+    .case-bar strong span { margin-left: 14px; font-size: 10px; font-weight: 400; color: rgb(var(--muted)); }
+    .case-body { display: grid; grid-template-columns: 286px 1fr; }
+    .case-list { display: flex; flex-direction: column; padding: 20px 16px; border-right: 1px solid rgb(var(--line)); background: rgb(var(--sunken)); }
+    .case-filters { display: flex; gap: 4px; padding-bottom: 16px; border-bottom: 1px solid rgb(var(--line)); }
+    .case-filters button { min-height: 34px; padding: 6px 12px; border-radius: 4px; font-size: 11px; color: rgb(var(--muted)); }
+    .case-filters button[aria-pressed="true"] { background: rgb(var(--tint)); color: rgb(var(--blue)); }
+    .case-items { padding-top: 10px; display: grid; gap: 3px; align-content: start; }
+    .case-items button { text-align: left; padding: 13px 11px; border-radius: 5px; border: 1px solid transparent; }
+    .case-items button:hover { background: rgb(var(--band)); }
+    .case-items button[aria-pressed="true"] { background: rgb(var(--tint)); border-color: rgb(var(--blue) / 0.3); }
+    .case-items .k { display: block; font-size: 9px; color: rgb(var(--muted)); margin-bottom: 5px; }
+    .case-items .n { display: block; font-size: 12px; font-weight: 550; line-height: 1.6; }
+    .case-items .h { display: block; margin-top: 5px; font-size: 10px; color: rgb(var(--muted)); }
+    .case-hint { margin-top: auto; padding: 20px 5px 0; font-size: 10px; line-height: 1.9; color: rgb(var(--muted)); }
+    .case-doc { padding: 26px 34px 24px; min-width: 0; }
+    .case-doc-meta { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 22px; font-size: 10px; color: rgb(var(--muted)); }
+    .case-save { min-height: 32px; padding: 7px 10px; border: 1px solid rgb(var(--blue) / 0.45); border-radius: 4px; font-size: 10px; color: rgb(var(--blue)); white-space: nowrap; }
+    .case-save[data-saved="true"] { border-color: rgb(var(--line)); color: rgb(var(--muted)); }
+    .case-undo { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px; margin-bottom: 18px; border-radius: 4px; font-size: 11px; color: rgb(var(--muted)); background: rgb(var(--tint)); }
+    .case-undo button { min-height: 32px; font-size: 11px; color: rgb(var(--blue)); text-decoration: underline; white-space: nowrap; }
+    .case-doc h3 { font-size: 21px; margin-bottom: 18px; }
+    .case-text { white-space: pre-line; font-size: 14.5px; line-height: 2.1; color: rgb(var(--ink) / 0.86); max-width: 640px; }
+    .case-source { display: inline-block; margin-top: 16px; font-size: 10.5px; }
+    .case-source:hover { text-decoration: underline; }
+    .case-note { margin-top: 28px; padding: 18px 20px; border-left: 2px solid rgb(var(--blue) / 0.5); background: rgb(var(--sunken)); }
+    .case-note-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
+    .case-note-head > span { font-size: 11px; color: rgb(var(--muted)); }
+    .case-note-head button { font-size: 10px; color: rgb(var(--blue)); padding: 5px 0; }
+    .case-note p { font-size: 13px; line-height: 2; }
+    .case-note textarea {
+      width: 100%; min-height: 104px; resize: vertical; padding: 12px;
+      border: 1px solid rgb(var(--line)); border-radius: 4px; background: rgb(var(--surface));
+      color: rgb(var(--ink)); font: inherit; font-size: 13px; line-height: 1.8;
+    }
+    .case-note-actions { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 10px; color: rgb(var(--muted)); }
+    .case-note-actions > span { margin-right: auto; }
+    .case-note-actions button:not(.btn) { font-size: 11px; color: rgb(var(--muted)); padding: 6px 0; }
+    .case-foot { margin-top: 20px; padding-top: 14px; border-top: 1px solid rgb(var(--line)); font-size: 10px; line-height: 1.85; color: rgb(var(--muted)); }
+    .memo { margin-top: 20px; border: 1px solid rgb(var(--line)); border-radius: 6px; background: rgb(var(--sunken)); }
+    .memo > summary { padding: 19px 24px; font-size: 13.5px; color: rgb(var(--blue)); cursor: pointer; list-style: none; }
+    .memo > summary::-webkit-details-marker { display: none; }
+    .memo-paper { max-width: 780px; margin: 0 auto 24px; padding: 34px; border: 1px solid rgb(var(--line)); background: rgb(var(--surface)); }
+    .memo-paper > span { font-size: 11px; color: rgb(var(--muted)); }
+    .memo-paper h3 { margin: 16px 0; font-size: 22px; }
+    .memo-pending { margin-bottom: 18px; padding: 14px; font-size: 12px; color: rgb(var(--warn)); background: rgb(var(--warn-bg)); }
+    .memo-paper article { padding: 20px 0; border-top: 1px solid rgb(var(--line)); }
+    .memo-paper article p { margin-top: 10px; font-size: 13px; white-space: pre-line; }
+    .memo-paper .memo-note { color: rgb(var(--blue)); }
+    .memo-paper > .btn { margin-top: 20px; }
+    .memo-paper > small { display: block; margin-top: 12px; font-size: 10.5px; color: rgb(var(--muted)); }
+    .case-after { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: center; margin-top: 20px; }
+    .case-after > span { font-size: 13px; color: rgb(var(--ink) / 0.8); }
+    .case-after p { font-size: 11px; }
+
+    /* ---------- 合同审查 ---------- */
+    .review { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 70px; align-items: start; }
+    .review-copy > p { margin-top: 20px; font-size: 13.5px; max-width: 27em; }
+    .review-copy .fine { margin-top: 16px; }
+    .review-shot { margin-top: 22px; }
+    .review-shot > summary { font-size: 11px; color: rgb(var(--blue)); cursor: pointer; padding: 10px 0; list-style: none; }
+    .review-shot > summary::-webkit-details-marker { display: none; }
+    .review-shot .shot-frame { margin-top: 12px; }
+    .rc-top { display: flex; justify-content: space-between; gap: 15px; padding: 15px 22px; border-bottom: 1px solid rgb(var(--line)); background: rgb(var(--sunken)); font-size: 10px; color: rgb(var(--muted)); }
+    .rc-body { padding: 25px; }
+    .risk { display: inline-block; padding: 4px 8px; border-radius: 3px; font-size: 10px; }
+    .risk.high { color: rgb(var(--warn)); background: rgb(var(--warn-bg)); }
+    .rc-body h3 { margin: 13px 0 20px; }
+    .rc-body label { display: block; margin: 16px 0 8px; font-size: 10px; color: rgb(var(--muted)); }
+    .rc-body p { font-size: 13px; line-height: 1.95; }
+    .clause-old { padding: 13px 15px; background: rgb(var(--sunken)); }
+    .clause-new { padding: 14px 15px; border-left: 2px solid rgb(var(--ok)); background: rgb(var(--ok-bg)); color: rgb(var(--ok)); }
+    .src-toggle { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 42px; margin-top: 22px; padding-top: 17px; border-top: 1px solid rgb(var(--line)); text-align: left; font-size: 11px; color: rgb(var(--blue)); }
+    .src-toggle > span { font-size: 10px; white-space: nowrap; color: rgb(var(--muted)); }
+    .src { margin-top: 15px; padding: 16px; border-radius: 4px; background: rgb(var(--sunken)); }
+    .src p { font-size: 12px; }
+    .src small { display: block; margin: 10px 0; font-size: 10px; color: rgb(var(--muted)); }
+    .src a { font-size: 11px; }
+
+    /* ---------- 隐私对照 ---------- */
+    .cmp { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); overflow: hidden; }
+    .cmp-dest { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; padding: 18px 26px; }
+    .cmp-dest > span { font-size: 12px; color: rgb(var(--ink) / 0.8); }
+    .cmp-dest small { font-size: 11px; color: rgb(var(--muted)); }
+    .cmp-cols { display: grid; grid-template-columns: 1fr 1fr; background: rgb(var(--sunken)); border-top: 1px solid rgb(var(--line)); border-bottom: 1px solid rgb(var(--line)); font-size: 12px; color: rgb(var(--muted)); }
+    .cmp-cols span { padding: 12px 26px; }
+    .cmp-cols span + span { border-left: 1px solid rgb(var(--line)); }
+    .cmp-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid rgb(var(--line)); }
+    .cmp-row > div { padding: 19px 26px; min-width: 0; }
+    .cmp-row .after { border-left: 1px solid rgb(var(--line)); background: rgb(var(--sunken)); }
+    .cmp-row.changed .after p { color: rgb(var(--blue)); }
+    .cmp-row.review .after { background: rgb(var(--warn-bg)); }
+    .cmp-field { display: block; font-size: 11px; color: rgb(var(--muted)); margin-bottom: 8px; }
+    .cmp-row p { font-size: 13.5px; line-height: 1.9; color: rgb(var(--ink) / 0.85); overflow-wrap: anywhere; }
+    .cmp-state { display: flex; justify-content: flex-end; min-height: 24px; margin-bottom: 6px; }
+    .cmp-badge { padding: 3px 8px; border-radius: 3px; font-size: 10px; white-space: nowrap; }
+    .cmp-badge.changed { color: rgb(var(--blue)); background: rgb(var(--tint)); }
+    .cmp-badge.kept { color: rgb(var(--muted)); background: rgb(var(--band)); }
+    .cmp-badge.warn { color: rgb(var(--warn)); background: rgb(var(--warn-bg)); }
+    .cmp-act { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 26px; background: rgb(var(--sunken)); }
+    .cmp-act strong { font-size: 14px; font-weight: 550; color: rgb(var(--ink)); }
+    .cmp-act p { margin-top: 7px; font-size: 12px; }
+    .cmp-note { padding: 15px 26px; font-size: 11px; line-height: 1.9; color: rgb(var(--muted)); }
+    .bounds { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 24px 0; }
+    .bounds p { font-size: 12px; }
+    .bounds strong { font-weight: 550; color: rgb(var(--ink)); }
+    .evidence { margin: 24px 0 18px; }
+    .evidence-img { display: none; width: 100%; height: auto; border: 1px solid rgb(var(--line)); border-radius: 6px; }
     :root[data-theme="light"] .evidence-img.evidence-when-light { display: block; }
     :root[data-theme="dark"] .evidence-img.evidence-when-dark { display: block; }
-    .preview-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
-    .preview-tab { border: 1px solid rgb(var(--outline) / 0.45); border-radius: 999px;
-      background: rgb(var(--surface-mid)); padding: 7px 16px; font-size: 13.5px;
-      color: rgb(var(--muted)); cursor: pointer; transition: all 140ms ease; }
-    .preview-tab:hover { color: rgb(var(--text)); border-color: rgb(var(--primary) / 0.5); }
-    .preview-tab[aria-selected="true"] { background: rgb(var(--primary) / 0.12);
-      border-color: rgb(var(--primary) / 0.5); color: rgb(var(--primary-soft)); font-weight: 600; }
-    .window {
-      border: 1px solid rgb(var(--outline) / 0.55); border-radius: 14px; overflow: hidden;
-      background: rgb(var(--background)); box-shadow: var(--shadow-lift);
-    }
-    .window-bar {
-      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-      background: rgb(var(--surface)); border-bottom: 1px solid rgb(var(--outline) / 0.4);
-    }
-    .lights { display: flex; gap: 6px; }
-    .lights i { width: 11px; height: 11px; border-radius: 50%; background: rgb(var(--outline)); }
-    .window-title { font-size: 12px; color: rgb(var(--muted)); }
-    .kbd {
-      margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
-      padding: 3px 9px; border-radius: 7px; font-size: 11px; color: rgb(var(--muted));
-      border: 1px solid rgb(var(--outline) / 0.5); background: rgb(var(--surface-mid));
-    }
+    .evidence figcaption { margin-top: 11px; font-size: 11px; color: rgb(var(--muted)); }
 
-    .window-body { display: grid; grid-template-columns: 168px 1fr 232px; min-height: 344px; }
-    .pane-nav { border-right: 1px solid rgb(var(--outline) / 0.35); padding: 14px 10px; background: rgb(var(--surface)); }
-    .pane-nav .row {
-      display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 8px;
-      font-size: 13px; color: rgb(var(--muted));
-    }
-    .pane-nav .row.on { background: rgb(var(--primary) / 0.16); color: rgb(var(--primary-soft)); font-weight: 500; }
-    .pane-nav svg { width: 15px; height: 15px; flex: none; }
-
-    .pane-main { padding: 22px 26px; min-width: 0; }
-    .crumb { font-size: 12px; color: rgb(var(--muted)); }
-    .art-no { margin-top: 12px; font-size: 13px; font-weight: 600; color: rgb(var(--primary-soft)); }
-    .art-text { margin-top: 8px; font-size: 14px; line-height: 1.95; }
-    /* 预览进入视野时，高亮像真的划上去一样扫过来 */
-    .art-text mark {
-      color: inherit; padding: 1px 2px; border-radius: 3px;
-      background-color: transparent;
-      background-image: linear-gradient(rgb(var(--primary) / 0.22), rgb(var(--primary) / 0.22));
-      background-repeat: no-repeat;
-      background-size: 0% 100%;
-    }
-    @keyframes sweep { to { background-size: 100% 100%; } }
-    .preview.in .art-text mark {
-      animation: sweep 720ms cubic-bezier(0.22, 0.8, 0.28, 1) 420ms forwards;
-    }
-    .art-text p + p { margin-top: 10px; }
-
-    .pane-note { border-left: 1px solid rgb(var(--outline) / 0.35); padding: 18px 16px; background: rgb(var(--surface)); }
-    .pane-note .cap { font-size: 11px; letter-spacing: 0.08em; color: rgb(var(--muted)); text-transform: uppercase; }
-    .note-card {
-      margin-top: 12px; padding: 12px; border-radius: 10px;
-      border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
-    }
-    .note-card h4 { font-size: 13px; font-weight: 600; }
-    .note-card p { margin-top: 6px; font-size: 12px; line-height: 1.7; color: rgb(var(--muted)); }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .chip {
-      padding: 2px 8px; border-radius: 999px; font-size: 11px;
-      color: rgb(var(--primary-soft)); background: rgb(var(--primary) / 0.12);
-    }
-    .preview-cap { margin-top: 12px; text-align: center; font-size: 12px; color: rgb(var(--muted)); }
-
-    /* ---------- 通用区块 ---------- */
-    section.block { padding-top: 84px; }
-    .block-head { max-width: 620px; margin: 0 auto 32px; text-align: center; }
-    .block-head h2 { font-size: clamp(24px, 3vw, 32px); }
-    .block-head p { margin-top: 10px; font-size: 15px; color: rgb(var(--muted)); }
-
-    /* 主打功能：文字 + 逐条对照示意 */
-    .spotlight {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
-      padding: 28px; border-radius: 16px;
-      border: 1px solid rgb(var(--outline) / 0.4); background: rgb(var(--surface));
-    }
-    .spotlight h3 { font-size: 22px; }
-    .spotlight > div > p { margin-top: 12px; font-size: 15px; color: rgb(var(--muted)); }
-    .bullets { margin-top: 18px; display: grid; gap: 10px; }
-    .bullets li { list-style: none; display: flex; gap: 10px; font-size: 14px; color: rgb(var(--muted)); }
-    .bullets svg { width: 17px; height: 17px; flex: none; margin-top: 4px; color: rgb(var(--success)); }
-
-    .diff { display: grid; gap: 10px; }
-    .diff-row {
-      padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.7;
-      border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
-    }
-    .diff-row .tagline { font-size: 11px; color: rgb(var(--muted)); margin-bottom: 5px; }
-    .diff-row del { color: rgb(var(--muted)); text-decoration-color: rgb(var(--muted)); }
-    .diff-row ins { text-decoration: none; background: rgb(var(--success) / 0.16); border-radius: 3px; padding: 0 3px; }
-    .cite {
-      display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;
-      font-size: 12px; color: rgb(var(--primary-soft));
-    }
-    .cite svg { width: 13px; height: 13px; }
-    .cite.warn { color: rgb(var(--danger)); }
-    /* 可点开的法条原文：让访客在下载前就摸到「回原文」这个动作 */
-    .cite.law-peek-toggle { cursor: pointer; background: none; border: 0; padding: 0; font: inherit; font-size: 12px; text-align: left; }
-    .cite.law-peek-toggle:hover { text-decoration: underline; }
-    .law-peek {
-      margin: 10px 0 4px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.9;
-      border: 1px solid rgb(var(--primary) / 0.35); background: rgb(var(--background));
-    }
-    .law-peek p + p { margin-top: 8px; }
-    .law-peek-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
-    .law-peek-status { padding: 1px 8px; border-radius: 999px; font-size: 11px; color: rgb(var(--success)); border: 1px solid rgb(var(--success) / 0.4); }
-    .law-peek-note { margin-top: 10px; font-size: 12px; color: rgb(var(--muted)); }
-    .law-peek-note a { color: rgb(var(--primary-soft)); }
-    [hidden] { display: none !important; }
-
-    /* ---------- 工作流三步（#workflow） ---------- */
-    .flow-card { border: 1px solid rgb(var(--outline) / 0.4); border-radius: 14px; background: rgb(var(--surface)); overflow: hidden; }
-    .flow-tabs { display: flex; gap: 6px; padding: 8px; background: rgb(var(--surface-mid)); border-bottom: 1px solid rgb(var(--outline) / 0.35); }
-    .flow-tabs button { flex: 1; padding: 10px 8px; border: 0; border-radius: 8px; background: none; color: rgb(var(--muted)); font: inherit; font-size: 13.5px; cursor: pointer; }
-    .flow-tabs button[aria-selected="true"] { background: rgb(var(--primary) / 0.12); color: rgb(var(--primary-soft)); font-weight: 600; }
-    .flow-tabs button b { font-weight: 500; font-size: 11px; margin-right: 7px; opacity: 0.75; }
-    .flow-panel { padding: 24px 26px 26px; }
-    .flow-eyebrow { font-size: 12px; color: rgb(var(--primary-soft)); }
-    .flow-panel h3 { margin-top: 6px; font-size: 18px; }
-    .flow-panel > p { margin-top: 10px; font-size: 14px; line-height: 1.95; color: rgb(var(--text) / 0.85); max-width: 720px; }
-    .flow-panel .meta { font-size: 12.5px; }
-    .flow-next { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
-    .flow-next .btn { padding: 9px 16px; font-size: 13.5px; cursor: pointer; }
-    .flow-next .meta { margin-top: 0; }
-
-    /* ---------- 收录范围（#scope） ---------- */
-    .scope-card { margin-top: 20px; border: 1px solid rgb(var(--outline) / 0.45); border-radius: 12px; background: rgb(var(--surface)); }
-    .scope-card > summary { padding: 14px 20px; cursor: pointer; font-size: 14.5px; font-weight: 600; list-style: none; }
-    .scope-card > summary::-webkit-details-marker { display: none; }
-    .scope-card dl { margin: 0; padding: 0 20px; }
-    .scope-card dl > div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 11px 0; border-top: 1px solid rgb(var(--outline) / 0.3); }
-    .scope-card dt { font-size: 12.5px; color: rgb(var(--muted)); padding-top: 2px; }
-    .scope-card dd { margin: 0; font-size: 13.5px; line-height: 1.9; color: rgb(var(--text) / 0.85); }
-    .scope-card dd a { color: rgb(var(--primary-soft)); }
-    .scope-card > .meta { padding: 10px 20px 14px; margin-top: 0; font-size: 12px; }
-
-    /* ---------- 案件夹演示（#case） ---------- */
-    .case-export { height: 30px; padding: 0 12px; font-size: 12px; border-radius: 8px; margin-left: auto; cursor: pointer; }
-    .case-export:disabled { opacity: 0.5; cursor: default; box-shadow: none; transform: none; }
-    .case-body { display: grid; grid-template-columns: 280px 1fr; background: rgb(var(--background)); text-align: left; }
-    .case-list { display: flex; flex-direction: column; gap: 12px; padding: 14px; border-right: 1px solid rgb(var(--outline) / 0.35); background: rgb(var(--surface)); }
-    .case-filters { display: flex; gap: 6px; }
-    .case-filters button { padding: 5px 13px; font-size: 12.5px; border-radius: 999px; cursor: pointer; border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid)); color: rgb(var(--muted)); font: inherit; }
-    .case-filters button[aria-pressed="true"] { background: rgb(var(--primary) / 0.12); border-color: rgb(var(--primary) / 0.5); color: rgb(var(--primary-soft)); font-weight: 600; }
-    .case-items { display: grid; gap: 6px; align-content: start; }
-    .case-items button { text-align: left; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; background: none; color: rgb(var(--text)); cursor: pointer; font: inherit; }
-    .case-items button:hover { background: rgb(var(--surface-high) / 0.6); }
-    .case-items button[aria-pressed="true"] { background: rgb(var(--primary) / 0.12); border-color: rgb(var(--primary) / 0.35); }
-    .case-items .k { display: block; font-size: 10.5px; color: rgb(var(--muted)); }
-    .case-items .n { display: block; font-size: 13px; font-weight: 600; line-height: 1.55; margin-top: 2px; }
-    .case-items .h { display: block; font-size: 11px; color: rgb(var(--muted)); margin-top: 3px; }
-    .case-hint { margin-top: auto; font-size: 11px; line-height: 1.8; color: rgb(var(--muted)); }
-    .case-doc { padding: 20px 24px 22px; min-width: 0; }
-    .case-doc-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; font-size: 11.5px; color: rgb(var(--muted)); }
-    .case-save { padding: 6px 12px; font-size: 12px; border-radius: 8px; cursor: pointer; border: 1px solid rgb(var(--primary) / 0.5); background: none; color: rgb(var(--primary-soft)); font: inherit; white-space: nowrap; }
-    .case-save:hover { background: rgb(var(--primary) / 0.1); }
-    .case-undo { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; margin-bottom: 12px; border-radius: 8px; font-size: 12px; color: rgb(var(--muted)); background: rgb(var(--surface-high) / 0.5); }
-    .case-undo button { border: 0; background: none; color: rgb(var(--primary-soft)); text-decoration: underline; cursor: pointer; font: inherit; font-size: 12px; white-space: nowrap; }
-    .case-doc h3 { font-size: 18px; }
-    .case-text { margin-top: 10px; font-size: 14px; line-height: 2; color: rgb(var(--text) / 0.88); }
-    .case-source { display: inline-block; margin-top: 10px; font-size: 12px; color: rgb(var(--primary-soft)); text-decoration: none; }
-    .case-source:hover { text-decoration: underline; }
-    .case-note { margin-top: 18px; padding: 14px 16px; border-radius: 10px; border-left: 2px solid rgb(var(--primary) / 0.5); background: rgb(var(--surface-mid)); }
-    .case-note-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; font-size: 11.5px; color: rgb(var(--muted)); }
-    .case-note-head button { border: 0; background: none; color: rgb(var(--primary-soft)); cursor: pointer; font: inherit; font-size: 12px; }
-    .case-note p { font-size: 13px; line-height: 1.9; color: rgb(var(--text) / 0.85); }
-    .case-note textarea { width: 100%; min-height: 96px; resize: vertical; padding: 10px 12px; border-radius: 8px; border: 1px solid rgb(var(--outline) / 0.6); background: rgb(var(--background)); color: rgb(var(--text)); font: inherit; font-size: 13px; line-height: 1.8; }
-    .case-note-actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-size: 11.5px; color: rgb(var(--muted)); }
-    .case-note-actions span { margin-right: auto; }
-    .case-note-actions button { cursor: pointer; }
-    .case-note-actions button:not(.btn) { border: 0; background: none; color: rgb(var(--muted)); font: inherit; font-size: 12.5px; }
-    .case-note-actions .btn { padding: 7px 14px; font-size: 12.5px; }
-    .case-foot { margin-top: 14px; font-size: 11.5px; color: rgb(var(--muted)); }
-    .memo { margin-top: 16px; border: 1px solid rgb(var(--outline) / 0.45); border-radius: 12px; background: rgb(var(--surface)); }
-    .memo > summary { padding: 14px 20px; font-size: 14px; font-weight: 600; cursor: pointer; list-style: none; }
-    .memo > summary::-webkit-details-marker { display: none; }
-    .memo-paper { max-width: 720px; margin: 0 auto 20px; padding: 26px 28px; border: 1px solid rgb(var(--outline) / 0.4); border-radius: 10px; background: rgb(var(--background)); }
-    .memo-tag { font-size: 11px; color: rgb(var(--muted)); }
-    .memo-paper h3 { margin-top: 8px; font-size: 19px; }
-    .memo-pending { margin-top: 12px; padding: 10px 12px; border-radius: 8px; font-size: 12.5px; color: rgb(var(--warning)); background: rgb(var(--warning) / 0.1); }
-    .memo-paper article { padding: 14px 0; border-bottom: 1px solid rgb(var(--outline) / 0.3); }
-    .memo-paper article h4 { font-size: 14px; }
-    .memo-paper article p { margin-top: 6px; font-size: 13px; line-height: 1.85; color: rgb(var(--text) / 0.85); }
-    .memo-paper .memo-note { color: rgb(var(--primary-soft)); }
-    .memo-empty { padding: 14px 0; font-size: 13px; color: rgb(var(--muted)); }
-    .memo-paper .btn { margin-top: 16px; padding: 9px 16px; font-size: 13.5px; cursor: pointer; }
-    .memo-paper .btn:disabled { opacity: 0.5; cursor: default; box-shadow: none; transform: none; }
-    .memo-paper .meta { margin-top: 10px; font-size: 11.5px; }
-
-    /* ---------- 示例审查报告（#report）：页面上能点的完整产品输出 ---------- */
-    .report-body { padding: 16px 18px 18px; display: grid; gap: 10px; background: rgb(var(--background)); }
-    .report-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: rgb(var(--muted)); }
-    .risk { padding: 1px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
-    .risk.high { color: rgb(var(--danger)); background: rgb(var(--danger) / 0.12); }
-    .risk.mid { color: rgb(var(--warning)); background: rgb(var(--warning) / 0.14); }
-    .risk.low { color: rgb(var(--muted)); background: rgb(var(--surface-high)); }
-    .report-item { border: 1px solid rgb(var(--outline) / 0.45); border-radius: 10px; background: rgb(var(--surface-mid)); overflow: hidden; transition: border-color 200ms ease; }
-    .report-item:hover, .report-item[open] { border-color: rgb(var(--primary) / 0.45); }
-    .report-item summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; list-style: none; font-size: 13.5px; }
-    .report-item summary::-webkit-details-marker { display: none; }
-    .report-item summary::after { content: ""; margin-left: auto; width: 7px; height: 7px; flex: none; border-right: 1.5px solid rgb(var(--muted)); border-bottom: 1.5px solid rgb(var(--muted)); transform: rotate(45deg); transition: transform 180ms ease; }
-    .report-item[open] summary::after { transform: rotate(-135deg); }
-    .report-clause { font-weight: 600; }
-    .report-gist { color: rgb(var(--muted)); }
-    .report-detail { padding: 0 14px 14px; }
-    .report-detail .cite { margin-top: 10px; }
-    .report-note { font-size: 13px; line-height: 1.85; color: rgb(var(--muted)); }
-    .report-foot { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-    .report-foot .meta { margin-top: 0; }
-    /* 小字对比度提一档：弱化靠字号，不靠灰到看不清。 */
-    .meta, .preview-cap, .stat .cap, .updates-note { color: rgb(var(--text) / 0.8); }
-    .spotlight + .spotlight { margin-top: 16px; }
-
-    /* 功能网格 */
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
-    .card {
-      padding: 22px; border-radius: 14px;
-      border: 1px solid rgb(var(--outline) / 0.4); background: rgb(var(--surface));
-      transition: border-color 160ms ease, transform 160ms ease;
-    }
-    .card:hover { border-color: rgb(var(--primary) / 0.55); transform: translateY(-3px); }
-    .card .ico {
-      width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
-      background: rgb(var(--primary) / 0.14); color: rgb(var(--primary-soft)); margin-bottom: 14px;
-      transition: transform 220ms cubic-bezier(0.22, 0.8, 0.28, 1), background 220ms ease;
-    }
-    .card:hover .ico { transform: scale(1.08) rotate(-3deg); background: rgb(var(--primary) / 0.2); }
-    .card .ico svg { width: 18px; height: 18px; }
-    .card h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .card p { margin-top: 8px; font-size: 14px; color: rgb(var(--muted)); }
-    .tag {
-      padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
-      background: rgb(var(--surface-high)); color: rgb(var(--muted));
-    }
-    .tag.pro { background: rgb(var(--primary) / 0.16); color: rgb(var(--primary-soft)); }
-
-    /* ---------- 价格 ---------- */
-    /* 差异点对比卡：复用 .grid 的响应式列数，勾叉只是语义记号，不堆图标。 */
-    .compare-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 9px; }
-    .compare-list li { position: relative; padding-left: 24px; font-size: 13.5px; line-height: 1.65; color: rgb(var(--muted)); }
-    .compare-list li::before { position: absolute; left: 0; top: 0; font-weight: 700; }
-    .compare-list li.ok::before { content: "✓"; color: rgb(var(--success)); }
-    .compare-list li.no::before { content: "✕"; color: rgb(var(--muted) / 0.75); }
-    .compare-card-title { font-size: 15px; font-weight: 650; }
-    .compare-card-sub { margin-top: 2px; font-size: 12.5px; color: rgb(var(--muted)); }
-    .card.compare-self { border-color: rgb(var(--primary) / 0.65); box-shadow: var(--shadow-cta); }
-    .card.compare-self .compare-list li { color: rgb(var(--text)); }
-
-    /* 最近更新：一张宽卡，版本行 + 普通话要点 + 去完整日志的出口。 */
-    .updates-card { margin-top: 24px; border: 1px solid rgb(var(--outline) / 0.5); border-radius: 14px; background: rgb(var(--surface-mid)); padding: 26px 28px; }
-    .updates-version { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
-    .updates-version strong { font-size: 17px; }
-    .updates-version time { font-size: 13px; color: rgb(var(--muted)); }
-    .updates-card ul { margin: 14px 0 0; padding-left: 18px; display: grid; gap: 8px; font-size: 14px; line-height: 1.7; color: rgb(var(--muted)); }
-    .updates-note { margin-top: 14px; font-size: 13px; color: rgb(var(--muted)); }
-    .updates-links { margin-top: 10px; display: flex; gap: 18px; font-size: 13.5px; }
-
-    .prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
-    .price {
-      position: relative; padding: 26px 22px; border-radius: 14px; text-align: center;
-      border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface));
-      transition: border-color 200ms ease, transform 200ms cubic-bezier(0.22, 0.8, 0.28, 1);
-    }
-    .price:hover { border-color: rgb(var(--primary) / 0.55); transform: translateY(-3px); }
-    .price.featured { border-color: rgb(var(--primary)); box-shadow: var(--shadow-cta); }
-    .price .badge {
-      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
-      padding: 2px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;
-      background: rgb(var(--primary)); color: #fff; white-space: nowrap;
-    }
-    .price h3 { font-size: 15px; color: rgb(var(--muted)); font-weight: 600; }
-    .price .amount { margin: 10px 0 2px; font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.25; }
-    .price .amount small { font-size: 15px; font-weight: 500; color: rgb(var(--muted)); }
-    .price .was { font-size: 13px; color: rgb(var(--muted)); text-decoration: line-through; min-height: 22px; }
-    .price p { margin-top: 12px; font-size: 13px; color: rgb(var(--muted)); }
-
-    .free-note {
-      margin-top: 18px; padding: 20px 24px; border-radius: 14px;
-      border: 1px dashed rgb(var(--outline) / 0.7); background: rgb(var(--surface) / 0.6);
-    }
-    .free-note h3 { font-size: 15px; display: flex; align-items: center; gap: 8px; }
-    .free-note svg { width: 17px; height: 17px; color: rgb(var(--success)); }
-    .free-note p { margin-top: 8px; font-size: 14px; color: rgb(var(--muted)); }
-
-    /* ---------- 不做什么：一排可证伪的否定句，比形容词省力 ---------- */
-    .nots { list-style: none; max-width: 680px; margin: 0 auto; padding: 0; }
-    .nots li {
-      padding: 15px 4px; font-size: 15px; line-height: 1.85; color: rgb(var(--muted));
-      border-bottom: 1px solid rgb(var(--outline) / 0.3);
-    }
-    .nots li:last-child { border-bottom: 0; }
-    .nots strong { color: rgb(var(--text)); font-weight: 650; margin-right: 2px; }
-
-    /* ---------- 隐私 ---------- */
-    .privacy {
-      padding: 28px; border-radius: 16px;
-      border: 1px solid rgb(var(--outline) / 0.4); background: rgb(var(--surface));
-    }
-    .privacy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .privacy-grid h3 { font-size: 15px; display: flex; align-items: center; gap: 8px; }
-    .privacy-grid svg { width: 17px; height: 17px; color: rgb(var(--primary-soft)); }
-    .privacy-grid p { margin-top: 8px; font-size: 14px; color: rgb(var(--muted)); }
-    .privacy-grid a { color: rgb(var(--primary-soft)); }
-    .guard { margin-top: 30px; padding-top: 26px; border-top: 1px solid rgb(var(--outline) / 0.35); }
-    .guard > h3 { font-size: 16px; }
-    .guard-sub { margin-top: 6px; font-size: 13.5px; color: rgb(var(--muted)); }
-    .guard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 18px; }
-    .guard-grid h4 { font-size: 14px; }
-    .guard-grid p { margin-top: 6px; font-size: 13.5px; line-height: 1.75; color: rgb(var(--muted)); }
-    /* 脱敏对照：逐字段一行一个事实，换了的打标，没动的也打标——
-       「看见没动」和「看见换了」同样重要。 */
-    .cmp { margin-top: 18px; border: 1px solid rgb(var(--outline) / 0.45); border-radius: 10px; overflow: hidden; background: rgb(var(--surface-mid)); }
-    .cmp-cols { display: grid; grid-template-columns: 1fr 1fr; font-size: 12px; color: rgb(var(--muted)); background: rgb(var(--background)); border-bottom: 1px solid rgb(var(--outline) / 0.35); }
-    .cmp-cols span { padding: 9px 16px; }
-    .cmp-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid rgb(var(--outline) / 0.3); }
-    .cmp-row > div { padding: 13px 16px; min-width: 0; }
-    .cmp-row .after { border-left: 1px solid rgb(var(--outline) / 0.3); background: rgb(var(--background)); }
-    .cmp-field { display: block; font-size: 11px; color: rgb(var(--muted)); margin-bottom: 4px; }
-    .cmp-row p { font-size: 13.5px; line-height: 1.85; overflow-wrap: anywhere; }
-    .cmp-badge { float: right; font-size: 10.5px; padding: 2px 9px; border-radius: 999px; margin-left: 8px; white-space: nowrap; }
-    .cmp-badge.changed { color: rgb(var(--primary-soft)); background: rgb(var(--primary) / 0.14); }
-    .cmp-badge.kept { color: rgb(var(--muted)); background: rgb(var(--surface-high)); }
-    .cmp-badge.review { color: rgb(var(--warning)); background: rgb(var(--warning) / 0.14); }
-    .cmp-act { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: rgb(var(--background)); }
-    .cmp-act strong { font-size: 13.5px; }
-    .cmp-act p { margin-top: 3px; font-size: 12.5px; color: rgb(var(--muted)); }
-    .cmp-act .btn { padding: 8px 16px; font-size: 13px; cursor: pointer; }
-    .cmp-note { padding: 11px 16px; font-size: 11.5px; line-height: 1.85; color: rgb(var(--muted)); border-top: 1px solid rgb(var(--outline) / 0.3); }
-    .mask-cats { margin-top: 20px; }
-    .mask-cats-title { font-size: 13.5px; }
-    .mask-groups { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .mask-group {
-      padding: 5px 12px; border-radius: 999px; font-size: 12.5px; white-space: nowrap;
-      color: rgb(var(--muted)); border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
-    }
-    .mask-group strong { color: rgb(var(--text)); font-weight: 600; margin-right: 5px; }
-    .mask-fine { margin-top: 10px; font-size: 12.5px; color: rgb(var(--muted)); }
-    .mask-keep { margin-top: 22px; }
-    .mask-keep h4 { font-size: 14px; }
-    .mask-keep p { margin-top: 6px; font-size: 13.5px; line-height: 1.75; color: rgb(var(--muted)); }
-    .guard-note {
-      margin-top: 20px; padding: 14px 16px; border-radius: 10px; font-size: 13.5px; line-height: 1.8;
-      color: rgb(var(--muted)); border: 1px solid rgb(var(--outline) / 0.45); background: rgb(var(--surface-mid));
-    }
-    .guard-note strong { color: rgb(var(--text)); }
-    /* 隐私区改为证据在前：guard 升为首块、支柱落到实拍图之后，分隔线跟着换位。 */
-    .privacy > .guard:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
-    .evidence + .privacy-grid { margin-top: 26px; padding-top: 26px; border-top: 1px solid rgb(var(--outline) / 0.35); }
+    /* ---------- 费用 ---------- */
+    .fees { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); overflow: hidden; }
+    .fees article { display: flex; flex-direction: column; align-items: flex-start; padding: 30px; border-right: 1px solid rgb(var(--line)); }
+    .fees article:last-child { border-right: 0; }
+    .fee-label { font-size: 11px; color: rgb(var(--muted)); }
+    .fees h3 { margin: 13px 0 18px; font-size: 22px; color: rgb(var(--blue)); }
+    .fees p { font-size: 13px; }
+    .fee-prices { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+    .fee-prices li { font-size: 12.5px; color: rgb(var(--muted)); }
+    .fee-prices b { font-weight: 550; color: rgb(var(--ink)); }
+    .fees small { display: block; margin-top: auto; padding-top: 18px; font-size: 11px; color: rgb(var(--muted)); line-height: 1.85; }
+    .fee-foot { margin-top: 20px; font-size: 12px; line-height: 2; }
+    .fee-foot strong { font-weight: 550; color: rgb(var(--ink)); }
 
     /* ---------- FAQ ---------- */
-    .faq { display: grid; gap: 10px; }
-    .faq details {
-      border: 1px solid rgb(var(--outline) / 0.45); border-radius: 12px;
-      background: rgb(var(--surface)); overflow: hidden;
-      transition: border-color 200ms ease;
-    }
-    .faq details:hover, .faq details[open] { border-color: rgb(var(--primary) / 0.45); }
-    .faq details::details-content {
-      block-size: 0; overflow: hidden;
-      transition: block-size 300ms cubic-bezier(0.22, 0.8, 0.28, 1), content-visibility 300ms allow-discrete;
-    }
-    .faq details[open]::details-content { block-size: auto; }
-    .faq summary {
-      display: flex; align-items: center; gap: 12px; cursor: pointer; list-style: none;
-      padding: 16px 20px; font-size: 15px; font-weight: 500;
-    }
+    .faq { border-top: 1px solid rgb(var(--line)); }
+    .faq details { border-bottom: 1px solid rgb(var(--line)); }
+    .faq summary { padding: 19px 0; font-size: 14px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 12px; }
     .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after {
-      content: ""; margin-left: auto; width: 8px; height: 8px; flex: none;
-      border-right: 1.5px solid rgb(var(--muted)); border-bottom: 1.5px solid rgb(var(--muted));
-      transform: rotate(45deg) translate(-2px, -2px); transition: transform 180ms ease;
-    }
-    .faq details[open] summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
-    .faq .answer { padding: 0 20px 18px; font-size: 14px; color: rgb(var(--muted)); }
+    .faq summary::after { content: ""; margin-left: auto; width: 7px; height: 7px; flex: none; border-right: 1.5px solid rgb(var(--muted)); border-bottom: 1.5px solid rgb(var(--muted)); transform: rotate(45deg); transition: transform 180ms ease; }
+    .faq details[open] summary::after { transform: rotate(-135deg); }
+    .faq .answer { padding: 0 0 20px; font-size: 13px; line-height: 2; color: rgb(var(--muted)); max-width: 60em; }
+    .faq .answer a { color: rgb(var(--blue)); }
 
-    /* ---------- 收尾 CTA ---------- */
-    .final { margin: 84px 0 0; padding: 56px 32px; border-radius: 18px; text-align: center;
-      border: 1px solid rgb(var(--outline) / 0.4); background: rgb(var(--surface)); }
-    .final h2 { font-size: clamp(22px, 3vw, 30px); }
-    .final p { margin-top: 10px; font-size: 15px; color: rgb(var(--muted)); }
+    /* ---------- 最近更新 ---------- */
+    .updates-card { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); padding: 28px 30px; }
+    .updates-version { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; }
+    .updates-version strong { font-size: 16px; font-weight: 600; }
+    .updates-version time { font-size: 12px; color: rgb(var(--muted)); }
+    .updates-card ul { margin: 16px 0 0; padding-left: 18px; display: grid; gap: 10px; font-size: 13px; line-height: 1.95; color: rgb(var(--muted)); }
+    .updates-card ul strong { font-weight: 550; color: rgb(var(--ink)); }
+    .updates-note { margin-top: 16px; font-size: 12px; }
+    .updates-links { margin-top: 12px; display: flex; gap: 20px; font-size: 12px; }
 
-    footer {
-      margin-top: 64px; padding: 28px 0 48px;
-      border-top: 1px solid rgb(var(--outline) / 0.35);
-      font-size: 13px; color: rgb(var(--muted));
-    }
-    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
-    footer a { color: rgb(var(--muted)); text-decoration: none; }
-    footer a:hover { color: rgb(var(--text)); }
-    footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
+    /* ---------- 收尾与页脚 ---------- */
+    .final { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; padding: 72px 0; }
+    .final h2 { font-size: clamp(23px, 2.6vw, 30px); }
+    .final > div > p { margin-top: 12px; font-size: 13px; }
+    .final .actions { margin: 0 0 14px; gap: 12px; }
+    footer { border-top: 1px solid rgb(var(--line)); }
+    footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; min-height: 92px; padding-top: 22px; padding-bottom: 22px; }
+    footer nav { display: flex; flex-wrap: wrap; gap: 18px; margin-left: auto; }
+    footer span, footer nav a { font-size: 10.5px; color: rgb(var(--muted)); }
+    footer nav a:hover { color: rgb(var(--blue)); }
 
-    /* ---------- 入场动画 ---------- */
-    .reveal {
-      opacity: 0; transform: translateY(16px);
-      transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22, 0.8, 0.28, 1);
-    }
-    .reveal.in { opacity: 1; transform: none; }
-    /* 同一组卡片错开入场，比整组同时弹出自然 */
-    .grid .card:nth-child(2), .prices .price:nth-child(2) { transition-delay: 70ms; }
-    .grid .card:nth-child(3), .prices .price:nth-child(3) { transition-delay: 140ms; }
-    .grid .card:nth-child(4) { transition-delay: 60ms; }
-    .grid .card:nth-child(5) { transition-delay: 130ms; }
-    .grid .card:nth-child(6) { transition-delay: 200ms; }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal, .hero > * { opacity: 1; transform: none; transition: none; animation: none; }
-      .preview.in .art-text mark { animation: none; background-size: 100% 100%; }
-      .btn:hover, .card:hover, .price:hover, .stat:hover { transform: none; }
-      .card:hover .ico { transform: none; }
-    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 
     /* ---------- 响应式 ---------- */
-    @media (max-width: 940px) {
-      .window-body { grid-template-columns: 1fr; min-height: 0; }
-      .pane-nav { display: none; }
-      .pane-note { border-left: 0; border-top: 1px solid rgb(var(--outline) / 0.35); }
-      .spotlight { grid-template-columns: 1fr; gap: 28px; }
-      .grid, .prices, .privacy-grid, .guard-grid { grid-template-columns: repeat(2, 1fr); }
-      .privacy-grid { gap: 22px; }
-      .cmp-row, .cmp-cols, .case-body { grid-template-columns: 1fr; }
+    @media (max-width: 1000px) {
+      .wrap { padding: 0 28px; }
+      .site-nav { gap: 18px; }
+      .flow, .review { gap: 36px; }
+      .case-body { grid-template-columns: 245px 1fr; }
+      .facts { gap: 24px; }
+      .bounds { gap: 24px; }
+    }
+
+    @media (max-width: 820px) {
+      .sec { padding: 56px 0; }
+      .hero { padding-top: 40px; }
+      .hero-top, .head, .flow, .review { display: block; }
+      .head h2, .hero h1 { max-width: none; }
+      .head > p, .flow-intro p, .review-copy > p { margin-top: 16px; max-width: none; }
+      .margin-note { margin-top: 28px; padding-left: 0; padding-top: 18px; border-left: 0; border-top: 1px solid rgb(var(--line)); max-width: none; }
+      .flow-card, .review .card, .review-shot { margin-top: 26px; }
+      .facts { grid-template-columns: 1fr 1fr; gap: 22px; }
+      .fees { grid-template-columns: 1fr; }
+      .fees article { border-right: 0; border-bottom: 1px solid rgb(var(--line)); padding: 24px; }
+      .bounds { grid-template-columns: 1fr; gap: 14px; }
+      .case-body, .cmp-cols, .cmp-row { grid-template-columns: 1fr; }
       .cmp-cols span + span { display: none; }
-      .cmp-row .after { border-left: 0; border-top: 1px dashed rgb(var(--outline) / 0.35); }
-      .case-list { border-right: 0; border-bottom: 1px solid rgb(var(--outline) / 0.35); }
-    }
-
-    /* 窄屏下按钮改成整行堆叠：“下载 Mac 版（M 系列芯片）”加上 nowrap
-       在 320px 上会顶破容器，同时整行按钮的点击区也更大。 */
-    @media (max-width: 520px) {
-      .cta-row { flex-direction: column; align-items: stretch; }
-      .cta-row .btn.lg {
-        width: 100%; padding: 13px 16px; font-size: 15px; white-space: normal;
-      }
-    }
-
-    @media (max-width: 720px) {
-      /* 窄屏导航收进菜单按钮：以前这里直接 display:none，手机上除了页脚
-         根本到不了法规库/隐私这些页面。 */
+      .cmp-row .after { border-left: 0; border-top: 1px dashed rgb(var(--line)); }
+      .case-list { border-right: 0; border-bottom: 1px solid rgb(var(--line)); }
+      .case-doc { padding: 22px 18px; }
+      .case-items { grid-template-columns: 1fr 1fr; }
+      .memo-paper { margin: 0 10px 18px; padding: 22px; }
+      .final { display: block; padding: 48px 0; }
+      .final .actions { margin-top: 24px; }
+      /* 窄屏导航收进菜单按钮：此前直接隐藏，手机上除页脚外到不了这些页面。 */
       .site-nav {
-        position: absolute; top: 56px; left: 0; right: 0; z-index: 49;
+        position: absolute; top: 74px; left: 0; right: 0; z-index: 29;
         display: none; flex-direction: column; gap: 2px; margin-left: 0;
-        padding: 10px 16px 14px;
-        /* 实心底：半透明+模糊在部分环境不生效，会透出 hero 文字。 */
-        background: rgb(var(--header-bg));
-        border-bottom: 1px solid rgb(var(--outline) / 0.35);
-        box-shadow: 0 18px 32px rgb(0 0 0 / 0.18);
+        padding: 12px 28px 18px;
+        background: rgb(var(--bg));
+        border-bottom: 1px solid rgb(var(--line));
+        box-shadow: var(--shadow);
       }
       .site-nav.open { display: flex; }
-      .site-nav a { padding: 10px 12px; font-size: 15px; }
-      .nav-toggle {
-        display: grid; place-items: center; width: 32px; height: 32px;
-        border: 0; border-radius: 8px; background: transparent;
-        color: rgb(var(--text)); cursor: pointer;
-      }
-      .nav-toggle:hover { background: rgb(var(--surface-high) / 0.7); }
-      .nav-toggle svg { width: 18px; height: 18px; }
-      .hero { padding-top: 56px; padding-bottom: 0; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .grid, .prices, .privacy-grid, .guard-grid { grid-template-columns: 1fr; }
-      section.block { padding-top: 64px; }
-      .spotlight, .privacy, .final { padding: 24px; }
-      .final { padding: 40px 24px; }
+      .site-nav a { padding: 10px 0; font-size: 14px; }
+      .nav-toggle { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid rgb(var(--line)); border-radius: 5px; color: rgb(var(--ink)); }
+      .nav-toggle svg { width: 16px; height: 16px; }
+      .header-actions { margin-left: auto; }
+      .brand span { display: none; }
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 0 20px; }
+      .actions .btn { flex: 1; padding: 0 14px; }
+      .tabs { flex-wrap: wrap; }
+      .tabs button { flex: 1 1 40%; }
     }
   </style>
 </head>
@@ -729,21 +443,15 @@
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="#top">
-        <img class="mark" src="assets/icon.png" alt="法脉应用图标" width="26" height="26" />
-        <span>法脉</span>
-      </a>
+      <a class="brand" href="#top">法脉<span>LawPulse</span></a>
       <nav class="site-nav" id="site-nav">
+        <a href="#workflow">怎么用</a>
         <a href="#case">案件夹</a>
-        <a href="#features">功能</a>
-        <a href="#report">审查示例</a>
+        <a href="#review">合同审查</a>
         <a href="#privacy">隐私</a>
-        <a href="#pricing">价格</a>
+        <a href="#pricing">费用</a>
         <a href="#faq">常见问题</a>
-        <a href="#updates">最近更新</a>
         <a href="laws/index.html">法规库</a>
-        <a href="cases/index.html">指导案例</a>
-        <a href="gazette/index.html">公报案例</a>
       </nav>
       <div class="header-actions">
         <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="打开菜单">
@@ -760,648 +468,452 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
           </button>
         </div>
-        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载</a>
+        <a class="btn sm" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载公测版</a>
       </div>
     </div>
   </header>
 
   <main id="top">
     <!-- ============ Hero ============ -->
-    <section class="hero wrap">
-      <span class="eyebrow"><span class="dot"></span>法律研究与办案笔记 · macOS / Windows 桌面应用</span>
-      <!-- 短语整体换行：窄屏下整词换行，不拆孤字。 -->
-      <h1><span>查过的法条，</span><span>写过的判断，</span><br />一起放进这件案子</h1>
-      <p class="lede">
-        查到一条有用的法，顺手记下它和本案的关系；相关法条和笔记收进案件夹，交稿时导出备忘录。
-        资料存在你本机；用云端 AI 时，先换成化名，发送内容你亲自核对。
-      </p>
-      <div class="cta-row">
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-          下载 Mac 版（M 系列芯片）
-        </a>
-        <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-          下载 Windows 版（64 位）
-        </a>
-        <a class="btn lg ghost" href="#case">先动手试一个案件夹</a>
-      </div>
-      <p class="meta" data-win-hint>Windows 版第一次运行会弹蓝色 SmartScreen 提示：点「更多信息 → 仍要运行」即可（公测版暂未购买代码签名证书），<a href="windows.html" data-win-guide>看图解步骤</a>。</p>
-      <p class="meta">
-        <span data-release-line>最新版本 · macOS 11 及以上</span>
-        · Windows 10 及以上（64 位）
-        · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a>
-      </p>
-      <p class="meta">公测期间全部功能免费开放：无需账号，无需付款信息；AI 默认接通义千问，新用户开通即有免费额度，不用充值。</p>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-top">
+          <div>
+            <span class="eyebrow">法律研究与办案笔记 / macOS &amp; Windows</span>
+            <h1><span>查过的法条，</span><span>写过的判断。</span><br /><em>一起放进这件案子。</em></h1>
+            <p class="lede">查到一条有用的法，顺手记下它和本案的关系。<br />相关法条和笔记收进案件夹，需要时导出备忘录。</p>
+            <div class="actions">
+              <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载 Mac 版</a>
+              <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
+              <a class="link" href="#case">试用案件夹 ↓</a>
+            </div>
+            <p class="fine" data-win-hint>Windows 第一次运行会弹 SmartScreen 提示：点「更多信息 → 仍要运行」即可（公测版暂未买代码签名证书），<a href="windows.html" data-win-guide>看图解步骤</a>。</p>
+            <p class="fine"><span data-release-line>最新版本 · macOS 11 及以上</span> · Windows 10 及以上（64 位） · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a></p>
+          </div>
+          <aside class="margin-note">
+            <strong>不必先开通 AI</strong>
+            <p>装好就能查法条、写笔记。不注册，不用填模型密钥。</p>
+            <small>基础功能永久免费 · 资料保存在本机<br />已下载的法规，断网也能查</small>
+          </aside>
+        </div>
 
+        <!-- 真实界面：四个场景切换，图随主题换 -->
+        <div class="shot-frame">
+          <div class="tabs" role="tablist" aria-label="产品界面">
+            <button type="button" role="tab" aria-selected="true" data-scene="workbench">法条与笔记</button>
+            <button type="button" role="tab" aria-selected="false" data-scene="review">合同审查</button>
+            <button type="button" role="tab" aria-selected="false" data-scene="qa">法库问答</button>
+            <button type="button" role="tab" aria-selected="false" data-scene="cases">案例库</button>
+          </div>
+          <figure class="shot">
+            <img class="shot-img is-active shot-when-light" data-scene="workbench" src="assets/shot-workbench-light.webp"
+                 alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
+                 width="1440" height="900" decoding="async" />
+            <img class="shot-img is-active shot-when-dark" data-scene="workbench" src="assets/shot-workbench-dark.webp"
+                 alt="法脉真实界面（深色主题）：法条正文与停靠笔记面板"
+                 width="1440" height="900" decoding="async" />
+            <img class="shot-img shot-when-light" data-scene="review" src="assets/shot-review-light.webp"
+                 alt="合同审查报告：按风险分级逐条给意见，原文与修改建议对照，法条依据注明已核实或未核实"
+                 width="1440" height="900" loading="lazy" decoding="async" />
+            <img class="shot-img shot-when-dark" data-scene="review" src="assets/shot-review-dark.webp"
+                 alt="合同审查报告（深色主题）"
+                 width="1440" height="900" loading="lazy" decoding="async" />
+            <img class="shot-img shot-when-light" data-scene="qa" src="assets/shot-qa-light.webp"
+                 alt="法库问答：回答分结论与分析，每条结论标注引用的法条材料，可点回原文"
+                 width="1440" height="900" loading="lazy" decoding="async" />
+            <img class="shot-img shot-when-dark" data-scene="qa" src="assets/shot-qa-dark.webp"
+                 alt="法库问答（深色主题）"
+                 width="1440" height="900" loading="lazy" decoding="async" />
+            <img class="shot-img shot-when-light" data-scene="cases" src="assets/shot-cases-light.webp"
+                 alt="案例库：指导性案例与公报案例，案由、关键词、裁判日期一览"
+                 width="1440" height="900" loading="lazy" decoding="async" />
+            <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
+                 alt="案例库（深色主题）"
+                 width="1440" height="900" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+        <div class="shot-cap">
+          <p data-shot-desc>民法典第五百七十七条。旁边是读到这里时留下的笔记。</p>
+          <span data-shot-caption>真实界面截图（v0.9.2）· 笔记为演示内容</span>
+        </div>
+
+        <div class="facts">
+          <div class="fact"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
+          <div class="fact"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
+          <div class="fact"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
+          <div class="fact"><div class="num" data-count="0">0</div><div class="cap">台服务器经手你的材料</div></div>
+        </div>
+
+        <details class="scope" id="scope">
+          <summary>收录范围和更新，下载前先看清楚</summary>
+          <dl>
+            <div><dt>从哪里来</dt><dd>1513 部现行法律、行政法规与司法解释，共 56182 条，文本取自国家法律法规数据库；另内置 278 件指导性案例、445 件公报案例。</dd></div>
+            <div><dt>哪些还没有</dt><dd>地方性法规与部门规章尚未收录，可自行导入 Word / PDF；地方库正在按省准备。覆不覆盖你的执业领域，可先翻<a href="laws/index.html">网页版法规库</a>。</dd></div>
+            <div><dt>离线怎么用</dt><dd>安装包自带 120 部最常用的，其余按需下载（全部约 28 MB）。只有下载过的法规能离线查阅。</dd></div>
+            <div><dt>多久更新</dt><dd>免费版法规数据随软件版本更新，约每季度一次；专业版可随时手动在线更新。不代表法规发布后即时入库，以应用内数据版本为准。</dd></div>
+          </dl>
+          <small>数据说明对应 v0.9.2，最新收录以应用内为准。</small>
+        </details>
+      </div>
     </section>
 
-    <!-- ============ 产品预览 ============ -->
-    <section class="preview wrap reveal" id="preview">
-      <div class="preview-tabs" role="tablist" aria-label="产品界面场景">
-        <button type="button" class="preview-tab" role="tab" aria-selected="true" data-scene="workbench">法条＋笔记</button>
-        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="review">合同审查</button>
-        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="qa">法库问答</button>
-        <button type="button" class="preview-tab" role="tab" aria-selected="false" data-scene="cases">案例库</button>
-      </div>
-      <figure class="shot">
-        <img class="shot-img is-active shot-when-light" data-scene="workbench" src="assets/shot-workbench-light.webp"
-             alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
-             width="1440" height="900" decoding="async" />
-        <img class="shot-img is-active shot-when-dark" data-scene="workbench" src="assets/shot-workbench-dark.webp"
-             alt="法脉真实界面（深色主题）：法条正文与停靠笔记面板"
-             width="1440" height="900" decoding="async" />
-        <img class="shot-img shot-when-light" data-scene="review" src="assets/shot-review-light.webp"
-             alt="合同审查报告：按风险分级逐条给意见，原文与修改建议对照，法条依据注明已核实或未核实"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" data-scene="review" src="assets/shot-review-dark.webp"
-             alt="合同审查报告（深色主题）"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-light" data-scene="qa" src="assets/shot-qa-light.webp"
-             alt="法库问答：回答分结论、具体标准、实务提示，每条结论标注引用的法条材料，可点回原文"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" data-scene="qa" src="assets/shot-qa-dark.webp"
-             alt="法库问答（深色主题）"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-light" data-scene="cases" src="assets/shot-cases-light.webp"
-             alt="案例库：278 件指导性案例与公报案例，案由、关键词、裁判日期一览"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
-             alt="案例库（深色主题）"
-             width="1440" height="900" loading="lazy" decoding="async" />
-        <figcaption class="preview-cap" data-shot-caption>真实界面截图（v0.9.2）：读民法典第五百七十七条，右侧边看边记（笔记内容为演示示例）</figcaption>
-      </figure>
-      <div class="stats reveal">
-        <div class="stat"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
-        <div class="stat"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
-        <div class="stat"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
-        <div class="stat"><div class="num" data-count="0">0</div><div class="cap">台服务器经手你的数据</div></div>
-      </div>
-    </section>
-
-    <!-- ============ 工作流：以一件购销合同纠纷为例 ============ -->
-    <section class="block wrap" id="workflow">
-      <div class="block-head">
-        <h2>签收了货物，还能提出质量异议吗？</h2>
-        <p>以一件购销合同纠纷为例：先查依据，把判断记在条文旁，最后整理成备忘录。三步都在下面，点着看。</p>
-      </div>
-      <div class="flow-card reveal">
-        <div class="flow-tabs" role="tablist" aria-label="研究步骤">
-          <button type="button" role="tab" aria-selected="true" data-flow="0"><b>01</b>查依据</button>
-          <button type="button" role="tab" aria-selected="false" data-flow="1"><b>02</b>记判断</button>
-          <button type="button" role="tab" aria-selected="false" data-flow="2"><b>03</b>整理成稿</button>
+    <!-- ============ 工作流：一件购销合同纠纷 ============ -->
+    <section class="sec" id="workflow">
+      <div class="wrap flow">
+        <div class="flow-intro">
+          <span class="eyebrow">以一件购销合同纠纷为例</span>
+          <h2>签收了货物，<br />还能提出质量异议吗？</h2>
+          <p>先查检验期限，再核对签收和异议的时间。把依据、判断和缺的材料记下来，最后整理成备忘录。</p>
         </div>
-        <div class="flow-panel" data-flow-panel="0">
-          <span class="flow-eyebrow">先看检验期限</span>
-          <h3>《中华人民共和国民法典》第六百二十条</h3>
-          <p>买受人收到标的物时应当在约定的检验期限内检验。没有约定检验期限的，应当及时检验。</p>
-          <p class="meta">这里查到的是法律依据；本案是否及时提出异议，还要核对约定和事实。<a href="laws/civil-code.html#620">在网页版法规库打开这一条 →</a></p>
-          <div class="flow-next"><button type="button" class="btn" data-flow-next="1">下一步：记判断</button></div>
-        </div>
-        <div class="flow-panel" data-flow-panel="1" hidden>
-          <span class="flow-eyebrow">把本案的问题记在条文旁</span>
-          <h3>我的研究笔记</h3>
-          <p>签收单只能先说明收到货物。需要另查：合同是否约定检验期限、有没有独立验收、买方何时提出质量异议。</p>
-          <p class="meta">这是律师自己整理的示例笔记，不是软件自动得出的结论。</p>
-          <div class="flow-next"><button type="button" class="btn" data-flow-next="2">下一步：整理成稿</button></div>
-        </div>
-        <div class="flow-panel" data-flow-panel="2" hidden>
-          <span class="flow-eyebrow">依据和待办收进同一个案件夹</span>
-          <h3>购销合同纠纷 · 研究备忘录</h3>
-          <p>已整理：检验期限条文、违约责任条文、签收与验收笔记、交货与异议时间线。待补：合同检验条款、验收记录、邮件附件。</p>
-          <div class="flow-next"><a class="btn" href="#case">到下面动手整理这份研究 ↓</a><span class="meta">固定示例 · 不调用模型</span></div>
+        <div class="flow-card">
+          <div class="tabs" role="tablist" aria-label="研究步骤">
+            <button type="button" role="tab" aria-selected="true" data-flow="0"><b>01</b>查依据</button>
+            <button type="button" role="tab" aria-selected="false" data-flow="1"><b>02</b>记判断</button>
+            <button type="button" role="tab" aria-selected="false" data-flow="2"><b>03</b>整理成稿</button>
+          </div>
+          <div class="flow-body" data-flow-panel="0">
+            <span class="eyebrow">先看检验期限</span>
+            <h3>《中华人民共和国民法典》第六百二十条</h3>
+            <p>买受人收到标的物时应当在约定的检验期限内检验。没有约定检验期限的，应当及时检验。</p>
+            <p class="fine">这里查到的是法律依据。本案是否及时提出异议，还要核对约定和事实。<a href="laws/civil-code.html#620">在法规库打开原文 ↗</a></p>
+            <div class="flow-next"><button type="button" class="btn ghost" data-flow-next="1">下一步：记判断 →</button><span>固定示例 · 不调用模型</span></div>
+          </div>
+          <div class="flow-body" data-flow-panel="1" hidden>
+            <span class="eyebrow">把本案的问题记在条文旁</span>
+            <h3>我的研究笔记</h3>
+            <p>签收单只能先说明收到货物。需要另查合同是否约定检验期限、是否存在独立验收，以及买方何时提出质量异议。</p>
+            <p class="fine">这是律师整理的示例笔记，不是软件自动得出的结论。</p>
+            <div class="flow-next"><button type="button" class="btn ghost" data-flow-next="2">下一步：整理成稿 →</button><span>固定示例 · 不调用模型</span></div>
+          </div>
+          <div class="flow-body" data-flow-panel="2" hidden>
+            <span class="eyebrow">依据和待办收进同一个案件夹</span>
+            <h3>购销合同纠纷 · 研究备忘录</h3>
+            <p>已整理：检验期限条文、违约责任条文、签收与验收笔记、交货与异议时间线。待补：合同检验条款、验收记录、邮件附件。</p>
+            <p class="fine">下面可以实际改笔记、收录资料并预览备忘录。</p>
+            <div class="flow-next"><a class="btn" href="#case">动手整理这份研究 ↓</a></div>
+          </div>
         </div>
       </div>
-
-      <details class="scope-card reveal" id="scope">
-        <summary>收录范围和更新，下载前先看清楚</summary>
-        <dl>
-          <div><dt>从哪里来</dt><dd>收录 1513 部现行法律、行政法规与司法解释，共 56182 条，文本取自国家法律法规数据库；另内置 278 件指导性案例、445 件公报案例。</dd></div>
-          <div><dt>哪些还没有</dt><dd>地方性法规与部门规章尚未收录，可自行导入 Word / PDF，地方库正在按省准备。覆不覆盖你的执业领域，可先翻<a href="laws/index.html">网页版法规库</a>。</dd></div>
-          <div><dt>离线怎么用</dt><dd>安装自带 120 部常用法规，其余按需下载（全部约 28 MB）；下载过的法规断网也能查。</dd></div>
-          <div><dt>多久更新</dt><dd>免费版法规数据随软件版本更新，约每季度一次；专业版可手动在线更新。不代表法规发布后即时入库，以应用内数据版本为准。</dd></div>
-        </dl>
-        <p class="meta">数据说明对应 v0.9.2，最新收录以应用内为准。</p>
-      </details>
     </section>
 
     <!-- ============ 案件夹演示 ============ -->
-    <section class="block wrap" id="case">
-      <div class="block-head">
-        <h2>把刚才的研究，整理成备忘录</h2>
-        <p>这是一个能动手的案件夹：两条法条、两份笔记。改一条笔记、收录或移出资料，再预览备忘录，交稿前还缺什么一眼能看见。</p>
-      </div>
-      <div class="window reveal">
-        <div class="window-bar">
-          <div class="lights"><i></i><i></i><i></i></div>
-          <span class="window-title">案件夹 · 购销合同纠纷（示例）</span>
-          <button type="button" class="btn case-export" data-case-export>导出已收录的 3 项</button>
+    <section class="sec band" id="case">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <span class="eyebrow">试用案件夹</span>
+            <h2>把刚才的研究，<br />整理成备忘录。</h2>
+          </div>
+          <p>示例里有两条法条、两份笔记。改一条笔记，再展开备忘录，看看交稿前还缺什么。</p>
         </div>
-        <div class="case-body">
-          <aside class="case-list">
-            <div class="case-filters" role="group" aria-label="资料类型">
-              <button type="button" data-filter="全部" aria-pressed="true">全部</button>
-              <button type="button" data-filter="法条" aria-pressed="false">法条</button>
-              <button type="button" data-filter="笔记" aria-pressed="false">笔记</button>
-            </div>
-            <div class="case-items" data-case-items></div>
-            <p class="case-hint">案件夹收纳法条和笔记；这里的时间线是整理笔记，不是证据附件。</p>
-          </aside>
-          <div class="case-doc">
-            <div class="case-doc-meta"><span data-case-kind>法条 / 示例内容</span><button type="button" class="case-save" data-case-toggle>从案件夹移出</button></div>
-            <div class="case-undo" data-case-undo hidden><span></span><button type="button">撤销移出</button></div>
-            <h3 data-case-title></h3>
-            <p class="case-text" data-case-body></p>
-            <a class="case-source" data-case-source href="laws/civil-code.html#620" hidden>在网页版法规库打开原文 →</a>
-            <div class="case-note">
-              <div class="case-note-head"><span data-note-state>我的补充</span><button type="button" data-note-edit>编辑笔记</button></div>
-              <p data-note-view></p>
-              <div data-note-form hidden>
-                <textarea data-note-input maxlength="600" aria-label="示例笔记"></textarea>
-                <div class="case-note-actions"><span data-note-count></span><button type="button" data-note-cancel>放弃修改</button><button type="button" class="btn" data-note-save>保存笔记</button></div>
+
+        <div class="case-frame">
+          <div class="case-bar">
+            <strong>购销合同纠纷<span>示例案件夹</span></strong>
+            <button type="button" class="btn sm" data-case-export>导出已收录的 3 项</button>
+          </div>
+          <div class="case-body">
+            <aside class="case-list">
+              <div class="case-filters" role="group" aria-label="资料类型">
+                <button type="button" data-filter="全部" aria-pressed="true">全部</button>
+                <button type="button" data-filter="法条" aria-pressed="false">法条</button>
+                <button type="button" data-filter="笔记" aria-pressed="false">笔记</button>
               </div>
+              <div class="case-items" data-case-items></div>
+              <p class="case-hint">案件夹收纳法条和笔记。这里的时间线是整理笔记，不是证据附件。</p>
+            </aside>
+            <div class="case-doc">
+              <div class="case-doc-meta">
+                <span data-case-kind>法条 / 示例内容</span>
+                <button type="button" class="case-save" data-case-toggle>从案件夹移出</button>
+              </div>
+              <div class="case-undo" data-case-undo hidden><span></span><button type="button">撤销移出</button></div>
+              <h3 data-case-title></h3>
+              <p class="case-text" data-case-body></p>
+              <a class="case-source" data-case-source href="laws/civil-code.html#620" hidden>在法规库打开原文 ↗</a>
+              <div class="case-note">
+                <div class="case-note-head">
+                  <span data-note-state>我的补充</span>
+                  <button type="button" data-note-edit>编辑笔记</button>
+                </div>
+                <p data-note-view></p>
+                <div data-note-form hidden>
+                  <textarea data-note-input maxlength="600" aria-label="示例笔记"></textarea>
+                  <div class="case-note-actions">
+                    <span data-note-count>0/600</span>
+                    <button type="button" data-note-cancel>放弃本次修改</button>
+                    <button type="button" class="btn sm" data-note-save>保存笔记</button>
+                  </div>
+                </div>
+              </div>
+              <p class="case-foot">网页演示：刷新后重置，请勿填写真实案情。导出为 TXT，包含已收录资料及其已保存的笔记。</p>
             </div>
-            <p class="case-foot">网页演示：刷新后重置，请勿填写真实案情。产品里的案件夹、笔记与导出属于免费功能。</p>
           </div>
         </div>
-      </div>
-      <details class="memo reveal" data-memo>
-        <summary>预览备忘录 · <span data-memo-count>3</span> 项已收录</summary>
-        <div class="memo-paper">
-          <span class="memo-tag">研究备忘录 / 虚构案例</span>
-          <h3>购销合同纠纷：签收与质量异议</h3>
-          <p class="memo-pending">待核对：合同检验期限、独立验收记录、质量异议邮件。以下内容不代表已完成事实核查。</p>
-          <div data-memo-list></div>
-          <button type="button" class="btn" data-memo-export>下载这份示例 · TXT</button>
-          <p class="meta">只包含已收录资料和已保存的笔记；产品里可导出 Word / PDF。</p>
-        </div>
-      </details>
-    </section>
 
-    <!-- ============ 主打功能 ============ -->
-    <section class="block wrap" id="features">
-      <div class="block-head">
-        <h2>把整条工作流放进一个窗口</h2>
-        <p>查法条不用切浏览器，写意见不用切文档；AI 引用的依据可以点回原文，逐条复核。</p>
-      </div>
-
-      <div class="grid">
-        <div class="card reveal">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6H6a2 2 0 0 0-2 2v11a2 2 0 0 1 2-2h10Z"/><path d="M20 3v18M16 3v3"/></svg>
+        <details class="memo">
+          <summary>预览备忘录 · <span data-memo-count>3</span> 项已收录</summary>
+          <div class="memo-paper">
+            <span>研究备忘录 / 虚构案例</span>
+            <h3>购销合同纠纷：签收与质量异议</h3>
+            <p class="memo-pending">待核对：合同检验期限、独立验收记录、质量异议邮件。以下内容不代表已完成事实核查。</p>
+            <div data-memo-list></div>
+            <button type="button" class="btn" data-memo-export>下载这份示例 · TXT</button>
+            <small>仅包含已保存的笔记；产品里可导出 Word / PDF。</small>
           </div>
-          <h3>离线法律库 <span class="tag">免费</span></h3>
-          <p>1513 部现行法律、行政法规与司法解释，共 56182 条，取自国家法律法规数据库官方文本，支持全文检索。安装自带 120 部常用，其余按需拉取（全部约 28 MB），拉过的断网照查。</p>
-        </div>
+        </details>
 
-        <div class="card reveal">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/><path d="M22 12a10 10 0 1 1-4.3-8.2"/></svg>
-          </div>
-          <h3>文书起草 <span class="tag pro">AI</span></h3>
-          <p>起诉状、答辩状等七类文书从结构起草，法源逐条可核实；改动左右对照，点「采用」才落进稿子，能存成所里自己的模板。</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 1 1-3.2-6.4"/><path d="M10 9a2 2 0 1 1 3 1.7c-.7.4-1 .8-1 1.6M12 16h.01"/></svg>
-          </div>
-          <h3>法库问答 <span class="tag pro">AI</span></h3>
-          <p>用日常语言提问，先检索本地法条与你自己的笔记，再基于检索到的材料作答，每个论断都标注可点回原文的出处。</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M8 9h4m-4 4h8m-8 4h6"/></svg>
-          </div>
-          <h3>划词即笔记 <span class="tag">免费</span></h3>
-          <p>读到关键处划选就能记笔记、加高亮、建立法条互引并挂接裁判案例，笔记始终贴着它所解释的那一条。</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
-          </div>
-          <h3>案件夹与备忘录 <span class="tag">免费</span></h3>
-          <p>按案子归拢法条、笔记与案例，一键导出备忘录；对照阅读支持两部法规左右并排、条号联动。</p>
-        </div>
-
-        <div class="card reveal">
-          <div class="ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.4 3.4 8.5 8 9.5 4.6-1 8-5.1 8-9.5V6Z"/><path d="m9 12 2 2 4-4"/></svg>
-          </div>
-          <h3>数据在你手里 <span class="tag">免费</span></h3>
-          <p>全部内容存在本机数据库文件里，每天自动快照保留 7 份，支持备份恢复与导入导出，可设应用锁。</p>
+        <div class="case-after">
+          <span>产品可导出 Word / PDF 备忘录；这里用 TXT 演示整理结果。</span>
+          <p>案件夹、笔记与导出属于免费功能，公测结束后也不锁。</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ 示例审查报告 ============ -->
+    <!-- ============ 合同审查 ============ -->
     <!-- 法条原文逐字取自仓内官方语料（docs/laws/civil-code.html），改动前先核原文。 -->
-    <section class="block wrap" id="report">
-      <div class="block-head">
-        <h2>审合同：原文和改法对着看</h2>
-        <p>这是以乙方立场审一份购销合同的输出（演示数据）。逐条点开：改法可直接抄走，法律依据当场展开到官方原文。</p>
-      </div>
-      <div class="window reveal">
-        <div class="window-bar">
-          <div class="lights"><i></i><i></i><i></i></div>
-          <span class="window-title">审查报告 · 购销合同（演示）.docx</span>
-          <span class="kbd">专业版 · 乙方立场</span>
-        </div>
-        <div class="report-body">
-          <p class="report-sum">共提出 3 条意见：<span class="risk high">高风险 1</span><span class="risk mid">中风险 1</span><span class="risk low">提示 1</span><span>引用法律依据 2 条，均已回本地法库核实</span></p>
-
-          <details class="report-item" open>
-            <summary><span class="risk high">高风险</span><span class="report-clause">第 8.2 条 · 违约金</span><span class="report-gist">约定 50% 过高，可能被法院调减</span></summary>
-            <div class="report-detail">
-              <div class="diff">
-                <div class="diff-row">
-                  <div class="tagline">合同原文</div>
-                  <del>任何一方违约，应向守约方支付合同总价 <b>50%</b> 的违约金。</del>
-                </div>
-                <div class="diff-row">
-                  <div class="tagline">修改建议 · 可直接替换</div>
-                  <ins>任何一方违约，应向守约方支付合同总价 30% 的违约金；实际损失超过该金额的，就超出部分另行赔偿。</ins>
-                </div>
-              </div>
-              <button type="button" class="cite law-peek-toggle" aria-expanded="false" aria-controls="law-peek-585r">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-                依据：民法典第五百八十五条 · 已核验 · 点一下看原文
-              </button>
-              <div class="law-peek" id="law-peek-585r" hidden>
-                <div class="law-peek-head"><strong>《中华人民共和国民法典》第五百八十五条</strong><span class="law-peek-status">现行有效</span></div>
-                <p>当事人可以约定一方违约时应当根据违约情况向对方支付一定数额的违约金，也可以约定因违约产生的损失赔偿额的计算方法。</p>
-                <p>约定的违约金低于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以增加；约定的违约金过分高于造成的损失的，人民法院或者仲裁机构可以根据当事人的请求予以适当减少。</p>
-                <p>当事人就迟延履行约定违约金的，违约方支付违约金后，还应当履行债务。</p>
-                <p class="law-peek-note"><a href="laws/civil-code.html#585">在网页版法规库打开这一条 →</a></p>
-              </div>
-            </div>
-          </details>
-
-          <details class="report-item">
-            <summary><span class="risk mid">中风险</span><span class="report-clause">第 6.1 条 · 验收</span><span class="report-gist">「签收即视为合格」放弃了检验期利益</span></summary>
-            <div class="report-detail">
-              <div class="diff">
-                <div class="diff-row">
-                  <div class="tagline">合同原文</div>
-                  <del>乙方签收货物即视为验收合格，此后不得以数量或者质量问题向甲方主张权利。</del>
-                </div>
-                <div class="diff-row">
-                  <div class="tagline">修改建议 · 可直接替换</div>
-                  <ins>乙方应在收到货物后 15 日内验收；数量或者外观质量异议应在验收期内书面提出，隐蔽瑕疵自发现之日起 30 日内书面提出。</ins>
-                </div>
-              </div>
-              <button type="button" class="cite law-peek-toggle" aria-expanded="false" aria-controls="law-peek-621">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-                依据：民法典第六百二十一条 · 已核验 · 点一下看原文
-              </button>
-              <div class="law-peek" id="law-peek-621" hidden>
-                <div class="law-peek-head"><strong>《中华人民共和国民法典》第六百二十一条</strong><span class="law-peek-status">现行有效</span></div>
-                <p>当事人约定检验期限的，买受人应当在检验期限内将标的物的数量或者质量不符合约定的情形通知出卖人。买受人怠于通知的，视为标的物的数量或者质量符合约定。</p>
-                <p>当事人没有约定检验期限的，买受人应当在发现或者应当发现标的物的数量或者质量不符合约定的合理期限内通知出卖人。买受人在合理期限内未通知或者自收到标的物之日起二年内未通知出卖人的，视为标的物的数量或者质量符合约定；但是，对标的物有质量保证期的，适用质量保证期，不适用该二年的规定。</p>
-                <p>出卖人知道或者应当知道提供的标的物不符合约定的，买受人不受前两款规定的通知时间的限制。</p>
-                <p class="law-peek-note"><a href="laws/civil-code.html#621">在网页版法规库打开这一条 →</a></p>
-              </div>
-            </div>
-          </details>
-
-          <details class="report-item">
-            <summary><span class="risk low">提示</span><span class="report-clause">第 11 条 · 通知与送达</span><span class="report-gist">没约定电子送达，出了纠纷文书送不到</span></summary>
-            <div class="report-detail">
-              <p class="report-note">建议补充：双方确认合同首部所列地址与电子邮箱为有效送达地址，变更应书面通知对方；未通知的，按原地址送达即视为送达。这一条是实务通行做法，没有对应的法条。法脉不会为了凑出处硬挂一条法律依据。</p>
+    <section class="sec" id="review">
+      <div class="wrap review">
+        <div class="review-copy">
+          <span class="eyebrow">合同审查是辅助工具，按需使用</span>
+          <h2>审合同，<br />原文和改法对着看。</h2>
+          <p>选好审查立场，看条款原文、修改建议和法律引用。引用先回本地法库核验，验不过的在报告里标注「未核实」，提示人工复核。要保留的风险点可存为笔记，报告可导出 Word / PDF。</p>
+          <p class="fine">下面是固定示例。引用可以核对；具体怎么改，还要结合这份合同判断。</p>
+          <details class="review-shot">
+            <summary>查看真实审查界面截图 ↗</summary>
+            <div class="shot-frame">
+              <figure class="shot">
+                <img class="shot-img is-active shot-when-light" data-scene="reviewshot" src="assets/shot-review-light.webp"
+                     alt="法脉真实合同审查界面：按风险分级逐条给意见" width="1440" height="900" loading="lazy" decoding="async" />
+                <img class="shot-img is-active shot-when-dark" data-scene="reviewshot" src="assets/shot-review-dark.webp"
+                     alt="法脉真实合同审查界面（深色主题）" width="1440" height="900" loading="lazy" decoding="async" />
+              </figure>
             </div>
           </details>
         </div>
-      </div>
-      <div class="report-foot reveal">
-        <p class="meta">通用 AI 可能引用已废止甚至不存在的条文而不自知；法脉的每条依据都先回本地法库核验，验不过的一律标红「未核实」，不冒充出处。</p>
-        <p class="meta">内置劳动、买卖、房屋租赁三类审查清单；区分甲方 / 乙方立场；报告一键导出 Word / PDF。装好后拖入你自己的合同，几分钟出同款。</p>
-        <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载法脉，审你自己的合同</a>
-      </div>
-    </section>
 
-    <!-- ============ 差异点 ============ -->
-    <section class="block wrap" id="compare">
-      <div class="block-head">
-        <h2>为什么是法脉，而不是通用 AI 或在线法库</h2>
-        <p>它不替代你的判断，只解决两个老问题：资料不敢上传，AI 引用不敢信。</p>
-      </div>
-      <div class="grid reveal">
         <div class="card">
-          <div class="compare-card-title">通用 AI 对话</div>
-          <div class="compare-card-sub">ChatGPT、豆包等</div>
-          <ul class="compare-list">
-            <li class="no">合同要贴进别人家的服务器</li>
-            <li class="no">法条靠模型记忆，编没编无从核验</li>
-            <li class="no">答完即走，沉淀不下笔记与案卷</li>
-            <li class="ok">通用能力强，闲聊顺手</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="compare-card-title">在线法律数据库</div>
-          <div class="compare-card-sub">网页版 / 小程序</div>
-          <ul class="compare-list">
-            <li class="ok">法条文本权威</li>
-            <li class="no">要联网、要账号，检索记录留在云端</li>
-            <li class="no">查询、笔记、案件材料彼此割裂</li>
-            <li class="no">多面向机构订阅，个人使用门槛高</li>
-          </ul>
-        </div>
-        <div class="card compare-self">
-          <div class="compare-card-title">法脉</div>
-          <div class="compare-card-sub">本地优先的桌面工作台</div>
-          <ul class="compare-list">
-            <li class="ok">材料全程不出本机，整机断网也能用</li>
-            <li class="ok">AI 每条依据回本地法库核验，点击回原文</li>
-            <li class="ok">查法条、记笔记、审合同在一个窗口闭环</li>
-            <li class="ok">法库、检索、笔记永久免费，付费只为 AI 与更新</li>
-            <li class="no">地方性法规暂未收录：可自行导入 Word / PDF，地方库正在按省准备</li>
-          </ul>
+          <div class="rc-top"><span>购销合同 / 乙方立场</span><span>示例意见</span></div>
+          <div class="rc-body">
+            <span class="risk high">需修改</span>
+            <h3>签收，不等于验收合格。</h3>
+            <label>原文</label>
+            <p class="clause-old">乙方签收货物即视为验收合格，此后不得以数量或者质量问题向甲方主张权利。</p>
+            <label>建议</label>
+            <p class="clause-new">签收仅确认收到货物。另行约定检验期限、提出异议的方式，以及隐蔽质量问题的处理。</p>
+            <button type="button" class="src-toggle" aria-expanded="false" aria-controls="src-620">民法典 · 第六百二十条 <span>展开条文</span></button>
+            <div class="src" id="src-620" hidden>
+              <p>买受人收到标的物时应当在约定的检验期限内检验。没有约定检验期限的，应当及时检验。</p>
+              <small>此处核对的是引用文本。具体期限和责任约定，仍需结合业务判断。</small>
+              <a href="laws/civil-code.html#620">打开原文 ↗</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ 隐私 ============ -->
-    <section class="block wrap" id="privacy">
-      <div class="block-head">
-        <h2>你的合同，我们看不到</h2>
-        <p>律师对客户负有保密义务，所以这里先摆你能亲手核对的机制，再讲为什么我们想看也看不到。</p>
-      </div>
-
-      <div class="privacy reveal">
-        <div class="guard">
-          <h3>必须出网的那一段，发出前先换成化名</h3>
-          <p class="guard-sub">用云端 AI 时，材料确实要发给模型厂商。所以出网前先把当事人换掉。下面按字段对照一份示例起诉状：左边是你电脑里的，右边是模型实际收到的；最后一行，试试把内部意见单独藏起来。</p>
-
-          <div class="cmp">
-            <div class="cmp-cols" aria-hidden="true"><span>你电脑里的材料</span><span>模型实际收到的</span></div>
-            <div class="cmp-row">
-              <div><span class="cmp-field">当事人</span><p>原告王建国，被告杭州恒晟建材有限公司。</p></div>
-              <div class="after"><span class="cmp-badge changed">已化名</span><span class="cmp-field">处理后</span><p>原告王某，被告甲公司。</p></div>
-            </div>
-            <div class="cmp-row">
-              <div><span class="cmp-field">证件与电话</span><p>身份证号 110101199003074514，电话 13800138000。</p></div>
-              <div class="after"><span class="cmp-badge changed">已替换</span><span class="cmp-field">处理后</span><p>身份证号【身份证1】，电话【手机号1】。</p></div>
-            </div>
-            <div class="cmp-row">
-              <div><span class="cmp-field">日期与金额</span><p>2023 年 3 月 12 日签订合同，货款 487,600 元，已付 200,000 元。</p></div>
-              <div class="after"><span class="cmp-badge kept">保留</span><span class="cmp-field">处理后</span><p>2023 年 3 月 12 日签订合同，货款 487,600 元，已付 200,000 元。</p></div>
-            </div>
-            <div class="cmp-row">
-              <div><span class="cmp-field">内部意见</span><p>可接受分两期付款，暂不告知对方。</p></div>
-              <div class="after"><span class="cmp-badge review" data-secret-badge>需人工检查</span><span class="cmp-field">处理后</span><p data-secret-text>可接受分两期付款，暂不告知对方。</p></div>
-            </div>
-            <div class="cmp-act">
-              <div><strong data-secret-title>这段内部意见，自动处理后仍会发出</strong><p data-secret-sub>它不含姓名、证件号，规则不会动它。试着把它单独隐藏。</p></div>
-              <button type="button" class="btn" data-secret-toggle>隐藏这段内部意见</button>
-            </div>
-            <p class="cmp-note">标「已化名 / 已替换」的发出前就换好；标「需人工检查」的要靠你判断。回答回到屏幕上时化名自动还原，对照表只活在这一次请求的内存里，不落盘。固定示例：不检测你输入的材料，也不连接模型。</p>
+    <section class="sec band" id="privacy">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <span class="eyebrow">材料交出去之前</span>
+            <h2>姓名换掉了，<br />还有哪些内容会发出去？</h2>
           </div>
-
-          <div class="mask-cats">
-            <p class="mask-cats-title">这样换掉的共有 <strong>23 类</strong>，按《个人信息保护法》第二十八条的法定敏感类别逐一排查：</p>
-            <div class="mask-groups">
-              <span class="mask-group"><strong>当事人</strong>姓名 → 李某 · 企业名 → 甲公司</span>
-              <span class="mask-group"><strong>证件</strong>身份证 · 护照通行证 · 军官证 · 社保卡</span>
-              <span class="mask-group"><strong>账户</strong>银行卡 · 对公账户 · 证券账户 · 发票号</span>
-              <span class="mask-group"><strong>联系</strong>手机 · 固话 · 邮箱 · 微信 QQ</span>
-              <span class="mask-group"><strong>痕迹</strong>地址 · 车牌 · 病历号 · 车架号 · IP…</span>
-            </div>
-            <p class="mask-fine">身份证按校验位认、银行卡过 Luhn 校验，规则拿真实法条语料反复校过，法条原文不会被错改。</p>
-          </div>
-
-          <div class="mask-keep">
-            <h4>这些，一个字都不碰：金额、日期、案号、法条条号、公检法机关名</h4>
-            <p>AI 要拿它们算违约金、算时效、对引用，错杀一个数字整份分析就废了：宁可漏，不可错杀。真漏了，会在出网前停下来，让你当场补进名单。</p>
-          </div>
-
-          <div class="guard-grid">
-            <div>
-              <h4>第一次发送先过目</h4>
-              <p>第一次往云端发材料，先把实际发出的全文摆给你核对；之后随时可在隐私面板搜当事人的名字，确认换干净了。</p>
-            </div>
-            <div>
-              <h4>图片，必须你亲手过</h4>
-              <p>截图过不了文字化名这道闸，所以发图前必经涂黑界面：拖框即涂，疑似公章自动圈出。这道确认不设开关，每次都有。</p>
-            </div>
-            <div>
-              <h4>每次出网都记账</h4>
-              <p>时间、去向、字节数、换了几处化名，本机台账逐条可查、可导出 CSV。不必信我们怎么说，自己查。</p>
-            </div>
-          </div>
-
-          <p class="guard-note">深圳律协 2026 年的律师 AI 执业指引，第一条输入建议就是「对于客户身份信息进行脱敏处理」；市面上已有律师为单独的脱敏工具付 <strong>¥499</strong>。在法脉里，这一步是每次 AI 调用的<strong>默认动作</strong>，不单独收钱。</p>
+          <p>云端 AI 会收到材料和提示词。看一份虚构笔记，处理前后有什么变化。</p>
         </div>
 
-        <figure class="evidence reveal">
+        <div class="cmp">
+          <div class="cmp-dest">
+            <span>用途：把选中的笔记提交给云端模型提问</span>
+            <small>接收方：你选择的模型服务商 · 虚构示例，不发送数据</small>
+          </div>
+          <div class="cmp-cols" aria-hidden="true"><span>原始笔记</span><span>处理后内容</span></div>
+          <div class="cmp-row changed">
+            <div><span class="cmp-field">当事人</span><p>星海公司与陈明发生购销合同纠纷。</p></div>
+            <div class="after"><div class="cmp-state"><span class="cmp-badge changed">已化名</span></div><p>甲公司与陈某发生购销合同纠纷。</p></div>
+          </div>
+          <div class="cmp-row changed">
+            <div><span class="cmp-field">联系方式</span><p>陈明：138 0000 1234，chenming@example.com</p></div>
+            <div class="after"><div class="cmp-state"><span class="cmp-badge changed">已替换</span></div><p>陈某：【手机号1】，【邮箱1】</p></div>
+          </div>
+          <div class="cmp-row">
+            <div><span class="cmp-field">日期与金额</span><p>3 月 12 日签约，合同金额 28 万元。</p></div>
+            <div class="after"><div class="cmp-state"><span class="cmp-badge kept">保留</span></div><p>3 月 12 日签约，合同金额 28 万元。</p></div>
+          </div>
+          <div class="cmp-row review" data-secret-row>
+            <div><span class="cmp-field">谈判底线</span><p>最多让步 2 万元，不接受退货。</p></div>
+            <div class="after"><div class="cmp-state"><span class="cmp-badge warn" data-secret-badge>需人工检查</span></div><p data-secret-text>最多让步 2 万元，不接受退货。</p></div>
+          </div>
+          <div class="cmp-act">
+            <div>
+              <strong data-secret-title>这段谈判底线仍在处理结果里</strong>
+              <p data-secret-sub>它不含姓名和证件号，规则不会动它。试着把它单独隐藏。</p>
+            </div>
+            <button type="button" class="btn" data-secret-toggle>隐藏这段内容</button>
+          </div>
+          <p class="cmp-note">标「已化名 / 已替换」的发出前就换好；标「需人工检查」的要靠你判断。回答回到屏幕上时化名自动还原，对照表只活在这一次请求的内存里，不落盘。此处是固定示例，不检测你输入的材料，也不连接模型。</p>
+        </div>
+
+        <div class="bounds">
+          <p><strong>脱敏不只看姓名。</strong>自动替换覆盖姓名、证件号、账号、联系方式等 23 类；金额、日期、案号刻意保留（分析要用），案情背景仍可能让人识别当事人，发送前需核对。</p>
+          <p><strong>图片单独处理。</strong>文字脱敏遮不住图片里的签名和印章，所以发图前必经涂黑界面，疑似公章会自动圈出。这道确认不设开关。</p>
+        </div>
+
+        <figure class="evidence">
           <img class="evidence-img evidence-when-light" src="assets/shot-masking-light.webp"
                alt="审查报告头部实拍：注明引用法律依据的核实情况，以及发送前已在本机脱敏——姓名 2 处、公司名 1 处、身份证号 1 处、手机号 1 处，报告已自动还原"
                width="928" height="170" loading="lazy" decoding="async" />
           <img class="evidence-img evidence-when-dark" src="assets/shot-masking-dark.webp"
                alt="审查报告头部实拍（深色主题）：核实声明与脱敏计数"
                width="928" height="170" loading="lazy" decoding="async" />
-          <figcaption class="preview-cap">每份审查报告的头部实拍：哪些依据核实过、这次换了几处化名，每一份都写明</figcaption>
+          <figcaption>真实产品截图：每份审查报告的头部都写明哪些依据核实过、这次换了几处化名。第一次往云端发材料前，实际发出的全文会先摆给你核对。</figcaption>
         </figure>
 
-        <div class="privacy-grid">
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-              技术上做不到
-            </h3>
-            <p>合同、笔记、检索记录都存在你电脑里，我们没有能接收它们的服务器。用云端 AI 时，请求从你的电脑直连模型厂商，我们不在你和模型之间，想看也看不到。</p>
-          </div>
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h6m4 0h6"/><circle cx="12" cy="12" r="2.5"/></svg>
-              架构上没开关
-            </h3>
-            <p>断网时，法律库、检索、笔记全部照常；应用会发起哪几类网络请求，<a href="privacy.html">隐私政策</a>逐条穷举，连「你在研究哪个案子」都没人知道。</p>
-          </div>
-          <div>
-            <h3>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5.5"/><path d="M15.7 6.3a5.5 5.5 0 1 1-7.4 7.4"/></svg>
-              商业上没动机
-            </h3>
-            <p>法脉靠卖软件授权赚钱，不靠数据：没有广告，没有「用户画像」。你的付费，让我们不需要第二种收入。</p>
-          </div>
-        </div>
-
+        <a class="link" href="privacy.html">查看数据存储、联网与脱敏的完整说明 ↗</a>
       </div>
     </section>
 
-    <!-- ============ 不做什么 ============ -->
-    <section class="block wrap" id="principles">
-      <div class="block-head">
-        <h2>法脉不做的事</h2>
-        <p>有些能力我们永远不会有。不是还没做——是不做。</p>
-      </div>
-      <ul class="nots reveal">
-        <li><strong>不需要账号。</strong>下载即用，没有「注册登录」这一步。</li>
-        <li><strong>不记录你查了什么。</strong>零遥测；检索词有时就是案情，所以连它也只留在本机。</li>
-        <li><strong>不锁你的数据。</strong>法库、检索、笔记、导出永久免费，公测结束也不锁。</li>
-        <li><strong>不自动续费。</strong>月卡就是一次性的 30 天，到期就是到期。</li>
-        <li><strong>不做大而全平台。</strong>不做云协作、不做账号体系，只做好你一个人的工作台。</li>
-      </ul>
-    </section>
-
-    <!-- ============ 价格 ============ -->
-    <section class="block wrap" id="pricing">
-      <div class="block-head">
-        <h2>价格</h2>
-        <p>法律库、检索、笔记与案件夹永久免费；付费解锁 AI 与实时法规更新。这份定价是法脉唯一的收入。正因为收这份钱，我们用不着打你数据的主意。</p>
-      </div>
-
-      <div class="prices reveal">
-        <div class="price">
-          <h3>月卡</h3>
-          <div class="amount">¥39</div>
-          <div class="was">&nbsp;</div>
-          <p>一次性 30 天，<strong>不自动续费</strong>。<br />适合临时接一单的场景。</p>
+    <!-- ============ 费用 ============ -->
+    <section class="sec" id="pricing">
+      <div class="wrap">
+        <div class="head">
+          <div>
+            <span class="eyebrow">软件授权与模型费用</span>
+            <h2>查法、记笔记，免费。<br />AI 的费用另算。</h2>
+          </div>
+          <p>公测期间软件功能免费开放。模型调用费用由你直接支付给所选服务商，法脉不代收。</p>
         </div>
-        <div class="price featured">
-          <span class="badge">早鸟名额有限</span>
-          <h3>年订阅</h3>
-          <div class="amount">¥129<small> /年</small></div>
-          <div class="was">原价 ¥399</div>
-          <p>全部 AI 功能与实时法规更新。<br />早鸟售完即恢复 ¥199。</p>
-        </div>
-        <div class="price">
-          <h3>买断</h3>
-          <div class="amount">¥399</div>
-          <div class="was">原价 ¥699</div>
-          <p>该版本永久可用，含 1 年数据更新，<br />之后续更新 ¥99/年。</p>
-        </div>
-      </div>
 
-      <p class="meta" style="text-align:center">订阅解锁的是功能；AI 模型调用费另算，由你直付厂商：默认接通义千问，新用户开通即有免费额度，之后常用模型约 0.2–0.5 元审一份合同。</p>
-
-      <div class="free-note reveal">
-        <h3>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></svg>
-          无论什么时候，免费功能一律不锁
-        </h3>
-        <p>法律库与全文检索、笔记与高亮、案件夹与导出、备份恢复与应用锁，以及每季度的法规数据更新：永久免费，不设时限。付费墙只挡 AI 与实时法规更新。</p>
-        <p style="margin-top:6px"><strong>律所版（规划中）</strong>：所级授权、内网部署、本地私有模型。有这类需求的律所负责人，加微信 <strong>chengyue-wish</strong>（备注「律所」）直接聊你们的合规要求。</p>
+        <div class="fees">
+          <article>
+            <span class="fee-label">基础工作台</span>
+            <h3>永久免费</h3>
+            <p>查法条与案例、全文检索、笔记与高亮、案件夹、导出与备份。</p>
+            <small>无需注册，不必配置模型即可开始。免费功能公测结束后也不锁。</small>
+          </article>
+          <article>
+            <span class="fee-label">专业版</span>
+            <h3>公测免费开放</h3>
+            <p>AI 问答、合同审查、文书解读与起草，以及在线法规数据更新。</p>
+            <ul class="fee-prices">
+              <li>正式版 月卡 <b>¥39</b>（一次性 30 天，不自动续费）</li>
+              <li>年订阅 <b>¥129</b> 早鸟（原价 ¥399，售完恢复 ¥199）</li>
+              <li>买断 <b>¥399</b>（含 1 年数据更新，之后 ¥99/年）</li>
+            </ul>
+            <small>软件授权与第三方模型费用分开计算。</small>
+          </article>
+          <article>
+            <span class="fee-label">模型调用</span>
+            <h3>按实际用量</h3>
+            <p>默认接入通义千问：新用户开通即有免费额度，不充值也不实名。之后按服务商用量规则计费，常用模型约 0.2–0.5 元审一份合同。</p>
+            <small>赠送额度、有效期与价格，以模型厂商当时的规则为准。</small>
+          </article>
+        </div>
+        <p class="fee-foot"><strong>律所版（规划中）</strong>：所级授权、内网部署、本地私有模型。有这类需求的律所负责人，加微信 <strong>chengyue-wish</strong>（备注「律所」）直接聊合规要求。</p>
       </div>
     </section>
 
-    <!-- ============ FAQ ============ -->
-    <section class="block wrap" id="faq">
-      <div class="block-head">
-        <h2>常见问题</h2>
-      </div>
-
-      <div class="faq reveal">
-        <details>
-          <summary>用 AI 功能还要另外花钱吗？大概多少？</summary>
-          <div class="answer">
-            新用户基本不用花钱：法脉默认接入通义千问，开通即有免费额度，不用实名、不用充值，常见长度的合同能审几十份。
-            额度用完后按厂商牌价直付（常用模型约 0.2–0.5 元审一份合同），法脉不赚差价，也不代收；
-            这正是合同不必经过我们服务器的前提。应用内有 5 分钟开通向导。
-          </div>
-        </details>
-        <details>
-          <summary>没有网络能用吗？</summary>
-          <div class="answer">
-            法律库浏览、全文检索、笔记、案件夹、导出等全部功能都在本机完成，断网可用。
-            只有 AI 功能和法规数据更新需要联网。
-          </div>
-        </details>
-        <details>
-          <summary>公测结束后，我写的笔记会被锁住吗？</summary>
-          <div class="answer">
-            不会。无论公测还是正式版，免费功能一律不锁，笔记、法库、导出照常使用。锁住你自己的数据等于自毁「数据在你手里」的定位，任何情况下都不做。
-          </div>
-        </details>
-        <details>
-          <summary>支持 Windows 吗？Intel Mac 呢？</summary>
-          <div class="answer">
-            macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。
-            Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上）：功能与法律库与 macOS 版完全一致；目前标注为预览版仅因安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可（<a href="windows.html" data-win-guide>图解步骤与杀毒软件放行说明</a>）；遇到问题欢迎在 <a href="https://github.com/lttxzmj/lawpulse-feedback/issues" rel="noopener">GitHub</a> 反馈。
-          </div>
-        </details>
-        <details>
-          <summary>法规数据多久更新一次？</summary>
-          <div class="answer">
-            免费版随应用版本更新（约每季度一次）；专业版可随时在线检查并更新到最新法规。更新只覆盖官方法条数据，绝不会动你的笔记。
-            收录范围：全国性法规已是现行全集：法律、行政法规、司法解释、全国人大常委会的立法解释与
-            刑法修正案、监察法规、宪法，逐类与国家法律法规数据库的数量对得上（共 1513 部），
-            另存 11 部已废止/已修订的旧文本供查老案子（会打上「已废止」标记），
-            并内置 278 件指导性案例与 445 件公报案例。<strong>尚未收录地方性法规与部门规章</strong>，
-            这两类可自行导入 Word/PDF 文件；地方性法规库正在按省准备。安装包自带 120 部最常用的，其余在「法律库」页
-            按效力级别按需获取（全拿下来约 28 MB），拉过的以后不联网也能看。
-          </div>
-        </details>
-        <details>
-          <summary>换电脑或重装系统怎么办？</summary>
-          <div class="answer">
-            激活码不绑定机器指纹，在新机器上重新输入即可。数据可通过内置的备份恢复或 JSON 导出导入迁移。
-          </div>
-        </details>
-        <details>
-          <summary>数据存在本机，还需要备份吗？</summary>
-          <div class="answer">
-            需要。应用每次启动自动备份一次，保留最近 7 份快照；建议再用「备份」功能另存一份到其他设备：同一块磁盘损坏时，本机快照也一起丢。当前没有云同步。
-          </div>
-        </details>
-        <details>
-          <summary>应用锁能保护到哪一步？</summary>
-          <div class="answer">
-            应用锁防的是别人随手打开软件翻看。数据文件本身不加密；导出备份可以设密码，整机防护请配合系统磁盘加密。
-          </div>
-        </details>
+    <!-- ============ 常见问题 ============ -->
+    <section class="sec" id="faq">
+      <div class="wrap">
+        <div class="head">
+          <div><span class="eyebrow">下载之前</span><h2>常见问题</h2></div>
+          <p>购买前请核对授权期限与续费规则；模型服务的免费额度不等于软件授权。</p>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>用 AI 功能还要另外花钱吗？大概多少？</summary>
+            <div class="answer">
+              新用户基本不用花钱：法脉默认接入通义千问，开通即有免费额度，不用实名、不用充值，常见长度的合同能审几十份。
+              额度用完后按厂商牌价直付（常用模型约 0.2–0.5 元审一份合同），法脉不赚差价，也不代收；这正是合同不必经过我们服务器的前提。应用内有 5 分钟开通向导。
+            </div>
+          </details>
+          <details>
+            <summary>没有网络能用吗？</summary>
+            <div class="answer">
+              法律库浏览、全文检索、笔记、案件夹、导出等功能都在本机完成，断网可用；但只有下载过的法规能离线查阅。
+              AI 功能和法规数据更新需要联网。
+            </div>
+          </details>
+          <details>
+            <summary>公测结束后，我写的笔记会被锁住吗？</summary>
+            <div class="answer">
+              不会。无论公测还是正式版，免费功能一律不锁，笔记、法库、导出照常使用。付费墙只挡 AI 与实时法规更新。
+            </div>
+          </details>
+          <details>
+            <summary>支持 Windows 吗？Intel Mac 呢？</summary>
+            <div class="answer">
+              macOS 版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。
+              Windows 版可直接<a href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载使用</a>（64 位 Windows 10 及以上），功能与 macOS 版一致；安装包暂未做代码签名，SmartScreen 提示「未知发布者」时选「更多信息 → 仍要运行」即可（<a href="windows.html" data-win-guide>图解步骤与杀毒软件放行说明</a>）。
+            </div>
+          </details>
+          <details>
+            <summary>收录了哪些法规？多久更新一次？</summary>
+            <div class="answer">
+              1513 部现行法律、行政法规与司法解释，共 56182 条，逐类与国家法律法规数据库对过数；另内置 278 件指导性案例与 445 件公报案例。
+              <strong>地方性法规与部门规章尚未收录</strong>，可自行导入 Word / PDF，地方库正在按省准备。
+              免费版法规数据随软件版本更新（约每季度一次），专业版可随时在线更新；更新只覆盖官方法条数据，不会动你的笔记。
+            </div>
+          </details>
+          <details>
+            <summary>数据存在本机，怎么备份和保护？</summary>
+            <div class="answer">
+              应用每次启动自动备份一次，保留最近 7 份快照；建议再用「备份」功能另存一份到其他设备，同一块磁盘损坏时本机快照也会一起丢，目前没有云同步。
+              换电脑时激活码不绑定机器指纹，重新输入即可，数据通过备份恢复或 JSON 导入导出迁移。
+              应用锁防的是别人随手打开软件翻看；数据文件本身不加密，导出备份可以设密码，整机防护请配合系统磁盘加密。
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
     <!-- ============ 最近更新 ============ -->
     <!-- 发版纪律：这个区块必须随版本重写（stamp-landing 校验 data-updates-version，
          对不上直接拒绝发布）。写普通话，改了什么就说什么，包括修掉的 bug。 -->
-    <section class="block wrap" id="updates">
-      <div class="block-head">
-        <h2>最近更新</h2>
-        <p>公测期迭代快；改了什么、修了什么 bug，都原样写在日志里。</p>
-      </div>
-      <div class="updates-card reveal" data-updates-version="0.9.2">
-        <div class="updates-version">
-          <strong>v0.9.2</strong>
-          <time datetime="2026-10-23">2026 年 10 月 23 日</time>
+    <section class="sec band" id="updates">
+      <div class="wrap">
+        <div class="head">
+          <div><span class="eyebrow">公测期迭代快</span><h2>最近更新</h2></div>
+          <p>改了什么、修了什么 bug，都原样写在日志里。</p>
         </div>
-        <ul>
-          <li>法规库从 520 部扩到 <strong>1513 部现行</strong>（5.6 万条），全国性法规已是全集，逐类跟国家法律法规数据库对过数。下载包没变大：装好自带 120 部最常用的，其余按效力级别或执业方向整批拉取，按钮上写着要下多少（全部拿下来约 28 MB），拉过的以后不联网也能看；快速查找（⌘K）本地搜不到时，会列出云端同名法规，点一下就地拉下来打开。</li>
-          <li>化名保护补齐到<strong>全部 AI 功能</strong>：以前只有合同审查会把当事人姓名、公司名换成「李某」「甲公司」再发出去，现在问答、解读、起草、归纳都一样。发现疑似遗漏会在发出之前停一下，当场补进名单这一次就换掉；<strong>第一次往云端发材料前，先把实际发出的全文摆给你核对一遍</strong>，看过再发。</li>
-          <li>文书起草可以对话着改：说一句哪里要改，改动以左右对照摆出来，点「采用」才落进稿子；圈哪句改哪句、每一段都能单独重做；改好的文书能「另存为模板」变成所里自己的格式——只带结构与固定条款，不带本案的当事人与金额。</li>
-          <li>修复 Windows 版装上打不开的问题；配 AI 不用先充钱了——默认改为通义千问，新用户开通即有免费额度。0.9.1/0.9.2 跟进修复：搜索框被挤没、解读与起草页面过窄、问答行长失控、更新提示不可见等界面问题。</li>
-        </ul>
-        <p class="updates-note">升级方式：应用内「设置 → 更新」下载覆盖安装即可，笔记与数据不受影响。</p>
-        <div class="updates-links">
-          <a href="changelog.html">完整更新日志 →</a>
-          <a href="feed.xml" rel="alternate">RSS 订阅更新</a>
+        <div class="updates-card" data-updates-version="0.9.2">
+          <div class="updates-version">
+            <strong>v0.9.2</strong>
+            <time datetime="2026-10-23">2026 年 10 月 23 日</time>
+          </div>
+          <ul>
+            <li>法规库从 520 部扩到 <strong>1513 部现行</strong>（5.6 万条），全国性法规已是全集，逐类跟国家法律法规数据库对过数。下载包没变大：装好自带 120 部最常用的，其余按效力级别或执业方向整批拉取，按钮上写着要下多少（全部约 28 MB），拉过的以后不联网也能看。</li>
+            <li>化名保护补齐到<strong>全部 AI 功能</strong>：以前只有合同审查会把当事人姓名、公司名换成「李某」「甲公司」再发出去，现在问答、解读、起草、归纳都一样。<strong>第一次往云端发材料前，先把实际发出的全文摆给你核对一遍</strong>，看过再发。</li>
+            <li>文书起草可以对话着改：说一句哪里要改，改动以左右对照摆出来，点「采用」才落进稿子；每一段都能单独重做；改好的文书能「另存为模板」，只带结构与固定条款。</li>
+            <li>修复 Windows 版装上打不开的问题；配 AI 不用先充钱了，默认改为通义千问，新用户开通即有免费额度。0.9.1 / 0.9.2 跟进修复：搜索框被挤没、解读与起草页面过窄、问答行长失控、更新提示不可见等界面问题。</li>
+          </ul>
+          <p class="updates-note">升级方式：应用内「设置 → 更新」下载覆盖安装即可，笔记与数据不受影响。</p>
+          <div class="updates-links">
+            <a href="changelog.html">完整更新日志 ↗</a>
+            <a href="feed.xml" rel="alternate">RSS 订阅更新</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ 收尾 CTA ============ -->
+    <!-- ============ 收尾 ============ -->
     <section class="wrap">
-      <div class="final reveal">
-        <h2>法条、笔记、合同，都留在你这台电脑上</h2>
-        <p>公测期全部功能免费：不需要账号，卸载不留云端尾巴。装好就能当场验证：拔掉网线，法库与检索照常。</p>
-        <p class="meta">公测 7 周发了 11 个版本（<a href="changelog.html">更新日志</a>）；法规语料 <a href="https://github.com/lttxzmj/chinese-law-corpus" rel="noopener">GitHub 开源</a>；不装应用也能先用<a href="laws/index.html">网页版法规库</a>。进测试群：微信 <strong>chengyue-wish</strong>（备注「法脉」）。</p>
-        <div class="cta-row">
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-            下载 Mac 版（M 系列芯片）
-          </a>
-          <a class="btn lg" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-            下载 Windows 版（64 位）
-          </a>
+      <div class="final">
+        <div>
+          <span class="eyebrow">法脉 LawPulse</span>
+          <h2>下次查法条，顺手记一笔。</h2>
+          <p>先用本地法库和笔记，不必先开通 AI。公测期全部功能免费，不需要账号。</p>
         </div>
-        <p class="meta" data-win-hint>Windows 版第一次运行会弹蓝色 SmartScreen 提示：点「更多信息 → 仍要运行」即可，<a href="windows.html" data-win-guide>看图解步骤</a>。</p>
-        <p class="meta"><span data-release-line>最新版本 · macOS 11 及以上</span>
-          · Windows 10 及以上（64 位）
-          · <a href="https://github.com/lttxzmj/lawpulse-feedback/releases/latest" rel="noopener">GitHub 镜像下载</a></p>
+        <div>
+          <div class="actions">
+            <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载 Mac 版</a>
+            <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
+          </div>
+          <p class="fine" data-win-hint>Windows 第一次运行会弹 SmartScreen 提示：点「更多信息 → 仍要运行」即可，<a href="windows.html" data-win-guide>看图解步骤</a>。</p>
+          <p class="fine">公测 7 周发了 11 个版本（<a href="changelog.html">更新日志</a>）· 法规语料 <a href="https://github.com/lttxzmj/chinese-law-corpus" rel="noopener">GitHub 开源</a> · 进测试群：微信 <strong>chengyue-wish</strong></p>
+        </div>
       </div>
     </section>
   </main>
@@ -1434,7 +946,7 @@
           "案件夹归类与备忘录导出",
           "两部法规对照阅读与条号联动",
           "AI 合同审查：条款切分、审查清单、立场审查、风险报告导出",
-          "AI 法库问答与文书解读",
+          "AI 法库问答与文书解读、文书起草",
           "AI 引用回本地法库校验，未核实的显著标注",
           "本机 SQLite 存储、每日快照备份、应用锁",
           "Word / PDF / JSON / Markdown 导出"
@@ -1488,7 +1000,7 @@
             "name": "没有网络能用吗？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "法律库浏览、全文检索、笔记、案件夹、导出等功能全在本机完成，断网可用。只有 AI 功能和法规数据更新需要联网。"
+              "text": "法律库浏览、全文检索、笔记、案件夹、导出等功能都在本机完成，断网可用；但只有下载过的法规能离线查阅。AI 功能和法规数据更新需要联网。"
             }
           },
           {
@@ -1496,7 +1008,7 @@
             "name": "公测结束后，我写的笔记会被锁住吗？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "不会。无论公测还是正式版，免费功能一律不锁，笔记、法库、导出照常使用，付费墙只挡 AI 与实时数据更新。"
+              "text": "不会。无论公测还是正式版，免费功能一律不锁，笔记、法库、导出照常使用，付费墙只挡 AI 与实时法规更新。"
             }
           },
           {
@@ -1504,23 +1016,23 @@
             "name": "支持 Intel Mac 或 Windows 吗？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "macOS 正式版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。Windows 已开放预览版下载（64 位 Windows 10 及以上），功能与 macOS 版一致；安装包暂未做代码签名，SmartScreen 提示未知发布者时选「更多信息 → 仍要运行」即可，官网另有图解步骤页 https://lttxzmj.github.io/lawpulse-site/windows.html 说明解除锁定与杀毒软件放行。"
+              "text": "macOS 版为 Apple Silicon（M 系列芯片）版，需要 macOS 11 及以上；Intel Mac 版暂未提供。Windows 已开放下载（64 位 Windows 10 及以上），功能与 macOS 版一致；安装包暂未做代码签名，SmartScreen 提示未知发布者时选「更多信息 → 仍要运行」即可，官网另有图解步骤页 https://lttxzmj.github.io/lawpulse-site/windows.html 说明解除锁定与杀毒软件放行。"
             }
           },
           {
             "@type": "Question",
-            "name": "法规数据多久更新一次？",
+            "name": "收录了哪些法规？多久更新一次？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "免费版随应用版本更新（约每季度一次），专业版可随时在线检查并更新到最新法规；更新只覆盖官方法条数据，不会动用户笔记。目前收录 1513 部现行法律、行政法规、司法解释与立法解释（全国性法规已是现行全集），另内置 278 件最高法指导性案例与 445 件公报案例；地方性法规与部门规章暂未收录，可自行导入 Word/PDF 文件，地方性法规库正在按省准备。"
+              "text": "1513 部现行法律、行政法规与司法解释，共 56182 条，逐类与国家法律法规数据库对过数；另内置 278 件最高法指导性案例与 445 件公报案例。地方性法规与部门规章尚未收录，可自行导入 Word/PDF，地方库正在按省准备。免费版法规数据随软件版本更新（约每季度一次），专业版可随时在线更新；更新只覆盖官方法条数据，不会动用户笔记。"
             }
           },
           {
             "@type": "Question",
-            "name": "换电脑或重装系统怎么办？",
+            "name": "数据存在本机，怎么备份和保护？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "激活码不绑定机器指纹，在新机器上重新输入即可。数据可通过内置的备份恢复或 JSON 导出导入迁移。"
+              "text": "应用每次启动自动备份一次，保留最近 7 份快照；建议再另存一份到其他设备，目前没有云同步。换电脑时激活码不绑定机器指纹，重新输入即可，数据通过备份恢复或 JSON 导入导出迁移。应用锁防的是他人随手翻看；数据文件本身不加密，导出备份可设密码，整机防护请配合系统磁盘加密。"
             }
           }
         ]
@@ -1531,9 +1043,9 @@
 
   <footer>
     <div class="wrap">
-      <span>法脉 LawPulse · 为中国执业律师打造的桌面研究工具 · 微信 chengyue-wish（备注「法脉」）</span>
+      <a class="brand" href="#top">法脉<span>LawPulse</span></a>
+      <span>为中国执业律师打造的桌面研究工具</span>
       <nav>
-        <a href="#faq">常见问题</a>
         <a href="laws/index.html">法规库</a>
         <a href="laws/updates.html">法规动态</a>
         <a href="cases/index.html">指导案例</a>
@@ -1555,7 +1067,6 @@
         size: "约 150 MB",
         requirement: "macOS 11 及以上",
         url: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg",
-        // Windows 目前是预览版：只挂下载链接，不进版本行与主按钮。
         winPreviewUrl: "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe",
       };
 
@@ -1567,22 +1078,7 @@
       RELEASE.url += "?from=" + channel;
       RELEASE.winPreviewUrl += "?from=" + channel;
 
-      document.querySelectorAll("[data-download]").forEach(function (node) {
-        node.href = RELEASE.url;
-      });
-      // 一页只有一个主动作：按访客平台把匹配的安装包留作唯一实心按钮，
-      // 另一个降为描边；顶栏「下载」也跟随平台——此前 Windows 访客点它
-      // 会拿到 Mac 安装包。纯本地 UA 判断，不发请求。
-      var isWindows = /Windows/i.test(navigator.userAgent);
-      document.querySelectorAll(isWindows ? "[data-download]" : "[data-download-win]").forEach(function (node) {
-        if (node.classList.contains("lg")) { node.classList.add("ghost"); }
-      });
-      if (isWindows) {
-        // 顶栏与区块内的小号下载按钮都跟随平台；hero 的两个大按钮保持双选。
-        document.querySelectorAll("[data-download]:not(.lg)").forEach(function (node) {
-          node.href = RELEASE.winPreviewUrl;
-        });
-      }
+      document.querySelectorAll("[data-download]").forEach(function (node) { node.href = RELEASE.url; });
       document.querySelectorAll("[data-download-win]").forEach(function (node) {
         node.href = RELEASE.winPreviewUrl;
         // SmartScreen 是 Windows「下载→启动」漏斗的主断点：用户撞上蓝色弹窗的
@@ -1590,10 +1086,29 @@
         // 下一步写在按钮旁边。纯本地换文案，不发请求，零遥测承诺不破。
         node.addEventListener("click", function () {
           document.querySelectorAll("[data-win-hint]").forEach(function (hint) {
-            hint.innerHTML = '安装包已开始下载。运行时 Windows 会弹蓝色提示——点<strong>「更多信息 → 仍要运行」</strong>就能装好，<a href="windows.html' + (fromMatch ? "?from=" + channel : "") + '" data-win-guide>看图解步骤</a>。';
+            hint.innerHTML = '安装包已开始下载。运行时 Windows 会弹蓝色提示，点<strong>「更多信息 → 仍要运行」</strong>就能装好，<a href="windows.html' + (fromMatch ? "?from=" + channel : "") + '" data-win-guide>看图解步骤</a>。';
           });
         });
       });
+      // 一页只有一个主动作：按访客平台把匹配的安装包留作实心按钮，另一个降为描边；
+      // 顶栏「下载」也跟随平台——此前 Windows 访客点它会拿到 Mac 安装包。
+      var isWindows = /Windows/i.test(navigator.userAgent);
+      if (isWindows) {
+        document.querySelectorAll("[data-download]").forEach(function (node) {
+          node.href = RELEASE.winPreviewUrl;
+          if (node.classList.contains("btn") && !node.classList.contains("sm")) {
+            node.classList.add("ghost");
+            node.textContent = "下载 Mac 版";
+            node.href = RELEASE.url;
+          }
+        });
+        document.querySelectorAll(".actions [data-download-win]").forEach(function (node) {
+          node.classList.remove("ghost");
+        });
+        document.querySelectorAll(".site-header [data-download]").forEach(function (node) {
+          node.href = RELEASE.winPreviewUrl;
+        });
+      }
       // 指引页内链：只续传真实渠道参数。无参时不动，让指引页落回自己的 win-guide
       // 标记——否则「这页带来多少下载」会被 site 兜底桶吞掉。
       if (fromMatch) {
@@ -1601,37 +1116,6 @@
           node.href = "windows.html?from=" + channel;
         });
       }
-      // 产品截图页签：切场景换图换说明；主题归 CSS 管，这里只动 is-active。
-      var SHOT_CAPTIONS = {
-        workbench: "真实界面截图（v0.9.2）：读民法典第五百七十七条，右侧边看边记（笔记内容为演示示例）",
-        review: "真实界面截图：审查报告按风险分级，原文与建议逐字对照，依据注明「已核实 / 未核实」（意见为演示示例）",
-        qa: "真实界面截图：先检索本地法库再作答，每条结论都标注引用材料，点一下回到法条原文",
-        cases: "真实界面截图：278 件指导性案例＋445 件公报案例内置，与法条双向关联",
-      };
-      document.querySelectorAll(".preview-tab").forEach(function (tab) {
-        tab.addEventListener("click", function () {
-          var scene = tab.dataset.scene;
-          document.querySelectorAll(".preview-tab").forEach(function (other) {
-            other.setAttribute("aria-selected", other === tab ? "true" : "false");
-          });
-          document.querySelectorAll(".shot-img").forEach(function (img) {
-            img.classList.toggle("is-active", img.dataset.scene === scene);
-          });
-          var caption = document.querySelector("[data-shot-caption]");
-          if (caption && SHOT_CAPTIONS[scene]) { caption.textContent = SHOT_CAPTIONS[scene]; }
-        });
-        // role=tablist 的键盘语义：左右方向键在页签间移动并切换场景。
-        tab.addEventListener("keydown", function (event) {
-          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") { return; }
-          event.preventDefault();
-          var all = Array.prototype.slice.call(document.querySelectorAll(".preview-tab"));
-          var index = all.indexOf(tab);
-          var next = all[(index + (event.key === "ArrowRight" ? 1 : all.length - 1)) % all.length];
-          next.focus();
-          next.click();
-        });
-      });
-
       document.querySelectorAll("[data-release-line]").forEach(function (node) {
         node.textContent = "v" + RELEASE.version + " · " + RELEASE.size + " · " + RELEASE.requirement;
       });
@@ -1639,41 +1123,26 @@
       // ---- 主题：跟随系统 / 浅色 / 深色，与桌面端同一套语义和存储键 ----
       var STORAGE_KEY = "lawpulse-theme-mode";
       var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-theme-mode]"));
-
+      var themeButtons = Array.prototype.slice.call(document.querySelectorAll("[data-theme-mode]"));
       function readMode() {
         var stored = null;
         try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) { stored = null; }
         return stored === "light" || stored === "dark" ? stored : "system";
       }
-
       function applyMode(mode) {
         document.documentElement.dataset.theme = mode === "system" ? (darkQuery.matches ? "dark" : "light") : mode;
-        buttons.forEach(function (button) {
-          button.setAttribute("aria-checked", String(button.dataset.themeMode === mode));
-        });
+        themeButtons.forEach(function (b) { b.setAttribute("aria-checked", String(b.dataset.themeMode === mode)); });
       }
-
-      buttons.forEach(function (button) {
-        button.addEventListener("click", function () {
-          var mode = button.dataset.themeMode;
-          try { localStorage.setItem(STORAGE_KEY, mode); } catch (e) { /* 隐私模式下忽略 */ }
-          applyMode(mode);
+      themeButtons.forEach(function (b) {
+        b.addEventListener("click", function () {
+          try { localStorage.setItem(STORAGE_KEY, b.dataset.themeMode); } catch (e) { /* 隐私模式下忽略 */ }
+          applyMode(b.dataset.themeMode);
         });
       });
-
-      // 跟随系统时，系统在日间/夜间自动换外观后页面要立刻跟上。
-      darkQuery.addEventListener("change", function () {
-        if (readMode() === "system") {
-          applyMode("system");
-        }
-      });
-
+      darkQuery.addEventListener("change", function () { if (readMode() === "system") { applyMode("system"); } });
       applyMode(readMode());
 
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      // ---- 窄屏导航：收进菜单按钮，点链接后自动收起 ----
+      // ---- 窄屏导航 ----
       var navToggle = document.querySelector(".nav-toggle");
       var siteNav = document.getElementById("site-nav");
       if (navToggle && siteNav) {
@@ -1682,32 +1151,54 @@
           navToggle.setAttribute("aria-expanded", String(open));
           navToggle.setAttribute("aria-label", open ? "收起菜单" : "打开菜单");
         });
-        siteNav.addEventListener("click", function (event) {
-          if (event.target.tagName === "A") {
+        siteNav.addEventListener("click", function (e) {
+          if (e.target.tagName === "A") {
             siteNav.classList.remove("open");
             navToggle.setAttribute("aria-expanded", "false");
           }
         });
       }
 
-      // ---- 「回原文」演示：点开法条原文面板，让访客下载前就体验核验引用的动作 ----
-      document.querySelectorAll(".law-peek-toggle").forEach(function (toggle) {
-        toggle.addEventListener("click", function () {
-          var peek = document.getElementById(toggle.getAttribute("aria-controls"));
-          if (!peek) { return; }
-          var open = peek.hidden;
-          peek.hidden = !open;
-          toggle.setAttribute("aria-expanded", String(open));
+      // ---- 产品截图场景：切场景换图换说明；主题归 CSS 管，这里只动 is-active ----
+      var SHOT = {
+        workbench: ["民法典第五百七十七条。旁边是读到这里时留下的笔记。", "真实界面截图（v0.9.2）· 笔记为演示内容"],
+        review: ["审查报告按风险分级，原文与建议对照，依据注明已核实或未核实。", "真实界面截图 · 意见为演示内容"],
+        qa: ["先检索本地法条与你的笔记再作答，每条结论标注引用材料。", "真实界面截图 · 问答为演示内容"],
+        cases: ["指导性案例与公报案例内置，与法条双向关联。", "真实界面截图 · 案例为内置数据"],
+      };
+      document.querySelectorAll("[data-scene]").forEach(function (tab) {
+        if (tab.tagName !== "BUTTON") { return; }
+        tab.addEventListener("click", function () {
+          var scene = tab.dataset.scene;
+          document.querySelectorAll(".tabs [data-scene]").forEach(function (o) {
+            o.setAttribute("aria-selected", String(o === tab));
+          });
+          document.querySelectorAll(".shot-img[data-scene]").forEach(function (img) {
+            if (img.dataset.scene === "reviewshot") { return; }
+            img.classList.toggle("is-active", img.dataset.scene === scene);
+          });
+          if (SHOT[scene]) {
+            document.querySelector("[data-shot-desc]").textContent = SHOT[scene][0];
+            document.querySelector("[data-shot-caption]").textContent = SHOT[scene][1];
+          }
+        });
+        tab.addEventListener("keydown", function (e) {
+          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") { return; }
+          e.preventDefault();
+          var all = Array.prototype.slice.call(document.querySelectorAll(".tabs [data-scene]"));
+          var i = all.indexOf(tab);
+          var next = all[(i + (e.key === "ArrowRight" ? 1 : all.length - 1)) % all.length];
+          next.focus(); next.click();
         });
       });
 
-      // ---- 工作流三步：页签与「下一步」按钮切同一组面板 ----
+      // ---- 工作流三步 ----
       function showFlow(step) {
         document.querySelectorAll("[data-flow]").forEach(function (b) {
           b.setAttribute("aria-selected", String(b.dataset.flow === String(step)));
         });
-        document.querySelectorAll("[data-flow-panel]").forEach(function (panel) {
-          panel.hidden = panel.dataset.flowPanel !== String(step);
+        document.querySelectorAll("[data-flow-panel]").forEach(function (p) {
+          p.hidden = p.dataset.flowPanel !== String(step);
         });
       }
       document.querySelectorAll("[data-flow]").forEach(function (b) {
@@ -1717,45 +1208,64 @@
         b.addEventListener("click", function () { showFlow(b.dataset.flowNext); });
       });
 
+      // ---- 合同审查：展开引用的条文原文 ----
+      document.querySelectorAll(".src-toggle").forEach(function (toggle) {
+        toggle.addEventListener("click", function () {
+          var src = document.getElementById(toggle.getAttribute("aria-controls"));
+          if (!src) { return; }
+          var open = src.hidden;
+          src.hidden = !open;
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.querySelector("span").textContent = open ? "收起" : "展开条文";
+        });
+      });
+
       // ---- 脱敏对照：把一段内部意见单独藏起来（对应产品的「永不发送」规则） ----
       var secretBtn = document.querySelector("[data-secret-toggle]");
       if (secretBtn) {
         var secretOn = false;
         secretBtn.addEventListener("click", function () {
           secretOn = !secretOn;
-          document.querySelector("[data-secret-text]").textContent = secretOn ? "【已隐去】" : "可接受分两期付款，暂不告知对方。";
+          document.querySelector("[data-secret-text]").textContent = secretOn ? "【已隐去】" : "最多让步 2 万元，不接受退货。";
           var badge = document.querySelector("[data-secret-badge]");
           badge.textContent = secretOn ? "已手动隐藏" : "需人工检查";
-          badge.className = "cmp-badge " + (secretOn ? "changed" : "review");
-          document.querySelector("[data-secret-title]").textContent = secretOn ? "已隐藏：模型看不到这段话" : "这段内部意见，自动处理后仍会发出";
-          document.querySelector("[data-secret-sub]").textContent = secretOn ? "产品里对应「永不发送」规则：换成【已隐去】，且不登记还原映射。" : "它不含姓名、证件号，规则不会动它。试着把它单独隐藏。";
-          secretBtn.textContent = secretOn ? "撤销隐藏" : "隐藏这段内部意见";
+          badge.className = "cmp-badge " + (secretOn ? "changed" : "warn");
+          document.querySelector("[data-secret-row]").classList.toggle("review", !secretOn);
+          document.querySelector("[data-secret-title]").textContent = secretOn ? "已隐藏：模型看不到这段话" : "这段谈判底线仍在处理结果里";
+          document.querySelector("[data-secret-sub]").textContent = secretOn
+            ? "产品里对应「永不发送」规则：换成【已隐去】，且不登记还原映射。"
+            : "它不含姓名和证件号，规则不会动它。试着把它单独隐藏。";
+          secretBtn.textContent = secretOn ? "撤销隐藏" : "隐藏这段内容";
           secretBtn.classList.toggle("ghost", secretOn);
         });
       }
 
-      // ---- 案件夹演示：改笔记、收录资料、导出备忘录；数据只活在本页，刷新即重置 ----
+      // ---- 案件夹演示：改笔记、收录资料、导出备忘录。数据只活在本页，刷新即重置 ----
       (function () {
-        var caseRoot = document.getElementById("case");
-        if (!caseRoot) { return; }
+        var root = document.getElementById("case");
+        if (!root) { return; }
         var ITEMS = [
-          { id: "law620", kind: "法条", name: "民法典 · 第六百二十条", hint: "检验期限", link: "laws/civil-code.html#620", body: "买受人收到标的物时应当在约定的检验期限内检验。没有约定检验期限的，应当及时检验。" },
-          { id: "law577", kind: "法条", name: "民法典 · 第五百七十七条", hint: "违约责任", link: "laws/civil-code.html#577", body: "当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。" },
-          { id: "note", kind: "笔记", name: "签收单与验收记录，分开核对", hint: "本案待办", link: "", body: "核对送货单上的签字人和签收时间；另找双方的验收约定、质量异议邮件。签收了什么，与验收过什么，先列清楚。" },
-          { id: "timeline", kind: "笔记", name: "交货与异议时间线", hint: "材料整理", link: "", body: "3 月 12 日签订购销合同；3 月 20 日交付货物，留有签收单；3 月 24 日买方邮件提出质量异议。待补：验收记录、往来邮件附件。" }
+          { id: "law620", kind: "法条", name: "民法典 · 第六百二十条", hint: "检验期限", link: "laws/civil-code.html#620",
+            body: "买受人收到标的物时应当在约定的检验期限内检验。没有约定检验期限的，应当及时检验。" },
+          { id: "law577", kind: "法条", name: "民法典 · 第五百七十七条", hint: "违约责任", link: "laws/civil-code.html#577",
+            body: "当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。" },
+          { id: "note", kind: "笔记", name: "签收单与验收记录，分开核对", hint: "本案待办", link: "",
+            body: "核对送货单上的签字人和签收时间；另找双方的验收约定、质量异议邮件。签收了什么，与验收过什么，先列清楚。" },
+          { id: "timeline", kind: "笔记", name: "交货与异议时间线", hint: "材料整理", link: "",
+            body: "3 月 12 日：签订购销合同\n3 月 20 日：交付货物，留有签收单\n3 月 24 日：买方邮件提出质量异议\n待补：验收记录、往来邮件和附件。" },
         ];
         var notes = {
           law620: "核对合同约定的检验期限，再整理收货和质量异议的时间。",
-          law577: "先核对违约事实，再看合同约定的责任；损失范围和证据另列。",
+          law577: "先核对违约事实，再看合同约定的责任。损失的范围和证据另列。",
           note: "还要向当事人确认：是否留有独立的验收记录。",
-          timeline: "这份时间线待补附件，先不要当作已核实的事实。"
+          timeline: "这份时间线待补附件，先不要当作已经核实的事实。",
         };
         var saved = ["law620", "note", "timeline"];
-        var active = "law620", filter = "全部", undoId = null, editing = false;
-        var drafts = {};
-        function q(sel) { return caseRoot.querySelector(sel); }
+        var active = "law620", filter = "全部", undoId = null, editing = false, drafts = {};
+        function q(sel) { return root.querySelector(sel); }
         function byId(id) { return ITEMS.filter(function (x) { return x.id === id; })[0]; }
         function visible() { return ITEMS.filter(function (x) { return filter === "全部" || x.kind === filter; }); }
+        // 切资料不丢草稿：没保存的字留着，回来还能接着改。
         function stashDraft() { if (editing) { drafts[active] = q("[data-note-input]").value; editing = false; } }
         function renderList() {
           var box = q("[data-case-items]");
@@ -1767,7 +1277,7 @@
             var k = document.createElement("span"); k.className = "k"; k.textContent = x.kind;
             var n = document.createElement("span"); n.className = "n"; n.textContent = x.name;
             var h = document.createElement("span"); h.className = "h";
-            h.textContent = x.hint + " · " + (saved.indexOf(x.id) >= 0 ? "已收录" : "未收录") + (drafts[x.id] !== undefined ? " · 有草稿" : "");
+            h.textContent = x.hint + " · " + (saved.indexOf(x.id) >= 0 ? "已收录" : "待收录") + (drafts[x.id] !== undefined ? " · 有草稿" : "");
             b.appendChild(k); b.appendChild(n); b.appendChild(h);
             b.addEventListener("click", function () { stashDraft(); active = x.id; render(); });
             box.appendChild(b);
@@ -1775,8 +1285,11 @@
         }
         function renderDoc() {
           var x = byId(active);
+          var isSaved = saved.indexOf(x.id) >= 0;
           q("[data-case-kind]").textContent = x.kind + " / 示例内容";
-          q("[data-case-toggle]").textContent = saved.indexOf(x.id) >= 0 ? "从案件夹移出" : "收进案件夹";
+          var toggle = q("[data-case-toggle]");
+          toggle.textContent = isSaved ? "从案件夹移出" : "收进案件夹";
+          toggle.dataset.saved = String(isSaved);
           var un = q("[data-case-undo]");
           un.hidden = !undoId;
           if (undoId) { un.querySelector("span").textContent = "已移出：" + byId(undoId).name + "。笔记没有删除。"; }
@@ -1790,7 +1303,8 @@
           q("[data-note-form]").hidden = !editing;
           q("[data-note-edit]").hidden = editing;
           q("[data-note-edit]").textContent = drafts[active] !== undefined ? "继续编辑" : "编辑笔记";
-          q("[data-note-state]").textContent = editing ? "正在编辑（保存后才会写进导出）" : drafts[active] !== undefined ? "有未保存的草稿" : "我的补充";
+          q("[data-note-state]").textContent = editing ? "正在编辑（保存后才会写进导出）"
+            : drafts[active] !== undefined ? "有未保存的草稿" : "我的补充";
         }
         function renderMemo() {
           var list = q("[data-memo-list]");
@@ -1798,7 +1312,6 @@
           var picked = ITEMS.filter(function (x) { return saved.indexOf(x.id) >= 0; });
           if (!picked.length) {
             var empty = document.createElement("p");
-            empty.className = "memo-empty";
             empty.textContent = "案件夹还没有收录内容。先选一项，点「收进案件夹」。";
             list.appendChild(empty);
           }
@@ -1810,18 +1323,18 @@
             art.appendChild(h); art.appendChild(b); art.appendChild(n);
             list.appendChild(art);
           });
-          caseRoot.querySelectorAll("[data-memo-count]").forEach(function (node) { node.textContent = String(saved.length); });
+          root.querySelectorAll("[data-memo-count]").forEach(function (node) { node.textContent = String(saved.length); });
           var exp = q("[data-case-export]");
           exp.disabled = !saved.length;
           exp.textContent = "导出已收录的 " + saved.length + " 项";
           q("[data-memo-export]").disabled = !saved.length;
         }
         function render() { renderList(); renderDoc(); renderMemo(); }
-        caseRoot.querySelectorAll("[data-filter]").forEach(function (b) {
+        root.querySelectorAll("[data-filter]").forEach(function (b) {
           b.addEventListener("click", function () {
             stashDraft();
             filter = b.dataset.filter;
-            caseRoot.querySelectorAll("[data-filter]").forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+            root.querySelectorAll("[data-filter]").forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
             var first = visible()[0];
             if (first) { active = first.id; }
             render();
@@ -1877,75 +1390,23 @@
         render();
       })();
 
-      // ---- 顶栏：滚动后落下阴影，并点亮当前读到的那一节 ----
-      var header = document.querySelector(".site-header");
-      function syncHeader() {
-        header.classList.toggle("scrolled", window.scrollY > 8);
-      }
-      window.addEventListener("scroll", syncHeader, { passive: true });
-      syncHeader();
-
-      // 导航里除了 #锚点 还有法规库/指导案例这类页面链接；把路径当 CSS 选择器查会直接抛异常，
+      // ---- 顶栏：点亮当前读到的那一节 ----
+      // 导航里除了 #锚点 还有法规库这类页面链接；把路径当 CSS 选择器查会直接抛异常，
       // 整段脚本被打断，版本号、下载按钮全失效——只对锚点链接做滚动追踪。
-      var navLinks = Array.prototype.slice
-        .call(document.querySelectorAll(".site-nav a"))
-        .filter(function (link) {
-          return (link.getAttribute("href") || "").charAt(0) === "#";
-        });
-      var sections = navLinks
-        .map(function (link) { return document.querySelector(link.getAttribute("href")); })
-        .filter(Boolean);
-
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll(".site-nav a"))
+        .filter(function (link) { return (link.getAttribute("href") || "").charAt(0) === "#"; });
+      var sections = navLinks.map(function (l) { return document.querySelector(l.getAttribute("href")); }).filter(Boolean);
       if (window.IntersectionObserver && sections.length) {
         var spy = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (!entry.isIntersecting) { return; }
-            navLinks.forEach(function (link) {
-              link.classList.toggle("current", link.getAttribute("href") === "#" + entry.target.id);
+            navLinks.forEach(function (l) {
+              l.classList.toggle("current", l.getAttribute("href") === "#" + entry.target.id);
             });
           });
         }, { rootMargin: "-45% 0px -50% 0px" });
-        sections.forEach(function (section) { spy.observe(section); });
+        sections.forEach(function (s) { spy.observe(s); });
       }
-
-      // ---- 数字进入视野时从 0 跑到目标值 ----
-      function countUp(root) {
-        Array.prototype.slice.call(root.querySelectorAll("[data-count]")).forEach(function (node) {
-          var target = Number(node.dataset.count);
-          var suffix = node.dataset.suffix || "";
-          if (reduceMotion || !isFinite(target)) {
-            node.textContent = target + suffix;
-            return;
-          }
-          var duration = 900;
-          var started = null;
-          function step(now) {
-            if (started === null) { started = now; }
-            var progress = Math.min((now - started) / duration, 1);
-            var eased = 1 - Math.pow(1 - progress, 3);
-            node.textContent = Math.round(target * eased) + suffix;
-            if (progress < 1) { requestAnimationFrame(step); }
-          }
-          node.textContent = "0" + suffix;
-          requestAnimationFrame(step);
-        });
-      }
-
-      // ---- 入场动画 ----
-      var revealables = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
-      if (!window.IntersectionObserver || reduceMotion) {
-        revealables.forEach(function (node) { node.classList.add("in"); });
-        return;
-      }
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) { return; }
-          entry.target.classList.add("in");
-          countUp(entry.target);
-          observer.unobserve(entry.target);
-        });
-      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
-      revealables.forEach(function (node) { observer.observe(node); });
     })();
   </script>
 </body>
