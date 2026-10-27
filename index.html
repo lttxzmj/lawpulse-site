@@ -187,15 +187,6 @@
     .margin-note p { margin: 12px 0 18px; font-size: 13px; }
     .margin-note small { font-size: 11px; line-height: 1.85; color: rgb(var(--muted)); }
 
-    /* ---------- 页签（截图场景 / 工作流共用） ---------- */
-    .tabs { display: flex; gap: 5px; padding: 7px; background: rgb(var(--sunken)); border-bottom: 1px solid rgb(var(--line)); }
-    .tabs button { flex: 1; min-height: 42px; padding: 8px; border-radius: 4px; font-size: 12.5px; color: rgb(var(--muted)); }
-    .tabs button[aria-selected="true"] { background: rgb(var(--surface)); color: rgb(var(--blue)); font-weight: 550; }
-    .tabs button b { margin-right: 8px; font-size: 10.5px; font-weight: 400; opacity: 0.75; }
-    /* 截图页签不拉满整行：它只是换场景，不该做成通栏控件。 */
-    .shot-frame .tabs { justify-content: flex-start; }
-    .shot-frame .tabs button { flex: 0 0 auto; padding: 8px 20px; }
-
     /* ---------- 产品截图 ---------- */
     .shot-frame { border: 1px solid rgb(var(--line)); border-radius: 8px; overflow: hidden; background: rgb(var(--surface)); box-shadow: var(--shadow); }
     .shot { margin: 0; }
@@ -222,6 +213,20 @@
     .scope dd { margin: 0; font-size: 13px; line-height: 1.9; color: rgb(var(--muted)); }
     .scope dd a { color: rgb(var(--blue)); }
     .scope > small { display: block; padding-bottom: 14px; font-size: 10.5px; color: rgb(var(--muted)); }
+
+    /* ---------- 功能：交替左右，每块一段片段 + 一句结论式标题 ---------- */
+    .topline { border-top: 1px solid rgb(var(--line)); }
+    .feat { display: grid; gap: 54px; }
+    .feat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    /* 偶数行把媒体换到右边，版面才不会变成四节一样的车厢。 */
+    .feat-row:nth-child(even) .feat-media { order: 2; }
+    .feat-media { border: 1px solid rgb(var(--line)); border-radius: 8px; overflow: hidden; background: rgb(var(--surface)); box-shadow: var(--shadow); }
+    .media-light, .media-dark { display: none; width: 100%; height: auto; }
+    :root[data-theme="light"] .media-light { display: block; }
+    :root[data-theme="dark"] .media-dark { display: block; }
+    .feat-tag { font-size: 11px; color: rgb(var(--blue)); }
+    .feat-text h3 { margin-top: 12px; font-size: 24px; letter-spacing: -0.04em; }
+    .feat-text p { margin-top: 14px; font-size: 13.5px; max-width: 26em; }
 
     /* ---------- 案件夹演示 ---------- */
     .case-frame { border: 1px solid rgb(var(--line)); border-radius: 8px; background: rgb(var(--surface)); overflow: hidden; box-shadow: var(--shadow); }
@@ -417,6 +422,10 @@
       .fees { grid-template-columns: 1fr; }
       .fees article { border-right: 0; border-bottom: 1px solid rgb(var(--line)); padding: 24px; }
       .bounds, .checks { grid-template-columns: 1fr; gap: 14px; }
+      .feat { gap: 40px; }
+      .feat-row { grid-template-columns: 1fr; gap: 20px; }
+      .feat-row:nth-child(even) .feat-media { order: 0; }
+      .feat-text h3 { font-size: 21px; }
       .case-body, .cmp-cols, .cmp-row { grid-template-columns: 1fr; }
       .cmp-cols span + span { display: none; }
       .cmp-row .after { border-left: 0; border-top: 1px dashed rgb(var(--line)); }
@@ -446,8 +455,6 @@
     @media (max-width: 520px) {
       .wrap { padding: 0 20px; }
       .actions .btn { flex: 1; padding: 0 14px; }
-      .tabs { flex-wrap: wrap; }
-      .tabs button { flex: 1 1 40%; }
     }
   </style>
 </head>
@@ -457,6 +464,7 @@
     <div class="wrap">
       <a class="brand" href="#top">法脉<span>LawPulse</span></a>
       <nav class="site-nav" id="site-nav">
+        <a href="#features">功能</a>
         <a href="#case">案件夹</a>
         <a href="#review">审查与起草</a>
         <a href="#privacy">隐私</a>
@@ -510,14 +518,8 @@
           </aside>
         </div>
 
-        <!-- 真实界面：四个场景切换，图随主题换 -->
+        <!-- 真实界面：单张工作台；其余能力下面的「功能」区逐块讲 -->
         <div class="shot-frame">
-          <div class="tabs" role="tablist" aria-label="产品界面">
-            <button type="button" role="tab" aria-selected="true" data-scene="workbench">法条与笔记</button>
-            <button type="button" role="tab" aria-selected="false" data-scene="review">合同审查</button>
-            <button type="button" role="tab" aria-selected="false" data-scene="qa">法库问答</button>
-            <button type="button" role="tab" aria-selected="false" data-scene="cases">案例库</button>
-          </div>
           <figure class="shot">
             <img class="shot-img is-active shot-when-light" data-scene="workbench" src="assets/shot-workbench-light.webp"
                  alt="法脉真实界面：左侧民法典目录，中间第五百七十七条正文与行内笔记，右侧停靠的笔记面板"
@@ -525,29 +527,11 @@
             <img class="shot-img is-active shot-when-dark" data-scene="workbench" src="assets/shot-workbench-dark.webp"
                  alt="法脉真实界面（深色主题）：法条正文与停靠笔记面板"
                  width="1440" height="900" decoding="async" />
-            <img class="shot-img shot-when-light" data-scene="review" src="assets/shot-review-light.webp"
-                 alt="合同审查报告：按风险分级逐条给意见，原文与修改建议对照，法条依据注明已核实或未核实"
-                 width="1440" height="900" loading="lazy" decoding="async" />
-            <img class="shot-img shot-when-dark" data-scene="review" src="assets/shot-review-dark.webp"
-                 alt="合同审查报告（深色主题）"
-                 width="1440" height="900" loading="lazy" decoding="async" />
-            <img class="shot-img shot-when-light" data-scene="qa" src="assets/shot-qa-light.webp"
-                 alt="法库问答：回答分结论与分析，每条结论标注引用的法条材料，可点回原文"
-                 width="1440" height="900" loading="lazy" decoding="async" />
-            <img class="shot-img shot-when-dark" data-scene="qa" src="assets/shot-qa-dark.webp"
-                 alt="法库问答（深色主题）"
-                 width="1440" height="900" loading="lazy" decoding="async" />
-            <img class="shot-img shot-when-light" data-scene="cases" src="assets/shot-cases-light.webp"
-                 alt="案例库：指导性案例与公报案例，案由、关键词、裁判日期一览"
-                 width="1440" height="900" loading="lazy" decoding="async" />
-            <img class="shot-img shot-when-dark" data-scene="cases" src="assets/shot-cases-dark.webp"
-                 alt="案例库（深色主题）"
-                 width="1440" height="900" loading="lazy" decoding="async" />
           </figure>
         </div>
         <div class="shot-cap">
-          <p data-shot-desc>民法典第五百七十七条。旁边是读到这里时留下的笔记。</p>
-          <span data-shot-caption>真实界面截图（v0.9.2）· 笔记为演示内容</span>
+          <p>民法典第五百七十七条。旁边是读到这里时留下的笔记。</p>
+          <span>真实界面截图（v0.9.2）· 笔记为演示内容</span>
         </div>
 
         <div class="facts">
@@ -567,6 +551,67 @@
             <div><dt>更新</dt><dd>免费版随版本（约季度一次），专业版随时在线更新；以应用内数据版本为准。</dd></div>
           </dl>
         </details>
+      </div>
+    </section>
+
+    <!-- ============ 功能：每块配一段真实产品片段 ============ -->
+    <!-- clip-*.webp 是真机录制（npm run shots:landing 一并产出），不是示意图。 -->
+    <section class="sec topline" id="features">
+      <div class="wrap">
+        <div class="head">
+          <div><span class="eyebrow">法脉能做什么</span><h2>四件事，<br />都在同一个窗口里。</h2></div>
+          <p>前两段是真实应用的操作录制，不是示意图。</p>
+        </div>
+
+        <div class="feat">
+          <div class="feat-row">
+            <div class="feat-media">
+              <img class="media-light" src="assets/clip-search-light.webp" alt="快速查找录屏：按 ⌘K 打开，输入「违约金」边打字边出本地法库结果，回车直接打开法条" width="900" height="562" loading="lazy" decoding="async" />
+              <img class="media-dark" src="assets/clip-search-dark.webp" alt="快速查找录屏（深色主题）" width="900" height="562" loading="lazy" decoding="async" />
+            </div>
+            <div class="feat-text">
+              <span class="feat-tag">免费 · 断网可用</span>
+              <h3>⌘K 打开，边打字边出结果</h3>
+              <p>法条、笔记、案例一个框里找；直接输条号也能跳。走的是本机全文检索，下载过的法规断网照查。</p>
+            </div>
+          </div>
+
+          <div class="feat-row">
+            <div class="feat-media">
+              <img class="media-light" src="assets/clip-review-light.webp" alt="合同审查录屏：报告按风险分级逐条给意见，原文与改法对照，点一下把风险点存为笔记" width="900" height="562" loading="lazy" decoding="async" />
+              <img class="media-dark" src="assets/clip-review-dark.webp" alt="合同审查录屏（深色主题）" width="900" height="562" loading="lazy" decoding="async" />
+            </div>
+            <div class="feat-text">
+              <span class="feat-tag">专业版</span>
+              <h3>逐条给意见，风险点直接存成笔记</h3>
+              <p>按风险分级列意见，原文与改法对照。报告头部写明几条依据回本地法库核实过、几处化名，导出 Word / PDF。</p>
+            </div>
+          </div>
+
+          <div class="feat-row">
+            <div class="feat-media">
+              <img class="media-light" src="assets/shot-qa-light.webp" alt="法库问答：回答分结论与分析，每条结论标注引用的法条材料，可点回原文" width="1440" height="900" loading="lazy" decoding="async" />
+              <img class="media-dark" src="assets/shot-qa-dark.webp" alt="法库问答（深色主题）" width="1440" height="900" loading="lazy" decoding="async" />
+            </div>
+            <div class="feat-text">
+              <span class="feat-tag">专业版</span>
+              <h3>先查本地法库和你的笔记，再回答</h3>
+              <p>回答基于检索到的材料，每条结论标出引用，可点回原文核对；未核实的单独标出。</p>
+            </div>
+          </div>
+
+          <div class="feat-row">
+            <div class="feat-media">
+              <img class="media-light" src="assets/shot-cases-light.webp" alt="案例库：指导性案例与公报案例，案由、关键词、裁判日期一览" width="1440" height="900" loading="lazy" decoding="async" />
+              <img class="media-dark" src="assets/shot-cases-dark.webp" alt="案例库（深色主题）" width="1440" height="900" loading="lazy" decoding="async" />
+            </div>
+            <div class="feat-text">
+              <span class="feat-tag">免费</span>
+              <h3>案例和法条，互相找得到</h3>
+              <p>278 件指导性案例与 445 件公报案例内置，与法条双向关联：读条文时能看到挂着哪些案例。</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1164,38 +1209,13 @@
         });
       }
 
-      // ---- 产品截图场景：切场景换图换说明；主题归 CSS 管，这里只动 is-active ----
-      var SHOT = {
-        workbench: ["民法典第五百七十七条。旁边是读到这里时留下的笔记。", "真实界面截图（v0.9.2）· 笔记为演示内容"],
-        review: ["审查报告按风险分级，原文与建议对照，依据注明已核实或未核实。", "真实界面截图 · 意见为演示内容"],
-        qa: ["先检索本地法条与你的笔记再作答，每条结论标注引用材料。", "真实界面截图 · 问答为演示内容"],
-        cases: ["指导性案例与公报案例内置，与法条双向关联。", "真实界面截图 · 案例为内置数据"],
-      };
-      document.querySelectorAll("[data-scene]").forEach(function (tab) {
-        if (tab.tagName !== "BUTTON") { return; }
-        tab.addEventListener("click", function () {
-          var scene = tab.dataset.scene;
-          document.querySelectorAll(".tabs [data-scene]").forEach(function (o) {
-            o.setAttribute("aria-selected", String(o === tab));
-          });
-          document.querySelectorAll(".shot-img[data-scene]").forEach(function (img) {
-            if (img.dataset.scene === "reviewshot") { return; }
-            img.classList.toggle("is-active", img.dataset.scene === scene);
-          });
-          if (SHOT[scene]) {
-            document.querySelector("[data-shot-desc]").textContent = SHOT[scene][0];
-            document.querySelector("[data-shot-caption]").textContent = SHOT[scene][1];
-          }
+      // ---- 动图片段：要求减少动效时换成静帧 ----
+      // 动图 WebP 停不了，CSS 也管不着，只能换 src。
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.querySelectorAll('.feat-media img[src*="clip-"]').forEach(function (img) {
+          img.src = img.getAttribute("src").replace(/\.webp$/, "-still.webp");
         });
-        tab.addEventListener("keydown", function (e) {
-          if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") { return; }
-          e.preventDefault();
-          var all = Array.prototype.slice.call(document.querySelectorAll(".tabs [data-scene]"));
-          var i = all.indexOf(tab);
-          var next = all[(i + (e.key === "ArrowRight" ? 1 : all.length - 1)) % all.length];
-          next.focus(); next.click();
-        });
-      });
+      }
 
       // ---- 合同审查：展开引用的条文原文 ----
       document.querySelectorAll(".src-toggle").forEach(function (toggle) {
