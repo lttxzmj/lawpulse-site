@@ -334,11 +334,13 @@
     .cmp-act strong { font-size: 14px; font-weight: 550; color: rgb(var(--ink)); }
     .cmp-act p { margin-top: 7px; font-size: 12px; }
     .cmp-note { padding: 15px 26px; font-size: 12px; line-height: 1.9; color: rgb(var(--muted)); }
-    /* 起草示例卡 */
-    .draft-gap { margin-top: 14px; padding: 12px 14px; font-size: 13px; color: rgb(var(--warn)); background: rgb(var(--warn-bg)); }
-    .draft-note { margin-top: 14px; font-size: 12px; }
-    .draft-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgb(var(--line)); }
-    .draft-acts span { padding: 5px 11px; border-radius: 3px; font-size: 11px; color: rgb(var(--muted)); background: rgb(var(--sunken)); }
+    /* 导出样张：真文件渲成的图，纸面感靠白底加细边做出来 */
+    /* 起草那节左边只有三行字，跟着顶对齐会在下半截出一块空白。 */
+    #drafts .review { align-items: center; }
+    .export-sample { margin: 26px 0 0; }
+    .export-sample img { display: block; width: 100%; max-width: 760px; height: auto; margin: 0 auto; border: 1px solid rgb(var(--line)); border-radius: 4px; background: #fff; box-shadow: var(--shadow); }
+    .export-sample figcaption { max-width: 760px; margin: 12px auto 0; font-size: 11.5px; line-height: 1.9; color: rgb(var(--muted)); }
+    .export-sample code { font-size: 11px; padding: 1px 5px; border-radius: 3px; background: rgb(var(--sunken)); }
     /* 三处可以自己核对的证据：开关开着≠安全，得让人能亲手查 */
     .checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 26px; padding-top: 26px; border-top: 1px solid rgb(var(--line)); }
     .checks h4 { font-size: 13.5px; }
@@ -682,6 +684,11 @@
           </div>
         </details>
 
+        <figure class="export-sample">
+          <img src="assets/export-memo.webp" alt="产品导出的备忘录 Word 文档：标题与待核对事项、一、相关法条（民法典第五百七十七条与第六百二十条原文）、二、研究笔记（每条注明关联法条，带待确认于待补事项）" width="1000" height="852" loading="lazy" decoding="async" />
+          <figcaption>这不是示意图：这份 Word 由产品导出备忘录的同一段代码生成（<code>npm run shots:export</code>）。法条原文、每条笔记的关联法条、待补事项都排好了，拿到手就能接着改。</figcaption>
+        </figure>
+
         <div class="case-after">
           <span>案件夹、笔记与导出是免费功能，公测结束后也不锁。</span>
         </div>
@@ -738,15 +745,12 @@
           <h2>用案件夹里的<br />研究起草。</h2>
           <p>起诉状、法律意见书等七类文书，法源逐条可核实。改动左右对照，点「采用」才落稿；每段能单独重做，定稿可另存为模板。</p>
         </div>
-        <div class="card">
-          <div class="rc-top"><span>法律意见书 / 由案件夹材料起草</span><span>示例片段</span></div>
-          <div class="rc-body">
-            <label>草稿片段 · 待律师核对</label>
-            <p>关于买方质量异议是否及时提出，应结合双方约定的检验期限、货物性质与通知证据判断。</p>
-            <p class="draft-gap">【待补充：合同检验条款原文、质量异议邮件的送达记录】</p>
-            <p class="draft-note">缺失事实标为待补充，生成后仍需逐项核对。</p>
-            <div class="draft-acts"><span>重做本段</span><span>左右对照后「采用」</span><span>另存为模板</span><span>导出 Word</span></div>
+        <div>
+          <div class="feat-media">
+            <img class="media-light" src="assets/clip-draft-light.webp" alt="文书起草录屏：圈选「事实与理由」里的一句话，请求改写，改动以原文→建议逐字对照摆出，点「采用」后段落标为已修改" width="900" height="562" loading="lazy" decoding="async" />
+            <img class="media-dark" src="assets/clip-draft-dark.webp" alt="文书起草录屏（深色主题）" width="900" height="562" loading="lazy" decoding="async" />
           </div>
+          <p class="fine">真实操作录制：选中一句 → 请求改写 → 原文与建议逐字对照 → 点「采用」才落稿。没填的事实留「待补充」标记，文稿头部写着还剩几处。</p>
         </div>
       </div>
     </section>
