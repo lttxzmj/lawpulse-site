@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>法脉 — 律师的离线法条工作台</title>
-  <meta name="description" content="法脉是一款 macOS / Windows 桌面法律研究工具：内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网也能全文检索；AI 合同审查与法库问答的每条依据都能点回原文核查。无需账号，笔记与合同不经我们的服务器。" />
+  <title>法脉 — 律师的法律工作台</title>
+  <meta name="description" content="法脉是律师的桌面法律工作台（macOS / Windows）：内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网也能全文检索；AI 引的每条法都能点回原文核查，材料发出前先在本机脱敏。无需账号，数据存在本机。" />
   <!-- 换自定义域名时，把下面几处绝对地址和 sitemap.xml / llms.txt / robots.txt 里的域名一起换掉。 -->
   <link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/" />
   <!-- Search Console 所有权验证（URL 前缀资源只检根页，不进 pageShell） -->
@@ -16,14 +16,14 @@
   <meta property="og:site_name" content="法脉 LawPulse" />
   <meta property="og:locale" content="zh_CN" />
   <meta property="og:url" content="https://lttxzmj.github.io/lawpulse-site/" />
-  <meta property="og:title" content="法脉 — 律师的离线法条工作台" />
-  <meta property="og:description" content="1513 部现行法律、行政法规与司法解释，共 56182 条离线检索，AI 合同审查引用可点回原文核查，笔记与合同不经我们的服务器。" />
+  <meta property="og:title" content="法脉 — 律师的法律工作台" />
+  <meta property="og:description" content="1513 部现行法律、行政法规与司法解释，共 56182 条离线检索；引用可核查，材料先脱敏。" />
   <meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="法脉：律师的法条与办案笔记工作台" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="法脉 — 律师的离线法条工作台" />
+  <meta name="twitter:title" content="法脉 — 律师的法律工作台" />
   <meta name="twitter:description" content="1513 部现行法律、行政法规与司法解释，共 56182 条离线检索，AI 合同审查引用可点回原文核查。" />
   <meta name="twitter:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
   <meta name="theme-color" content="#0f121a" media="(prefers-color-scheme: dark)" />
@@ -502,9 +502,9 @@
       <div class="wrap">
         <div class="hero-top">
           <div>
-            <span class="eyebrow">自带法库的法律 AI · macOS / Windows</span>
-            <h1><span>AI 引的每一条法，</span><br /><em>都回本地法库核过。</em></h1>
-            <p class="lede">核得上的点一下翻到原文；核不上的不成链接，一眼看得出来。</p>
+            <span class="eyebrow">法脉 LawPulse · macOS / Windows</span>
+            <h1><span>律师的</span><em>法律工作台</em></h1>
+            <p class="lede"><b>引用可核查</b>：AI 引的每条法都回本地法库核过，点一下翻到原文。<br /><b>材料先脱敏</b>：发给模型前在本机替换身份，结果回来自动还原。</p>
             <div class="actions">
               <a class="btn" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg" data-download>下载 Mac 版</a>
               <a class="btn ghost" href="https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe" data-download-win>下载 Windows 版</a>
@@ -540,9 +540,9 @@
           <div class="fact"><div class="num" data-count="1513">1513</div><div class="cap">部现行法规与司法解释</div></div>
           <div class="fact"><div class="num" data-count="56182">56182</div><div class="cap">条法条离线可查</div></div>
           <div class="fact"><div class="num" data-count="278">278</div><div class="cap">件指导性案例内置</div></div>
-          <div class="fact"><div class="num" data-count="0">0</div><div class="cap">台法脉的中转服务器</div></div>
+          <div class="fact"><div class="num" data-count="445">445</div><div class="cap">件公报案例内置</div></div>
         </div>
-        <p class="facts-note">法脉不设材料中转服务器；用云端 AI 时，本次提交的内容会发给你选定的模型服务商。</p>
+        <p class="facts-note">已下载的法规、笔记与案件夹都在本机，断网可用；用云端 AI 时，本次提交的材料会发给所选模型服务。</p>
 
         <details class="scope" id="scope">
           <summary>收录范围和更新，下载前先看清楚</summary>
@@ -744,6 +744,7 @@
           <span class="eyebrow">专业版 · 公测期免费开放</span>
           <h2>用案件夹里的<br />研究起草。</h2>
           <p>起诉状、法律意见书等七类文书，法源逐条可核实。改动左右对照，点「采用」才落稿；每段能单独重做，定稿可另存为模板。</p>
+          <p class="fine">长文书交给文书解读：提取要点、分析判决说理，一案多份文书归纳成时间线——只依据原文，不补原文以外的事实。</p>
         </div>
         <div>
           <div class="feat-media">
@@ -837,35 +838,35 @@
       <div class="wrap">
         <div class="head">
           <div>
-            <span class="eyebrow">软件授权与模型费用</span>
-            <h2>查法、记笔记，免费。<br />AI 的费用另算。</h2>
+            <span class="eyebrow">免费与订阅</span>
+            <h2>查法、记笔记，免费。<br />AI 按需订阅。</h2>
           </div>
-          <p>公测期软件功能免费。模型调用费由你直付服务商，法脉不代收。</p>
+          <p>公测期 AI 功能免费。下面是正式版订阅方案预览，暂未开放购买。</p>
         </div>
 
         <div class="fees">
           <article>
-            <span class="fee-label">基础工作台</span>
+            <span class="fee-label">基础功能</span>
             <h3>永久免费</h3>
-            <p>查法条与案例、全文检索、笔记与高亮、案件夹、导出与备份。</p>
+            <p>检索、笔记、案件夹、本机脱敏与基础导出，不扣 AI 点数。</p>
             <small>无需注册，不配模型也能用。公测结束后也不锁。</small>
           </article>
           <article>
-            <span class="fee-label">专业版</span>
-            <h3>公测免费开放</h3>
-            <p>AI 问答、合同审查、文书解读与起草，在线法规更新。</p>
+            <span class="fee-label">AI 专业版 · 首发价</span>
+            <h3>每月 200 点</h3>
+            <p>文书起草与修改、合同审查与报告、法库问答、文书解读。月付、年付额度相同。</p>
             <ul class="fee-prices">
-              <li>月卡 <b>¥39</b>：一次性 30 天，不自动续费</li>
-              <li>年订阅 <b>¥129</b> 早鸟：名额售完恢复 ¥199，到期手动续，不自动扣费</li>
-              <li>买断 <b>¥399</b>：该版本永久可用，含 1 年法规更新；之后 ¥99/年续，不续也能接着用，法规数据停在最后一次更新</li>
+              <li>月付 <b>¥39</b>：不自动续费</li>
+              <li>年付 <b>¥299</b>：折合 ¥24.92/月，不自动续费</li>
+              <li>新用户体验 <b>30 点</b>；加量包 <b>¥19 / 100 点</b>，有效期一年</li>
             </ul>
-            <small>以上为正式版定价，公测期免费。</small>
+            <small>已购周期内价格与额度不变；首发用户可按原价续费一次，之后调整提前通知。</small>
           </article>
           <article>
-            <span class="fee-label">模型调用</span>
-            <h3>按实际用量</h3>
-            <p>默认接通义千问：新用户开通即有免费额度，不充值也不实名。之后常用模型约 0.2–0.5 元审一份合同。</p>
-            <small>额度与价格以模型厂商当时规则为准。</small>
+            <span class="fee-label">点数怎么扣</span>
+            <h3>先看预计，再开始</h3>
+            <p>任务开始前显示预计消耗；失败且没交付结果不扣点。额度当期有效不结转，超出后主动加购，不自动扣费。</p>
+            <small>消耗随任务长度变化；订阅开放前公布计点规则。</small>
           </article>
         </div>
         <p class="fee-foot"><strong>律所版（规划中）</strong>：所级授权、内网部署、本地私有模型。微信 <strong>chengyue-wish</strong>（备注「律所」）。</p>
@@ -877,13 +878,19 @@
       <div class="wrap">
         <div class="head">
           <div><span class="eyebrow">下载之前</span><h2>常见问题</h2></div>
-          <p>模型服务的免费额度不等于软件授权。</p>
+          <p>费用、离线与数据安全，下载前说清楚。</p>
         </div>
         <div class="faq">
           <details>
-            <summary>用 AI 功能还要另外花钱吗？大概多少？</summary>
+            <summary>AI 功能怎么收费？</summary>
             <div class="answer">
-              新用户基本不用：默认接通义千问，开通即有免费额度，不实名不充值，常见长度的合同能审几十份。额度用完后按厂商牌价直付，法脉不赚差价也不代收，这正是合同不必经过我们服务器的前提。
+              公测期免费。正式版为订阅制：月付 ¥39 或年付 ¥299，每月 200 点，新用户另有 30 点体验；订阅暂未开放购买，开放前会公布计点规则。当前公测版使用 AI 需配置模型服务，默认通义千问，开通即有免费额度，不实名不充值。
+            </div>
+          </details>
+          <details>
+            <summary>200 点相当于多少次任务？</summary>
+            <div class="answer">
+              任务长度、模型和处理内容都会影响消耗，不按固定次数承诺。任务开始前会显示预计点数；失败且没交付结果不扣点。
             </div>
           </details>
           <details>
@@ -988,7 +995,7 @@
         "downloadUrl": "https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg",
         "url": "https://lttxzmj.github.io/lawpulse-site/",
         "image": "https://lttxzmj.github.io/lawpulse-site/assets/icon.png",
-        "description": "本地优先的桌面法律研究工具（macOS / Windows）：内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网可全文检索；AI 合同审查与法库问答的每条法律依据都回本地法库校验，可点回原文；无账号、无遥测，AI 采用自带密钥直连模型厂商，无中转服务器。",
+        "description": "律师的桌面法律工作台（macOS / Windows）：内置 1513 部现行法律、行政法规与司法解释，共 56182 条，断网可全文检索；AI 引用逐条回本地法库校验，可点回原文；材料发出前先在本机脱敏；无账号、无遥测，数据存在本机。",
         "featureList": [
           "内置 1513 部现行法律、行政法规与司法解释，共 56182 条，取自国家法律法规数据库官方文本",
           "内置 278 件最高法指导性案例与 445 件《最高人民法院公报》案例，与法条双向关联",
@@ -1012,20 +1019,20 @@
           },
           {
             "@type": "Offer",
-            "name": "专业版 月卡（一次性 30 天，不自动续费）",
+            "name": "AI 专业版 月付（订阅方案预览，暂未开放购买；每月 200 点，不自动续费）",
             "price": "39",
             "priceCurrency": "CNY"
           },
           {
             "@type": "Offer",
-            "name": "专业版 年订阅（早鸟价）",
-            "price": "129",
+            "name": "AI 专业版 年付（订阅方案预览，暂未开放购买；每月 200 点，不自动续费）",
+            "price": "299",
             "priceCurrency": "CNY"
           },
           {
             "@type": "Offer",
-            "name": "专业版 买断（含 1 年数据更新）",
-            "price": "399",
+            "name": "点数加量包（100 点，有效期一年）",
+            "price": "19",
             "priceCurrency": "CNY"
           }
         ],
@@ -1040,10 +1047,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "用 AI 功能还要另外花钱吗？大概多少？",
+            "name": "AI 功能怎么收费？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "新用户基本不用花钱：法脉默认接入通义千问，开通即有免费额度，不用实名、不用充值，常见长度的合同能审几十份。额度用完后按厂商牌价直付（常用模型约 0.2–0.5 元审一份合同），法脉不赚差价也不代收；这正是合同不必经过我们服务器的前提。应用内有 5 分钟开通向导。"
+              "text": "公测期免费。正式版为订阅制：月付 39 元或年付 299 元，每月 200 点，新用户另有 30 点体验，加量包 19 元/100 点；订阅暂未开放购买，开放前会公布计点规则。当前公测版使用 AI 需配置模型服务，默认通义千问，开通即有免费额度，不实名不充值。"
             }
           },
           {
