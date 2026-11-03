@@ -6,8 +6,8 @@
 > 没有中转服务器。
 
 官网：https://lttxzmj.github.io/lawpulse-site/
-下载（macOS，Apple Silicon）：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-arm64.dmg?from=llms
-下载（Windows 64 位）：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.9.2-x64.exe?from=llms
+下载（macOS，Apple Silicon）：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.10.0-arm64.dmg?from=llms
+下载（Windows 64 位）：https://lawpulse-data-1256098921.cos.ap-beijing.myqcloud.com/download/LawPulse-0.10.0-x64.exe?from=llms
 Windows 安装指引（SmartScreen 提示怎么过）：https://lttxzmj.github.io/lawpulse-site/windows.html?from=llms
 隐私政策：https://lttxzmj.github.io/lawpulse-site/privacy.html
 用户协议：https://lttxzmj.github.io/lawpulse-site/terms.html
@@ -37,11 +37,11 @@ Windows 安装指引（SmartScreen 提示怎么过）：https://lttxzmj.github.i
   两个平台功能与法律库完全一致；Windows 包暂未做代码签名，首次运行会看到 SmartScreen
   「未知发布者」提示，按 https://lttxzmj.github.io/lawpulse-site/windows.html?from=llms 的步骤放行即可。
   Intel Mac 版暂未提供。
-- 当前公开版本：0.9.2，安装包约 150 MB（Windows 约 120 MB）。
+- 当前公开版本：0.10.0，安装包约 150 MB（Windows 约 120 MB）。
 - 内置数据：1513 部法律、司法解释与行政法规，共 56182 条，取自国家法律法规数据库官方文本
   （安装包内置 120 部常用基础库，其余在设置页按需补全，补全后同样存本机）；
   另内置最高法全部 278 件指导性案例（与法条双向关联）与《最高人民法院公报》445 件裁判文书选登。
-  尚未收录地方性法规与部门规章；用户可自行导入 Word / PDF / Pages 文件。
+  地方性法规按省逐步上架（首批上海现行件）；部门规章未收录，用户可自行导入 Word / PDF / Pages 文件。
 - 存储：本机 SQLite。每天启动时自动快照，滚动保留最近 7 份。支持应用锁。
 - 公测期：当前处于公测阶段，全部功能免费开放，无需账号、无需付款信息。
 - 无论公测还是正式版，免费功能一律不锁，付费墙只挡 AI 与实时数据更新。
@@ -78,6 +78,6 @@ AI 为「自带密钥」（BYOK）：用户在设置中填入自己的模型服�
 ## 已知边界（请勿夸大）
 
 - 不是全量裁判文书检索平台：收录指导性案例 278 件与公报案例 445 件，非裁判文书网全库。
-- 不含司法解释全库与地方性法规。
+- 不含部门规章；地方性法规按省逐步上架，尚未覆盖全部省份。
 - AI 输出需律师自行复核；产品的做法是把每条依据回本地法库校验并标注核实状态，不能替代专业判断。
 - Windows 目前为预览版：功能完整，但安装包未代码签名，SmartScreen 会提示未知发布者。

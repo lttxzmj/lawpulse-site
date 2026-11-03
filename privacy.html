@@ -8,100 +8,77 @@
   <link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/privacy.html" />
   <link rel="icon" href="assets/icon.png" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0f121a" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
-
-  <script>
-    // 与首页、桌面端同一个存储键：从首页点进来不会闪一下别的主题。
-    (function () {
-      var stored = null;
-      try { stored = localStorage.getItem("lawpulse-theme-mode"); } catch (e) { stored = null; }
-      var mode = stored === "light" || stored === "dark" ? stored : null;
-      document.documentElement.dataset.theme =
-        mode || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    })();
-  </script>
+  <meta name="theme-color" content="#fbfbfa" />
 
   <style>
-    /* 设计令牌与 index.html 同源（蓝灰、方角、细线；圆角三档：控件 5 / 卡片 8 / 弹层 10）。
-       改刻度先改首页，再同步到各子页。 */
-    :root[data-theme="light"] {
-      color-scheme: light;
-      --bg: 247 248 251; --band: 237 241 247; --surface: 255 255 255;
-      --line: 220 226 237; --ink: 37 48 71; --muted: 103 116 139;
-      --blue: 60 88 173; --btn: 60 88 173; --btn-hover: 46 70 148;
-      --tint: 229 235 248; --shadow: 0 10px 30px rgb(45 66 99 / 0.05);
-    }
-    :root,
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: 15 18 26; --band: 19 23 33; --surface: 23 28 39;
-      --line: 44 52 69; --ink: 228 232 241; --muted: 150 160 181;
-      --blue: 138 162 236; --btn: 76 105 200; --btn-hover: 92 121 216;
-      --tint: 34 44 70; --shadow: 0 10px 30px rgb(0 0 0 / 0.28);
-    }
+    /* 设计令牌与 index.html（原型风）同源：暖白底、宋体大标题、藏蓝链接、胶囊按钮。
+       纯浅色，与首页一致；改刻度先改首页，再同步到各子页。 */
+    :root { --bg: #fbfbfa; --surface: #fff; --line: #e3e6ea; --ink: #2b384b; --muted: #5f6d80; --blue: #44608f; }
 
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      background: rgb(var(--bg)); color: rgb(var(--ink));
+      background: var(--bg); color: var(--ink);
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
       line-height: 1.9; -webkit-font-smoothing: antialiased;
     }
-    h1, h2 { font-weight: 600; letter-spacing: -0.04em; line-height: 1.45; }
-    a { color: rgb(var(--blue)); text-decoration: none; }
+    h1 { font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif; font-weight: 500; letter-spacing: -.025em; }
+    h2 { font-weight: 600; letter-spacing: -.02em; }
+    a { color: var(--blue); text-decoration: none; }
     main a:hover { text-decoration: underline; text-underline-offset: 4px; }
-    :focus-visible { outline: 2px solid rgb(var(--blue)); outline-offset: 3px; border-radius: 4px; }
+    :focus-visible { outline: 2px solid #6a83a5; outline-offset: 3px; border-radius: 4px; }
 
     .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 40px; }
     .doc { max-width: 760px; margin: 0 auto; padding: 48px 24px 72px; }
 
     .site-header {
-      position: sticky; top: 0; z-index: 30; height: 74px;
-      background: rgb(var(--bg) / 0.93);
-      backdrop-filter: saturate(180%) blur(12px);
-      -webkit-backdrop-filter: saturate(180%) blur(12px);
-      border-bottom: 1px solid rgb(var(--line));
+      position: sticky; top: 0; z-index: 30; height: 72px;
+      background: #fbfbfaf2;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid #eaebed;
     }
     .site-header .wrap { height: 100%; display: flex; align-items: center; gap: 26px; }
-    .brand { display: flex; align-items: baseline; gap: 10px; color: rgb(var(--ink)); font-size: 24px; font-weight: 700; letter-spacing: -0.05em; white-space: nowrap; }
-    .brand span { font-size: 11px; font-weight: 400; letter-spacing: 0.01em; color: rgb(var(--muted)); }
+    .brand { font-family: "Songti SC", "STSong", serif; display: flex; align-items: baseline; gap: 10px; color: var(--ink); font-size: 25px; font-weight: 700; letter-spacing: -1px; white-space: nowrap; }
+    .brand span { font-family: -apple-system, "PingFang SC", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .01em; color: var(--muted); }
     .site-nav { display: flex; flex-wrap: wrap; gap: 24px; margin-left: auto; }
-    .site-nav a { font-size: 12px; color: rgb(var(--muted)); }
-    .site-nav a:hover, .site-nav a.current { color: rgb(var(--blue)); }
-    .header-actions { display: flex; align-items: center; gap: 10px; }
-    .theme-switch { display: inline-flex; padding: 2px; border-radius: 5px; background: rgb(var(--band)); border: 1px solid rgb(var(--line)); }
-    .theme-switch button { display: grid; place-items: center; width: 26px; height: 24px; border-radius: 3px; border: 0; background: none; color: rgb(var(--muted)); cursor: pointer; font: inherit; }
-    .theme-switch button:hover { color: rgb(var(--ink)); }
-    .theme-switch button[aria-checked="true"] { background: rgb(var(--surface)); color: rgb(var(--ink)); }
-    .theme-switch svg { width: 13px; height: 13px; }
+    .site-nav a { font-size: 12px; color: #656a72; }
+    .site-nav a:hover, .site-nav a.current { color: var(--blue); }
+    .nav-cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 36px; padding: 0 17px; border-radius: 24px;
+      font-size: 11px; font-weight: 500; white-space: nowrap;
+      background: #35455e; color: #fff; transition: background .15s;
+    }
+    .nav-cta:hover { background: #293a54; }
 
-    h1 { font-size: clamp(26px, 4vw, 33px); margin: 0 0 8px; }
-    .updated { color: rgb(var(--muted)); font-size: 13px; margin: 0 0 32px; }
-    h2 { font-size: 19px; margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid rgb(var(--line)); }
+    h1 { font-size: clamp(28px, 4vw, 36px); margin: 0 0 10px; line-height: 1.5; }
+    .updated { color: var(--muted); font-size: 13px; margin: 0 0 32px; }
+    h2 { font-size: 19px; margin: 40px 0 12px; padding-top: 24px; border-top: 1px solid var(--line); line-height: 1.5; }
     h2:first-of-type { border-top: 0; padding-top: 0; }
-    p, li { color: rgb(var(--ink)); }
+    p, li { color: var(--ink); }
     ul, ol { padding-left: 22px; }
     li { margin: 8px 0; }
     li strong { font-weight: 600; }
-    .lede { color: rgb(var(--muted)); }
+    .lede { color: var(--muted); }
+    code, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
     .callout {
-      background: rgb(var(--surface)); border: 1px solid rgb(var(--line));
-      border-radius: 8px; padding: 16px 20px; margin: 24px 0 0;
-      box-shadow: var(--shadow);
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: 12px; padding: 18px 22px; margin: 24px 0 0;
     }
     .callout p { margin: 0; }
 
-    footer { border-top: 1px solid rgb(var(--line)); }
-    footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 22px; min-height: 92px; padding-top: 22px; padding-bottom: 22px; }
-    footer span, footer nav a { font-size: 12px; color: rgb(var(--muted)); }
-    footer nav a:hover { color: rgb(var(--blue)); }
+    footer { border-top: 1px solid var(--line); }
+    footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 22px; min-height: 90px; padding-top: 22px; padding-bottom: 22px; }
+    footer span, footer nav a { font-size: 12px; color: var(--muted); }
+    footer nav a:hover { color: var(--blue); }
 
     @media (max-width: 820px) {
-      .wrap { padding: 0 28px; }
+      .wrap { padding: 0 24px; }
       .brand span { display: none; }
       .site-nav { gap: 14px; }
       .doc { padding: 32px 20px 56px; }
+      .nav-cta { display: none; }
     }
   </style>
 </head>
@@ -111,19 +88,7 @@
     <div class="wrap">
       <a class="brand" href="index.html">法脉<span>LawPulse</span></a>
       <nav class="site-nav"><a href="index.html">首页</a><a href="changelog.html">更新日志</a><a href="privacy.html" class="current">隐私政策</a><a href="terms.html">用户协议</a><a href="windows.html">Windows 安装</a></nav>
-      <div class="header-actions">
-        <div class="theme-switch" role="radiogroup" aria-label="界面主题">
-          <button type="button" data-theme-mode="system" role="radio" aria-checked="false" title="跟随系统" aria-label="跟随系统">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-          </button>
-          <button type="button" data-theme-mode="light" role="radio" aria-checked="false" title="浅色" aria-label="浅色">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-          </button>
-          <button type="button" data-theme-mode="dark" role="radio" aria-checked="false" title="深色" aria-label="深色">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-          </button>
-        </div>
-      </div>
+      <a class="nav-cta" href="index.html">下载法脉</a>
     </div>
   </header>
 
@@ -269,30 +234,5 @@
       <nav><a href="index.html#faq">常见问题</a> · <a href="changelog.html">更新日志</a> · <a href="terms.html">用户协议</a></nav>
     </div>
   </footer>
-  <script>
-    (function () {
-      // 与首页同一套主题切换：同一个存储键、同一组控件。
-      var STORAGE_KEY = "lawpulse-theme-mode";
-      var darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-theme-mode]"));
-      function readMode() {
-        var stored = null;
-        try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) { stored = null; }
-        return stored === "light" || stored === "dark" ? stored : "system";
-      }
-      function applyMode(mode) {
-        document.documentElement.dataset.theme = mode === "system" ? (darkQuery.matches ? "dark" : "light") : mode;
-        buttons.forEach(function (b) { b.setAttribute("aria-checked", String(b.dataset.themeMode === mode)); });
-      }
-      buttons.forEach(function (b) {
-        b.addEventListener("click", function () {
-          try { localStorage.setItem(STORAGE_KEY, b.dataset.themeMode); } catch (e) { /* 隐私模式下忽略 */ }
-          applyMode(b.dataset.themeMode);
-        });
-      });
-      darkQuery.addEventListener("change", function () { if (readMode() === "system") { applyMode("system"); } });
-      applyMode(readMode());
-    })();
-  </script>
 </body>
 </html>

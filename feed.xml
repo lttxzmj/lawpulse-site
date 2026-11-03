@@ -4,7 +4,29 @@
   <id>tag:lttxzmj.github.io,2026:lawpulse-feed</id>
   <link href="https://lttxzmj.github.io/lawpulse-site/feed.xml" rel="self" />
   <link href="https://lttxzmj.github.io/lawpulse-site/" />
-  <updated>2026-10-23T00:00:00Z</updated>
+  <updated>2026-11-03T00:00:00Z</updated>
+  <entry>
+    <title>法脉 v0.10.0 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.10.0</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-11-03T00:00:00Z</updated>
+    <content type="text">- 地方性法规按省上架：云端目录新增「地方性法规」，首批收上海 234 部现行件，
+  其他省份陆续开放。选哪个省才拉哪个省的清单，上架到案头后离线可用；
+  省份由你自己挑，法脉不做任何定位、不传任何东西出去。
+- 目录与案头分开说话：云端全集叫「目录」，装在你电脑里的叫「案头」。
+  把目录里的法规「上架」进案头，案头里常用的可以「钉住」。
+- 案头会提醒失效：案头里的法规已废止或已被修改时直接标出来，并写明
+  被哪部新法取代；旧文本保留，查老案仍用得上。
+- 法库问答与法条逐条解释可以「再答一次」：对答案不满意，不用把问题
+  重新打一遍。
+- 法条页收起左侧目录后正文真的会变宽：此前腾出来的空间全进了两侧留白。
+- 确认弹窗支持键盘操作：打开时焦点落在「取消」上，按 Esc 即可关闭。
+- 一批提示语修缮：打不开的文件、损坏的导入数据等场景会说清出了什么事、
+  影响什么、下一步怎么办。
+- 0.9.2 当时未单独发布，它的改动全部包含在本版：侧栏「有新版本」改为带文字
+  的整行提示；问答回答收窄到舒适的阅读宽度；右栏与浮层留白统一；文书起草
+  没有案件夹时可就地新建。</content>
+  </entry>
   <entry>
     <title>法脉 v0.9.2 发布</title>
     <id>tag:lttxzmj.github.io,2026:lawpulse-0.9.2</id>
@@ -249,14 +271,5 @@
 - 更新提醒：弹窗里现在会展示完整的版本更新说明，不再只有版本号。
 - 安全加固：法规数据与版本清单增加数字签名校验，防止传输链路被篡改；
   公测结束前应用内会提前至少两周倒计时提醒，不会突然断掉。</content>
-  </entry>
-  <entry>
-    <title>法脉 v0.6.1 发布</title>
-    <id>tag:lttxzmj.github.io,2026:lawpulse-0.6.1</id>
-    <link href="https://lttxzmj.github.io/lawpulse-site/" />
-    <updated>2026-09-03T00:00:00Z</updated>
-    <content type="text">- 公测期开放：14 天试用限制暂停，公测期间全部专业版功能免费使用，
-  界面不再显示倒计时；欢迎持续反馈问题与建议。
-- 激活码照常可用，已过期的邀请体验码在公测期内同样回到全功能。</content>
   </entry>
 </feed>

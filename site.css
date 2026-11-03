@@ -1,46 +1,45 @@
-/* 法规/案例静态页与 404 共用样式。调色与圆角对齐 index.html 的浅色令牌
-   （蓝 #3c58ad、墨 #253047、线 #dce2ed；圆角：控件 5 / 卡片 8）。
-   这些页面由 build-site-laws 批量生成、不带主题脚本，保持纯浅色。 */
+/* 法规/案例静态页与 404 共用样式。调色对齐 index.html（原型风：暖白 #fbfbfa、
+   藏蓝 #44608f、墨 #2b384b；圆角：控件 5 / 卡片 8），纯浅色。 */
 :root { color-scheme: light; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
-    color: #253047; background: #f7f8fb; line-height: 1.8; }
-  a { color: #3c58ad; text-decoration: none; }
+    color: #2b384b; background: #fbfbfa; line-height: 1.8; }
+  a { color: #44608f; text-decoration: none; }
   .wrap { max-width: 860px; margin: 0 auto; padding: 24px 20px 60px; }
-  header.site { border-bottom: 1px solid #dce2ed; background: #fff; }
+  header.site { border-bottom: 1px solid #e2e5e9; background: #fff; }
   header.site .wrap { display: flex; align-items: baseline; gap: 12px; padding: 14px 20px; }
-  header.site .brand { font-weight: 700; font-size: 17px; color: #253047; letter-spacing: -0.03em; }
-  header.site .crumb { font-size: 13px; color: #67748b; }
+  header.site .brand { font-family: "Songti SC", "STSong", serif; font-weight: 700; font-size: 19px; letter-spacing: -.5px; color: #2b384b; letter-spacing: -0.03em; }
+  header.site .crumb { font-size: 13px; color: #5f6d80; }
   h1 { font-size: 24px; margin: 18px 0 4px; letter-spacing: -0.03em; }
-  .meta { font-size: 13px; color: #67748b; margin-bottom: 20px; }
+  .meta { font-size: 13px; color: #5f6d80; margin-bottom: 20px; }
   .badge { display: inline-block; border-radius: 4px; padding: 1px 7px; font-size: 12px;
     background: #eaf2ef; color: #3d655d; margin-left: 8px; vertical-align: 2px; }
-  article.a { background: #fff; border: 1px solid #dce2ed; border-radius: 8px;
+  article.a { background: #fff; border: 1px solid #e2e5e9; border-radius: 8px;
     padding: 18px 22px; margin-bottom: 14px; scroll-margin-top: 16px; }
   article.a h2 { font-size: 17px; margin: 0 0 8px; }
-  article.a .p { font-size: 12px; color: #98a1b3; margin-bottom: 6px; }
+  article.a .p { font-size: 12px; color: #8b949f; margin-bottom: 6px; }
   article.a p { margin: 0 0 10px; text-align: justify; }
   article.a p:last-child { margin-bottom: 0; }
-  .cta { margin-top: 36px; border: 1px solid #dce2ed; background: #e5ebf8; border-radius: 8px;
+  .cta { margin-top: 36px; border: 1px solid #e2e5e9; background: #eef1f5; border-radius: 8px;
     padding: 18px 22px; font-size: 14px; }
   .cta a { font-weight: 600; }
-  footer.site { text-align: center; font-size: 12px; color: #98a1b3; padding: 24px 0 40px; }
-  input.filter { width: 100%; height: 40px; border: 1px solid #dce2ed; border-radius: 5px;
+  footer.site { text-align: center; font-size: 12px; color: #8b949f; padding: 24px 0 40px; }
+  input.filter { width: 100%; height: 40px; border: 1px solid #e2e5e9; border-radius: 5px;
     padding: 0 14px; font-size: 15px; margin: 18px 0; background: #fff; }
   ul.laws { list-style: none; margin: 0; padding: 0; }
-  ul.laws li { background: #fff; border: 1px solid #dce2ed; border-radius: 8px; margin-bottom: 10px; }
+  ul.laws li { background: #fff; border: 1px solid #e2e5e9; border-radius: 8px; margin-bottom: 10px; }
   ul.laws a { display: flex; justify-content: space-between; gap: 12px; padding: 13px 18px;
-    color: #253047; }
-  ul.laws .n { color: #98a1b3; font-size: 13px; white-space: nowrap; }
-  .cat { font-size: 13px; color: #67748b; margin: 26px 0 10px; font-weight: 600; }
-  button.copy { margin-left: 10px; border: 1px solid #dce2ed; background: #fff; border-radius: 5px;
-    padding: 2px 9px; font-size: 12px; color: #67748b; cursor: pointer; vertical-align: 2px; }
-  button.copy:hover { color: #3c58ad; border-color: #aebadf; }
-  .cases { margin-top: 10px; font-size: 12px; color: #67748b; }
+    color: #2b384b; }
+  ul.laws .n { color: #8b949f; font-size: 13px; white-space: nowrap; }
+  .cat { font-size: 13px; color: #5f6d80; margin: 26px 0 10px; font-weight: 600; }
+  button.copy { margin-left: 10px; border: 1px solid #e2e5e9; background: #fff; border-radius: 5px;
+    padding: 2px 9px; font-size: 12px; color: #5f6d80; cursor: pointer; vertical-align: 2px; }
+  button.copy:hover { color: #44608f; border-color: #b6c2d6; }
+  .cases { margin-top: 10px; font-size: 12px; color: #5f6d80; }
   .cases a { margin-right: 2px; }
-  .kw { display: inline-block; background: #e5ebf8; border-radius: 999px; padding: 1px 9px;
-    font-size: 12px; color: #3c58ad; margin: 0 6px 6px 0; }
-  .gist { border: 1px solid #dce2ed; background: #e5ebf8; border-radius: 8px; padding: 16px 20px;
+  .kw { display: inline-block; background: #eef1f5; border-radius: 999px; padding: 1px 9px;
+    font-size: 12px; color: #44608f; margin: 0 6px 6px 0; }
+  .gist { border: 1px solid #e2e5e9; background: #eef1f5; border-radius: 8px; padding: 16px 20px;
     margin-bottom: 18px; }
   .gist h2 { margin-top: 0; }
-  section h2 { font-size: 16px; color: #3c58ad; margin: 22px 0 8px; }
+  section h2 { font-size: 16px; color: #44608f; margin: 22px 0 8px; }
