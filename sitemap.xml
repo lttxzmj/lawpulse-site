@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- sitemap 索引：全站 URL 超单文件 5 万上限，按页面类型分片。由 build-site-laws.ts 生成。 -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap><loc>https://lttxzmj.github.io/lawpulse-site/sitemap-pages.xml</loc><lastmod>2026-11-03</lastmod></sitemap>
-  <sitemap><loc>https://lttxzmj.github.io/lawpulse-site/sitemap-articles-1.xml</loc><lastmod>2026-11-03</lastmod></sitemap>
-  <sitemap><loc>https://lttxzmj.github.io/lawpulse-site/sitemap-articles-2.xml</loc><lastmod>2026-11-03</lastmod></sitemap>
+  <sitemap><loc>https://lttxzmj.github.io/lawpulse-site/sitemap-pages.xml</loc><lastmod>2026-11-04</lastmod></sitemap>
+  <sitemap><loc>https://lttxzmj.github.io/lawpulse-site/sitemap-articles-1.xml</loc><lastmod>2026-11-04</lastmod></sitemap>
+  <sitemap><loc>https://lttxzmj.github.io/lawpulse-site/sitemap-articles-2.xml</loc><lastmod>2026-11-04</lastmod></sitemap>
 </sitemapindex>
