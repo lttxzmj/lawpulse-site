@@ -4,7 +4,14 @@
   <id>tag:lttxzmj.github.io,2026:lawpulse-feed</id>
   <link href="https://lttxzmj.github.io/lawpulse-site/feed.xml" rel="self" />
   <link href="https://lttxzmj.github.io/lawpulse-site/" />
-  <updated>2026-11-07T00:00:00Z</updated>
+  <updated>2026-11-09T00:00:00Z</updated>
+  <entry>
+    <title>数字员工来了：WorkBuddy、Manus、扣子这类 AI 智能体，律师能用来干什么</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-agent-workbench-for-lawyers</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-agent-workbench-for-lawyers.html" />
+    <updated>2026-11-09T00:00:00Z</updated>
+    <content type="text">2026 年的 AI 智能体工作台不只回答问题，还能动手交付文件：整理卷宗、出表格、做演示文稿。盘点 WorkBuddy、Manus、扣子、Claude Cowork 等五款，哪些任务能交、哪些不能，授权文件夹前先想清楚什么。</content>
+  </entry>
   <entry>
     <title>让 AI 助手直接查到现行法条：给律师的 MCP 入门</title>
     <id>tag:lttxzmj.github.io,2026:lawpulse-blog-mcp-connect-ai-to-law</id>
