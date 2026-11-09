@@ -9,7 +9,7 @@
 <meta property="og:description" content="AI 回答法律问题时，法律名称、条文序号和内容都可能编得很像真的。三步核查：先确认现行文本，再对条文序号，最后逐字对内容。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lttxzmj.github.io/lawpulse-site/blog/ai-citation-check.html" />
-<meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
+<meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/blog/ai-citation-check.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -27,7 +27,9 @@
 <main class="wrap">
 <h1>AI 给的法条引用怎么核实：三步筛出编造的条文</h1>
 <div class="meta">2026-11-06 发布 · <a href="./index.html">教程目录</a></div>
+<img class="post-hero" src="https://lttxzmj.github.io/lawpulse-site/assets/blog/ai-citation-check.png" alt="" />
 <article class="a">
+<p>2023 年，纽约两名律师把 ChatGPT 编造的六个判例写进了提交法院的文书，被法院罚款并公开通报（Mata v. Avianca 案，全球律协的 AI 指引里至今拿它当反面教材）。他们栓在哪一步？不是用了 AI，是没核。</p>
 <p>AI 引用法条出错，最危险的不是整条编造，而是半真半假：法是真的，条号是旧的；条号是真的，内容掺了它自己的推断。看起来越像真的，越容易被直接写进文书。</p>
 <h2>为什么会编</h2>
 <p>三个原因叠在一起：</p>
@@ -43,11 +45,12 @@
 <h2>每次都手动三步，太慢了怎么办</h2>
 <p>两个减负的办法。</p>
 <p>其一，从提示词上游约束：要求 AI 输出意见时必须注明「法律名称＋条文序号」，并写明「不确定的直接说不确定」。这不能让它不编，但能让每条引用都有固定的核查入口。</p>
-<p>其二，把前两步交给工具。法脉的做法是把核查做成自动动作：AI 给出的每条法条引用都回本地法库核对，核得上的直接链到条文原文，点开即可比对；核不上的保持纯文本，不装作有出处。你要做的只剩第三步，读原文、对内容。</p>
+<p>其二，把前两步交给工具。法脉的做法是把核查做成自动动作：AI 给出的每条法条引用都回内置法库核对，核得上的直接链到条文原文，点开即可比对；核不上的保持纯文本，不装作有出处。你要做的只剩第三步，读原文、对内容。</p>
+<figure><img loading="lazy" src="../assets/shot-qa-light.webp" alt="法脉的问答输出：核得上的引用成为链接，点开见条文原文" /><figcaption>法脉的问答输出：核得上的引用成为链接，点开见条文原文</figcaption></figure>
 <p>无论用什么工具，最后一条不变：写进文书的每一条引用，原文都要过你的眼睛。</p>
 </article>
-<div class="cta">教程里的核查与工作流，在 <a href="https://lttxzmj.github.io/lawpulse-site/?from=blog">法脉桌面端</a>
-里是现成的：AI 给的法条引用自动回本地法库核对、合同审查输出带依据、材料在你自己的电脑上。法律库永久免费。</div>
+<div class="cta">教程里的核查与工作流，在 <a href="https://lttxzmj.github.io/lawpulse-site/?from=blog">法脉</a>
+里是现成的：AI 引的每一条法都回内置法库核过，核不上的明确标注；合同审查、文书起草输出都带可点开的依据。法律库永久免费。</div>
 </main>
 <footer class="site">法脉 · 教程讲工具与方法，不构成对具体事项的法律意见。</footer>
 </body>

@@ -30,4 +30,4 @@
 
 ---
 
-教程配套工具：法脉桌面端（https://lttxzmj.github.io/lawpulse-site/?from=blog），AI 法条引用自动回本地法库核对，法律库永久免费。
+教程配套工具：法脉（https://lttxzmj.github.io/lawpulse-site/?from=blog），AI 法条引用自动回内置法库核对，法律库永久免费。

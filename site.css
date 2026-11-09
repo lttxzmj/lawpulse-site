@@ -54,3 +54,9 @@
   article.a pre code { background: none; border-radius: 0; padding: 0; line-height: 1.9; }
   article.a ul { margin: 0 0 12px; padding-left: 24px; }
   article.a ul p { margin-bottom: 0; }
+  .post-hero { display: block; width: 100%; border: 1px solid #e2e5e9; border-radius: 8px;
+    margin-bottom: 14px; }
+  article.a figure { margin: 0 0 12px; }
+  article.a figure img { display: block; max-width: 100%; border: 1px solid #e2e5e9;
+    border-radius: 6px; }
+  article.a figcaption { font-size: 12px; color: #8b949f; margin-top: 6px; }

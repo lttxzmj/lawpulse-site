@@ -9,7 +9,7 @@
 <meta property="og:description" content="MCP 让 Claude、Cursor 这类 AI 助手接上真实的法律数据库：回答前先检索条文原文，而不是凭记忆背。一次配置十分钟，附现成的中国法律 MCP 服务器。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html" />
-<meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
+<meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/blog/mcp-connect-ai-to-law.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -27,6 +27,7 @@
 <main class="wrap">
 <h1>让 AI 助手直接查到现行法条：给律师的 MCP 入门</h1>
 <div class="meta">2026-11-07 发布 · <a href="./index.html">教程目录</a></div>
+<img class="post-hero" src="https://lttxzmj.github.io/lawpulse-site/assets/blog/mcp-connect-ai-to-law.png" alt="" />
 <article class="a">
 <p>直接问 AI 法律问题，最大的坑是它凭「记忆」回答：法条背串、条号过时、整条编造（<a href="./ai-citation-check.html">核查方法见这篇</a>）。MCP（Model Context Protocol）解决的正是这件事：它是一个开放协议，由 Anthropic 发起、主流 AI 客户端陆续支持，让 AI 助手在回答之前先去调用外部数据源——查到真实条文原文，再基于原文回答。</p>
 <p>一句话说清区别：没接 MCP 的 AI 在背法条，接了 MCP 的 AI 在查法条。</p>
@@ -52,10 +53,10 @@
 <p><strong>第一，装 MCP 服务器等于在本机运行第三方代码，只装来源可信的。</strong> 装之前看三件事：代码是否开源可审（本例 MIT 协议开源）、数据来源是否可溯源（本例为官方文本整理的 CC0 语料）、有没有多余的权限和上传行为（本例只读检索、无遥测）。来路不明的服务器，再方便也不装。</p>
 <p><strong>第二，MCP 解决「查得到、查得真」，不解决「用得对」。</strong> 条文找对了，适用判断仍然是你的工作；正式引用以官方公布文本为准，这一点工具输出里也会自带提示。</p>
 <h2>不想折腾配置的话</h2>
-<p>MCP 适合已经在用 Claude、Cursor 这类客户端的人。如果只是想要「AI 回答带可核查的法条引用」，桌面工具开箱即用是更省事的路：法库内置本机，AI 引的每条法条自动回库核对。两条路解决的是同一个问题，按你现有的工作环境选。</p>
+<p>MCP 适合已经在用 Claude、Cursor 这类客户端的人。如果只是想要「AI 回答带可核查的法条引用」，开箱即用的工具是更省事的路：全量法库内置，AI 引的每条法条自动回库核对。两条路解决的是同一个问题，按你现有的工作环境选。</p>
 </article>
-<div class="cta">教程里的核查与工作流，在 <a href="https://lttxzmj.github.io/lawpulse-site/?from=blog">法脉桌面端</a>
-里是现成的：AI 给的法条引用自动回本地法库核对、合同审查输出带依据、材料在你自己的电脑上。法律库永久免费。</div>
+<div class="cta">教程里的核查与工作流，在 <a href="https://lttxzmj.github.io/lawpulse-site/?from=blog">法脉</a>
+里是现成的：AI 引的每一条法都回内置法库核过，核不上的明确标注；合同审查、文书起草输出都带可点开的依据。法律库永久免费。</div>
 </main>
 <footer class="site">法脉 · 教程讲工具与方法，不构成对具体事项的法律意见。</footer>
 </body>
