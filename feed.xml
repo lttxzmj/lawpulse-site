@@ -4,7 +4,49 @@
   <id>tag:lttxzmj.github.io,2026:lawpulse-feed</id>
   <link href="https://lttxzmj.github.io/lawpulse-site/feed.xml" rel="self" />
   <link href="https://lttxzmj.github.io/lawpulse-site/" />
-  <updated>2026-11-03T00:00:00Z</updated>
+  <updated>2026-11-07T00:00:00Z</updated>
+  <entry>
+    <title>让 AI 助手直接查到现行法条：给律师的 MCP 入门</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-mcp-connect-ai-to-law</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html" />
+    <updated>2026-11-07T00:00:00Z</updated>
+    <content type="text">MCP 让 Claude、Cursor 这类 AI 助手接上真实的法律数据库：回答前先检索条文原文，而不是凭记忆背。一次配置十分钟，附现成的中国法律 MCP 服务器。</content>
+  </entry>
+  <entry>
+    <title>AI 给的法条引用怎么核实：三步筛出编造的条文</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-citation-check</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-citation-check.html" />
+    <updated>2026-11-06T00:00:00Z</updated>
+    <content type="text">AI 回答法律问题时，法律名称、条文序号和内容都可能编得很像真的。三步核查：先确认现行文本，再对条文序号，最后逐字对内容。</content>
+  </entry>
+  <entry>
+    <title>用 AI 做合同初审：一套可直接套用的工作流</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-contract-review-workflow</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html" />
+    <updated>2026-11-06T00:00:00Z</updated>
+    <content type="text">给执业律师的 AI 合同初审流程：喂材料前怎么处理当事人信息、提示词怎么写、AI 给的法律依据怎么核，以及哪些环节不能交给 AI。</content>
+  </entry>
+  <entry>
+    <title>每天都在用 AI，不等于用好了 AI</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-daily-use-vs-leverage</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-daily-use-vs-leverage.html" />
+    <updated>2026-11-06T00:00:00Z</updated>
+    <content type="text">汤森路透 2026 年调查里，四分之三的专业人士每周多次用 AI，九成却觉得没发挥出价值。差距不在用不用，在有没有进工作流。附三个自查问题。</content>
+  </entry>
+  <entry>
+    <title>律师第一次配 AI：免费额度怎么领、密钥怎么管</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-setup-free-quota</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-setup-free-quota.html" />
+    <updated>2026-11-06T00:00:00Z</updated>
+    <content type="text">从没配过模型密钥也能照做：阿里云百炼的新人免费额度不充值就能用，DeepSeek 按量充值也只要几元钱。附密钥安全三条规矩与常见报错对照。</content>
+  </entry>
+  <entry>
+    <title>问答之外：律师能把 AI 用在哪八类任务上</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-task-map-for-lawyers</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-task-map-for-lawyers.html" />
+    <updated>2026-11-06T00:00:00Z</updated>
+    <content type="text">多数律师对 AI 的用法停在「问它问题」。这篇按任务盘点 AI 在法律工作里的八个用处：各自成熟到什么程度、用什么形态的工具、风险点在哪。</content>
+  </entry>
   <entry>
     <title>法脉 v0.10.0 发布</title>
     <id>tag:lttxzmj.github.io,2026:lawpulse-0.10.0</id>
@@ -73,8 +115,8 @@
 - **不必在一千多部里自己挑**：云端目录新增「按执业方向」（民商事 / 刑事 /
   劳动 / 家事 / 公司与投融资 / 知识产权 / 行政 / 房地产与建工），
   胶囊上就写着该方向**还缺几部**，点一下只剩这一批，再点按钮整批拿。
-  方向由你自己选，法脉不探测、不看你的笔记、不传任何东西出去。
-- **搜不到的法规会告诉你「云端有」**：快速查找（⌘K）里本地零结果时，
+  方向由您自己选，法脉不探测、不看您的笔记、不传任何东西出去。
+- **搜不到的法规会告诉您「云端有」**：快速查找（⌘K）里本地零结果时，
   会把云端目录里同名的列出来，点一下就地拉下来并直接打开——
   「搜了没有」不再被误读成「法脉没有这部法」。
 - 生态环境法典（2026-08-15 施行，1242 条）入库，被它取代的环保法、大气污染
@@ -96,7 +138,7 @@
   Cmd/Ctrl+Z 撤销。修了一处会让图片发黑的缺陷——带透明区域的 PNG 截图
   此前编码后透明部分会变成纯黑，现在统一铺白底。
 - 发现疑似遗漏时会在发出前停一下（新增开关，默认开启）：此前复核结果要等
-  你事后翻开隐私面板才看得到，那时材料已经发出去了，「加入名单」也只对下次
+  您事后翻开隐私面板才看得到，那时材料已经发出去了，「加入名单」也只对下次
   生效。现在停在发出之前，当场把漏掉的词加进名单、点「重新脱敏」，
   **本次就生效**。同一组词只打断一次。
 - 查看发出的全文时可以搜索核对：输入一个当事人姓名，立刻看到它在实际发出的
@@ -105,7 +147,7 @@
 - 所有弹窗支持 Esc 关闭。
 - 遇到法定敏感信息会提醒：材料涉及病情、宗教信仰、未成年人、前科等
   《个人信息保护法》第二十八条列明的类别时，隐私面板会写明。这类内容
-  替换掉会毁掉案情（AI 要读懂它），所以法脉不动它，只让你知道并自行判断。
+  替换掉会毁掉案情（AI 要读懂它），所以法脉不动它，只让您知道并自行判断。
 - 合同扫描件上的公章会被自动圈出来：发图前用虚线标出疑似印章位置，
   点一下即可全部涂黑，不必自己对着找。识别只看颜色特征，全程在本机。
 - 发图给 AI 之前可以就地涂黑：图片无法做文字脱敏，整张原图会到达模型服务商。
@@ -197,7 +239,7 @@
   才跳法条页。
 - 写笔记时法条不再被挡住：笔记/关联/案件夹/AI 解读面板改为停靠在正文
   右侧，边看条文边写；喜欢浮窗的可在面板标题栏一键切换，浮窗不再压暗
-  背景，位置大小都记住你的调整。
+  背景，位置大小都记住您的调整。
 - 笔记编辑器重做：白底书写区、分组工具栏、标题像文档而不像表单；
   支持 Ctrl/⌘+Enter 快捷保存，草稿自动保留关闭不丢字。
 - 法条阅读栏宽度随窗口自适应，宽屏下不再两侧大片留白；法条下方的笔记
@@ -212,13 +254,13 @@
     <link href="https://lttxzmj.github.io/lawpulse-site/" />
     <updated>2026-10-13T00:00:00Z</updated>
     <content type="text">- 发送前脱敏（默认开启）：使用云端 AI 时，身份证号、手机号、银行卡号、
-  统一社会信用代码，以及合同当事人的姓名与公司名（含常见简称），会先在你的
+  统一社会信用代码，以及合同当事人的姓名与公司名（含常见简称），会先在您的
   电脑上换成化名（如“李某”“甲公司”）再发出，结果返回后自动还原；
   每份审查报告都会注明本次脱敏了哪几类、各几处。
 - 匿名版报告导出：一键生成当事人化名、证件号打码的 Word 报告，
   可放心用于外部咨询、培训或投稿。
 - 「仅本地模型」开关：打开后所有云端 AI 请求一律拦截，材料绝不出电脑；
-  每家云端服务首次发送材料前也会先弹窗征得你的确认。
+  每家云端服务首次发送材料前也会先弹窗征得您的确认。
 - 应用锁全面加固：密码改用更强的加密算法保存，锁定期间数据访问在底层一并拦截；
   新增手动锁定（窗口菜单）与闲置自动锁定（5/15/30 分钟可选）；
   已设密码的老用户解锁一次即自动升级，无需重设。

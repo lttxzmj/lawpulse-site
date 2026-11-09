@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>让 AI 助手直接查到现行法条：给律师的 MCP 入门 - 法脉实务教程</title>
+<meta name="description" content="MCP 让 Claude、Cursor 这类 AI 助手接上真实的法律数据库：回答前先检索条文原文，而不是凭记忆背。一次配置十分钟，附现成的中国法律 MCP 服务器。" />
+<meta property="og:title" content="让 AI 助手直接查到现行法条：给律师的 MCP 入门 - 法脉实务教程" />
+<meta property="og:description" content="MCP 让 Claude、Cursor 这类 AI 助手接上真实的法律数据库：回答前先检索条文原文，而不是凭记忆背。一次配置十分钟，附现成的中国法律 MCP 服务器。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html" />
+<meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html" />
+<link rel="describedby" href="https://lttxzmj.github.io/lawpulse-site/llms.txt" />
+<link rel="alternate" type="text/markdown" href="https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html.md" />
+<link rel="stylesheet" href="https://lttxzmj.github.io/lawpulse-site/site.css" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"让 AI 助手直接查到现行法条：给律师的 MCP 入门","description":"MCP 让 Claude、Cursor 这类 AI 助手接上真实的法律数据库：回答前先检索条文原文，而不是凭记忆背。一次配置十分钟，附现成的中国法律 MCP 服务器。","datePublished":"2026-11-07","dateModified":"2026-11-07","inLanguage":"zh-CN","author":{"@type":"Organization","name":"法脉 LawPulse"},"mainEntityOfPage":"https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html"}</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="https://lttxzmj.github.io/lawpulse-site/">法脉</a>
+  <span class="crumb">实务教程</span>
+</div></header>
+<main class="wrap">
+<h1>让 AI 助手直接查到现行法条：给律师的 MCP 入门</h1>
+<div class="meta">2026-11-07 发布 · <a href="./index.html">教程目录</a></div>
+<article class="a">
+<p>直接问 AI 法律问题，最大的坑是它凭「记忆」回答：法条背串、条号过时、整条编造（<a href="./ai-citation-check.html">核查方法见这篇</a>）。MCP（Model Context Protocol）解决的正是这件事：它是一个开放协议，由 Anthropic 发起、主流 AI 客户端陆续支持，让 AI 助手在回答之前先去调用外部数据源——查到真实条文原文，再基于原文回答。</p>
+<p>一句话说清区别：没接 MCP 的 AI 在背法条，接了 MCP 的 AI 在查法条。</p>
+<h2>需要准备什么</h2>
+<ul><li>一个支持 MCP 的 AI 客户端（Claude Desktop、Cursor 等，入口位置以各客户端文档为准）；</li>
+<li>电脑上装有 Node.js（nodejs.org 下载安装即可，配置里用到它的 npx 命令）。</li></ul>
+<h2>十分钟配置：以中国法律 MCP 服务器为例</h2>
+<p>以我们维护的开源服务器 chinese-law-mcp 为例（数据取自 CC0 开放语料，1500 余部现行法律、司法解释与行政法规，官方来源逐部核对）。在客户端的 MCP 服务器配置里加入：</p>
+<pre><code>{
+  &quot;mcpServers&quot;: {
+    &quot;chinese-law&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;github:lttxzmj/chinese-law-mcp&quot;]
+    }
+  }
+}</code></pre>
+<p>保存后重启客户端，AI 就多了三个查法条的工具：</p>
+<ul><li>search_laws：按名称搜法律（「民法典」「劳动合同」）；</li>
+<li>get_article：取指定条文原文（如民法典第 577 条），带章节位置、施行日期和可引用的网页链接；</li>
+<li>search_in_law：在某部法律全文里按关键词检索条文。</li></ul>
+<p>配置完成后直接用自然语言提问，比如「用工具查一下民法典里关于违约责任的规定」，AI 会自己调用检索、拿到原文再作答，每条结果附可点开核对的来源链接。</p>
+<h2>两个必须知道的边界</h2>
+<p><strong>第一，装 MCP 服务器等于在本机运行第三方代码，只装来源可信的。</strong> 装之前看三件事：代码是否开源可审（本例 MIT 协议开源）、数据来源是否可溯源（本例为官方文本整理的 CC0 语料）、有没有多余的权限和上传行为（本例只读检索、无遥测）。来路不明的服务器，再方便也不装。</p>
+<p><strong>第二，MCP 解决「查得到、查得真」，不解决「用得对」。</strong> 条文找对了，适用判断仍然是你的工作；正式引用以官方公布文本为准，这一点工具输出里也会自带提示。</p>
+<h2>不想折腾配置的话</h2>
+<p>MCP 适合已经在用 Claude、Cursor 这类客户端的人。如果只是想要「AI 回答带可核查的法条引用」，桌面工具开箱即用是更省事的路：法库内置本机，AI 引的每条法条自动回库核对。两条路解决的是同一个问题，按你现有的工作环境选。</p>
+</article>
+<div class="cta">教程里的核查与工作流，在 <a href="https://lttxzmj.github.io/lawpulse-site/?from=blog">法脉桌面端</a>
+里是现成的：AI 给的法条引用自动回本地法库核对、合同审查输出带依据、材料在你自己的电脑上。法律库永久免费。</div>
+</main>
+<footer class="site">法脉 · 教程讲工具与方法，不构成对具体事项的法律意见。</footer>
+</body>
+</html>

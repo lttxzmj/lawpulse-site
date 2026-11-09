@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>用 AI 做合同初审：一套可直接套用的工作流 - 法脉实务教程</title>
+<meta name="description" content="给执业律师的 AI 合同初审流程：喂材料前怎么处理当事人信息、提示词怎么写、AI 给的法律依据怎么核，以及哪些环节不能交给 AI。" />
+<meta property="og:title" content="用 AI 做合同初审：一套可直接套用的工作流 - 法脉实务教程" />
+<meta property="og:description" content="给执业律师的 AI 合同初审流程：喂材料前怎么处理当事人信息、提示词怎么写、AI 给的法律依据怎么核，以及哪些环节不能交给 AI。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html" />
+<meta property="og:image" content="https://lttxzmj.github.io/lawpulse-site/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html" />
+<link rel="describedby" href="https://lttxzmj.github.io/lawpulse-site/llms.txt" />
+<link rel="alternate" type="text/markdown" href="https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html.md" />
+<link rel="stylesheet" href="https://lttxzmj.github.io/lawpulse-site/site.css" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"用 AI 做合同初审：一套可直接套用的工作流","description":"给执业律师的 AI 合同初审流程：喂材料前怎么处理当事人信息、提示词怎么写、AI 给的法律依据怎么核，以及哪些环节不能交给 AI。","datePublished":"2026-11-06","dateModified":"2026-11-06","inLanguage":"zh-CN","author":{"@type":"Organization","name":"法脉 LawPulse"},"mainEntityOfPage":"https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html"}</script>
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="https://lttxzmj.github.io/lawpulse-site/">法脉</a>
+  <span class="crumb">实务教程</span>
+</div></header>
+<main class="wrap">
+<h1>用 AI 做合同初审：一套可直接套用的工作流</h1>
+<div class="meta">2026-11-06 发布 · <a href="./index.html">教程目录</a></div>
+<article class="a">
+<p>AI 适合做合同初审的筛查层：找风险条款、查缺漏、列出要核实的事实。它不适合替你做判断，风险等级、商业取舍、要不要让步，这些仍然是你的工作。把这条边界定清楚，下面的流程才成立。</p>
+<h2>第一步：喂材料之前，先处理当事人信息</h2>
+<p>用在线 AI 服务时，默认你发出去的内容对方会留存。把合同交给 AI 之前做两件事：</p>
+<ul><li>当事人名称、法定代表人、联系方式替换成代号（甲公司、乙公司、张某）；</li>
+<li>涉及商业秘密的条款（配方、客户名单、定价结构）整段摘除，这部分在审查意见里单独处理。</li></ul>
+<p>金额、日期、违约金比例这类审查要用的事实保留原样，替换它们会让 AI 的意见失真。替换完自己通读一遍：代号要前后一致，「甲公司」到第三条变成「A 公司」，AI 会当成两个主体。</p>
+<h2>第二步：提示词给足三样东西</h2>
+<p>合同审查的提示词不需要花哨，但三样东西缺一不可：你代表哪一方（同一条款对甲乙双方的风险是反的）、审什么（初审找风险，还是只查某类条款）、按什么格式输出（格式定了，第三步的核查才有固定入口）。</p>
+<p>一个可以直接改的模板：</p>
+<pre><code>你是合同审查律师，委托方是本合同的〔甲方／乙方〕。
+审查下面这份〔买卖／租赁／服务〕合同，按以下格式输出：
+
+一、风险条款：逐条引用原文，说明对委托方的具体风险，给出修改建议。
+二、缺漏条款：对照这类合同通常应有的条款，列出本合同没有的。
+三、法律依据：每条意见注明法律名称和条文序号；不确定现行条文的，直接写「不确定」。
+
+只引用现行有效的法律。不要概括合同内容，直接进入审查意见。</code></pre>
+<p>最后两句是实际用出来的经验：不写「不确定可以直说」，AI 会把拿不准的条号编成确定的；不写「不要概括」，它会先用三百字复述一遍合同。</p>
+<h2>第三步：逐条核查 AI 给的法律依据</h2>
+<p>这是最容易被省掉、也最不能省的一步。AI 给的每条法条引用要核三件事：这部法是不是现行文本、条文序号对不对、条文内容是否真的支持这条意见。为什么 AI 会把条号编得很像真的、三步核查具体怎么做，见另一篇：<a href="./ai-citation-check.html">AI 给的法条引用怎么核实</a>。</p>
+<p>初审阶段有个省力的办法：要求 AI 按「法律名称＋条文序号」的格式输出依据（上面的模板已包含这条），核查时按图索骥，比从一段话里扒引用快得多。</p>
+<h2>第四步：AI 的输出是底稿，不是成稿</h2>
+<p>把核查过的风险点誊进你自己的审查意见，用你的话重写结论。两个理由：AI 的措辞拿不准分寸，「建议删除」和「建议与对方协商调整」在谈判里是两种信号；审查意见是你署名的职业判断，内容必须全部过你的手。</p>
+<h2>两个常见的坑</h2>
+<ul><li><strong>长合同整份喂</strong>。超出上下文长度时，多数 AI 会静默忽略后半部分，而不是告诉你读不完。超过二十页的合同按章节分段审，最后让它汇总。</li>
+<li><strong>让 AI 直接改出定稿</strong>。改动不可追溯，你不知道它在你要求之外还动了什么。让它输出「原文＋修改建议」的对照，改动由你落笔。</li></ul>
+</article>
+<div class="cta">教程里的核查与工作流，在 <a href="https://lttxzmj.github.io/lawpulse-site/?from=blog">法脉桌面端</a>
+里是现成的：AI 给的法条引用自动回本地法库核对、合同审查输出带依据、材料在你自己的电脑上。法律库永久免费。</div>
+</main>
+<footer class="site">法脉 · 教程讲工具与方法，不构成对具体事项的法律意见。</footer>
+</body>
+</html>

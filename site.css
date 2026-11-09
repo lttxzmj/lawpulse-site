@@ -43,3 +43,14 @@
     margin-bottom: 18px; }
   .gist h2 { margin-top: 0; }
   section h2 { font-size: 16px; color: #44608f; margin: 22px 0 8px; }
+  /* 实务教程（/blog/，由 scripts/build-blog.ts 生成，与法规页共用本表）：
+     提示词模板用代码块承载，要与正文一眼区分、可整段复制；教程页标题层级比法规页多一层。 */
+  article.a h2 { margin-top: 24px; }
+  article.a h2:first-child { margin-top: 0; }
+  article.a pre { background: #f4f6f9; border: 1px solid #e2e5e9; border-radius: 6px;
+    padding: 14px 16px; overflow-x: auto; margin: 0 0 12px; }
+  article.a code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px; background: #eef1f5; border-radius: 4px; padding: 1px 5px; color: #3e4d65; }
+  article.a pre code { background: none; border-radius: 0; padding: 0; line-height: 1.9; }
+  article.a ul { margin: 0 0 12px; padding-left: 24px; }
+  article.a ul p { margin-bottom: 0; }
