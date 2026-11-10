@@ -41,6 +41,7 @@ Windows 安装指引（SmartScreen 提示怎么过）：https://lttxzmj.github.i
 - 【认知】《每天都在用 AI，不等于用好了 AI》（2026-11-06）：https://lttxzmj.github.io/lawpulse-site/blog/ai-daily-use-vs-leverage.html（Markdown 镜像：同 URL 加 .md）
 - 【上手】《律师第一次配 AI：免费额度怎么领、密钥怎么管》（2026-11-06）：https://lttxzmj.github.io/lawpulse-site/blog/ai-setup-free-quota.html（Markdown 镜像：同 URL 加 .md）
 - 【实务】《用 AI 做合同初审：一套可直接套用的工作流》（2026-11-06）：https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html（Markdown 镜像：同 URL 加 .md）
+- 【实务】《用 AI 起草法律文书：骨架交给它，事实留给你》（2026-11-10）：https://lttxzmj.github.io/lawpulse-site/blog/ai-drafting-legal-documents.html（Markdown 镜像：同 URL 加 .md）
 - 【风控】《AI 给的法条引用怎么核实：三步筛出编造的条文》（2026-11-06）：https://lttxzmj.github.io/lawpulse-site/blog/ai-citation-check.html（Markdown 镜像：同 URL 加 .md）
 - 【进阶】《让 AI 助手直接查到现行法条：给律师的 MCP 入门》（2026-11-07）：https://lttxzmj.github.io/lawpulse-site/blog/mcp-connect-ai-to-law.html（Markdown 镜像：同 URL 加 .md）
 - 【进阶】《数字员工来了：WorkBuddy、Manus、扣子这类 AI 智能体，律师能用来干什么》（2026-11-09）：https://lttxzmj.github.io/lawpulse-site/blog/ai-agent-workbench-for-lawyers.html（Markdown 镜像：同 URL 加 .md）
