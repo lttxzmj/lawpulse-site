@@ -1,6 +1,7 @@
 # AI 给的法条引用怎么核实：三步筛出编造的条文
 
 - 来源：https://lttxzmj.github.io/lawpulse-site/blog/ai-citation-check.html
+- 章节：风控（法脉律师 AI 手册，完整阅读路线见 https://lttxzmj.github.io/lawpulse-site/blog/index.html）
 - 发布：2026-11-06
 - 本文属法脉实务教程，内容与 HTML 版逐字一致；讲工具与方法，不构成对具体事项的法律意见。
 

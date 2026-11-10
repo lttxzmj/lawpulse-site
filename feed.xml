@@ -20,18 +20,11 @@
     <content type="text">MCP 让 Claude、Cursor 这类 AI 助手接上真实的法律数据库：回答前先检索条文原文，而不是凭记忆背。一次配置十分钟，附现成的中国法律 MCP 服务器。</content>
   </entry>
   <entry>
-    <title>AI 给的法条引用怎么核实：三步筛出编造的条文</title>
-    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-citation-check</id>
-    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-citation-check.html" />
+    <title>问答之外：律师能把 AI 用在哪八类任务上</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-task-map-for-lawyers</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-task-map-for-lawyers.html" />
     <updated>2026-11-06T00:00:00Z</updated>
-    <content type="text">AI 回答法律问题时，法律名称、条文序号和内容都可能编得很像真的。三步核查：先确认现行文本，再对条文序号，最后逐字对内容。</content>
-  </entry>
-  <entry>
-    <title>用 AI 做合同初审：一套可直接套用的工作流</title>
-    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-contract-review-workflow</id>
-    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html" />
-    <updated>2026-11-06T00:00:00Z</updated>
-    <content type="text">给执业律师的 AI 合同初审流程：喂材料前怎么处理当事人信息、提示词怎么写、AI 给的法律依据怎么核，以及哪些环节不能交给 AI。</content>
+    <content type="text">多数律师对 AI 的用法停在「问它问题」。这篇按任务盘点 AI 在法律工作里的八个用处：各自成熟到什么程度、用什么形态的工具、风险点在哪。</content>
   </entry>
   <entry>
     <title>每天都在用 AI，不等于用好了 AI</title>
@@ -48,11 +41,18 @@
     <content type="text">从没配过模型密钥也能照做：阿里云百炼的新人免费额度不充值就能用，DeepSeek 按量充值也只要几元钱。附密钥安全三条规矩与常见报错对照。</content>
   </entry>
   <entry>
-    <title>问答之外：律师能把 AI 用在哪八类任务上</title>
-    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-task-map-for-lawyers</id>
-    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-task-map-for-lawyers.html" />
+    <title>用 AI 做合同初审：一套可直接套用的工作流</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-contract-review-workflow</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html" />
     <updated>2026-11-06T00:00:00Z</updated>
-    <content type="text">多数律师对 AI 的用法停在「问它问题」。这篇按任务盘点 AI 在法律工作里的八个用处：各自成熟到什么程度、用什么形态的工具、风险点在哪。</content>
+    <content type="text">给执业律师的 AI 合同初审流程：喂材料前怎么处理当事人信息、提示词怎么写、AI 给的法律依据怎么核，以及哪些环节不能交给 AI。</content>
+  </entry>
+  <entry>
+    <title>AI 给的法条引用怎么核实：三步筛出编造的条文</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-blog-ai-citation-check</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/blog/ai-citation-check.html" />
+    <updated>2026-11-06T00:00:00Z</updated>
+    <content type="text">AI 回答法律问题时，法律名称、条文序号和内容都可能编得很像真的。三步核查：先确认现行文本，再对条文序号，最后逐字对内容。</content>
   </entry>
   <entry>
     <title>法脉 v0.10.0 发布</title>

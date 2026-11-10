@@ -1,6 +1,7 @@
 # 用 AI 做合同初审：一套可直接套用的工作流
 
 - 来源：https://lttxzmj.github.io/lawpulse-site/blog/ai-contract-review-workflow.html
+- 章节：实务（法脉律师 AI 手册，完整阅读路线见 https://lttxzmj.github.io/lawpulse-site/blog/index.html）
 - 发布：2026-11-06
 - 本文属法脉实务教程，内容与 HTML 版逐字一致；讲工具与方法，不构成对具体事项的法律意见。
 
