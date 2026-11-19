@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 由 scripts/build-site-laws.ts 生成；换域名时改脚本里的 SITE_BASE。 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/privacy.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/terms.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/changelog.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/windows.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/index.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/updates.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/cases/index.html</loc><lastmod>2026-11-04</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/gazette/index.html</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/privacy.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/terms.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/changelog.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/windows.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/index.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/updates.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/cases/index.html</loc><lastmod>2026-11-19</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/gazette/index.html</loc><lastmod>2026-11-19</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/blog/index.html</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/blog/ai-task-map-for-lawyers.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/blog/ai-daily-use-vs-leverage.html</loc><lastmod>2026-11-06</lastmod></url>
@@ -706,7 +706,7 @@
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/jcfg-9eae0ea04c.html</loc><lastmod>2025-06-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-f13e45e11d.html</loc><lastmod>2022-01-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/xzfg-0c7ac34b93.html</loc><lastmod>2011-01-08</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-589af18f36.html</loc><lastmod>2013-01-01</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-589af18f36.html</loc><lastmod>2026-11-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-5b0dfbea59.html</loc><lastmod>2019-10-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-34dde7ddf6.html</loc><lastmod>2019-04-23</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-e837c631ef.html</loc><lastmod>2009-08-27</lastmod></url>
@@ -755,7 +755,7 @@
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-0e812f069c.html</loc><lastmod>2022-01-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/xzfg-4bfe0ec4b7.html</loc><lastmod>2016-02-06</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-100415b86b.html</loc><lastmod>2018-10-26</lastmod></url>
-  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/lawyers-law.html</loc><lastmod>2018-01-01</lastmod></url>
+  <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/lawyers-law.html</loc><lastmod>2026-09-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-809f00c0f4.html</loc><lastmod>2016-11-07</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-27b84a6eb0.html</loc><lastmod>2020-01-01</lastmod></url>
   <url><loc>https://lttxzmj.github.io/lawpulse-site/laws/law-ab232ef031.html</loc><lastmod>2018-12-29</lastmod></url>

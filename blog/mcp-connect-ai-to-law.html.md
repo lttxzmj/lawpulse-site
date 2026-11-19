@@ -16,14 +16,14 @@
 
 ## 十分钟配置：以中国法律 MCP 服务器为例
 
-以我们维护的开源服务器 chinese-law-mcp 为例（数据取自 CC0 开放语料，1500 余部现行法律、司法解释与行政法规，官方来源逐部核对）。在客户端的 MCP 服务器配置里加入：
+以我们维护的开源服务器 chinese-law-mcp 为例（数据取自 CC0 开放语料，1500 余部现行法律、司法解释与行政法规，全部取自官方来源）。在客户端的 MCP 服务器配置里加入：
 
 ```
 {
   "mcpServers": {
     "chinese-law": {
       "command": "npx",
-      "args": ["-y", "github:lttxzmj/chinese-law-mcp"]
+      "args": ["-y", "chinese-law-mcp"]
     }
   }
 }
