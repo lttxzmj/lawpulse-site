@@ -4,7 +4,17 @@
   <id>tag:lttxzmj.github.io,2026:lawpulse-feed</id>
   <link href="https://lttxzmj.github.io/lawpulse-site/feed.xml" rel="self" />
   <link href="https://lttxzmj.github.io/lawpulse-site/" />
-  <updated>2026-11-15T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
+  <entry>
+    <title>法脉 v0.11.1 发布</title>
+    <id>tag:lttxzmj.github.io,2026:lawpulse-0.11.1</id>
+    <link href="https://lttxzmj.github.io/lawpulse-site/" />
+    <updated>2026-11-24T00:00:00Z</updated>
+    <content type="text">- 工作台第一屏现在就有「办案助手」：以前连上模型后首页只剩三个工具入口，
+  助手只能靠顶栏那枚图标或 ⌘J 找到；现在它常驻在工作台顶部，点一下就开。
+- 修好了文书起草页：助手卡原先压住下面的回答档位（快答 / 深度 / 长文），
+  窗口小一点就选不中「长文」，现在各占一行，三档都点得到。</content>
+  </entry>
   <entry>
     <title>法脉 v0.11.0 发布</title>
     <id>tag:lttxzmj.github.io,2026:lawpulse-0.11.0</id>
@@ -331,16 +341,5 @@
 - 案例与法条的关联更准：裁判文书里嵌套书名号、简称引用现在也能正确链到法条，
   案例↔法条双向关联整体增加约二成。
 - 尚未生效的新法现在会明确标注「尚未生效」及生效日期，不会与现行文本混淆。</content>
-  </entry>
-  <entry>
-    <title>法脉 v0.6.3 发布</title>
-    <id>tag:lttxzmj.github.io,2026:lawpulse-0.6.3</id>
-    <link href="https://lttxzmj.github.io/lawpulse-site/" />
-    <updated>2026-09-08T00:00:00Z</updated>
-    <content type="text">- 重要修复：此前版本的安装包里指导性案例语料缺失，案例页为空。
-  升级后首次启动自动补齐全部 278 件，笔记与数据不受影响。
-- 新增《最高人民法院公报》案例库：445 件裁判文书选登与案例内置离线可读，
-  案例库页新增「公报案例」页签，支持按案由/当事人/案号/法院检索；
-  正文里的法条引用可悬停查原文、直达本地法库。</content>
   </entry>
 </feed>
